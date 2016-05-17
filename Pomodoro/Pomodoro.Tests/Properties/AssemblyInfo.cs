@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PomodoroTests")]
+[assembly: AssemblyTitle("Pomodoro.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("PomodoroTests")]
+[assembly: AssemblyProduct("Pomodoro.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("4c09a20c-8453-4369-8cc1-e59931b44c24")]
+[assembly: Guid("e389ea5d-a5ef-4139-a31c-004cc77e850e")]
 
 // Version information for an assembly consists of the following four values:
 //

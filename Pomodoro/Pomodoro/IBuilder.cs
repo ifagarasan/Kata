@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pomodoro.Cycles
+namespace Pomodoro
 {
-    public interface IMaster: ICycle
+    public interface IBuilder
     {
-        List<ICycle> Cycles { get; }
+        List<ICycle> Build();
     }
 }

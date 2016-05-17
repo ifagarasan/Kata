@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4C09A20C-8453-4369-8CC1-E59931B44C24}</ProjectGuid>
+    <ProjectGuid>{E389EA5D-A5EF-4139-A31C-004CC77E850E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PomodoroTests</RootNamespace>
-    <AssemblyName>PomodoroTests</AssemblyName>
+    <RootNamespace>Pomodoro.Tests</RootNamespace>
+    <AssemblyName>Pomodoro.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -54,26 +54,20 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Builders\BuilderFunctionality.cs" />
-    <Compile Include="Cycles\LongPauseFunctionality.cs" />
-    <Compile Include="Cycles\MasterFunctionality.cs" />
-    <Compile Include="Cycles\ShortPauseFunctionality.cs" />
-    <Compile Include="Cycles\PomodoroFunctionality.cs" />
-    <Compile Include="Cycles\CycleFunctionality.cs" />
+    <Compile Include="BuilderFunctionality.cs" />
+    <Compile Include="UtilFunctionality.cs" />
+    <Compile Include="PomodoroFunctionality.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Runners\RunnerFunctionality.cs" />
-    <Compile Include="Util\TimeFunctionality.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Pomodoro\Pomodoro.csproj">
+      <Project>{6d6f271c-a847-4426-83ed-76bc4711c28f}</Project>
+      <Name>Pomodoro</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Pomodoro\Pomodoro.csproj">
-      <Project>{f5b7c5eb-c8d5-4fb6-9235-87649274a95a}</Project>
-      <Name>Pomodoro</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
