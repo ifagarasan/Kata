@@ -34,6 +34,18 @@ namespace Pomodoro.Tests.Integration
         {
             _runner.Start();
             _runner.Update(2 * 3600 * 1000 + 3);
+            _runner.Start();
+
+            Assert.AreEqual(0u, _runner.CurrentCycleTime);
+            Assert.AreEqual(0, _runner.CycleIndex);
+        }
+
+        [TestMethod]
+        public void PomodoroCanStopAndStartAgainFromCleanState()
+        {
+            _runner.Start();
+            _runner.Update(10);
+            _runner.Stop();
 
             _runner.Start();
 

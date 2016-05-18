@@ -67,5 +67,10 @@ namespace Pomodoro
                 }
             }
         }
+
+        public void Stop()
+        {
+            State = RunnerState.Idle;
+        }
     }
 }

@@ -136,5 +136,14 @@ namespace Pomodoro.Tests
             Assert.AreEqual(_runner.Cycles.Count, _runner.CycleIndex);
             Assert.AreEqual(0u, _runner.CurrentCycleTime);
         }
+
+        [TestMethod]
+        public void StopSetsStateToIdle()
+        {
+            _runner.Start();
+            _runner.Stop();
+
+            Assert.AreEqual(RunnerState.Idle, _runner.State);
+        }
     }
 }
