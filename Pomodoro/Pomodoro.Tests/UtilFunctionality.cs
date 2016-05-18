@@ -12,7 +12,7 @@ namespace Pomodoro.Tests
         [TestMethod]
         public void MinutesToMilisecondsReturnsValueMultipliedBy60000()
         {
-            int minutes = 10;
+            uint minutes = 10;
             Assert.AreEqual(60000*minutes, Util.MinutesToMiliseconds(minutes));
         }
     }

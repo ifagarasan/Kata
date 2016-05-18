@@ -9,107 +9,132 @@ namespace Pomodoro.Tests
     [TestClass]
     public class PomodoroFunctionality
     {
-        Runner runner;
-        Mock<IBuilder> mockBuilder;
-        List<ICycle> cycleList;
+        Runner _runner;
+        Mock<IBuilder> _mockBuilder;
+        List<ICycle> _cycleList;
 
         [TestInitialize]
         public void Setup()
         {
-            mockBuilder = new Mock<IBuilder>();
+            _mockBuilder = new Mock<IBuilder>();
 
-            cycleList = new List<ICycle>() { new Cycle("Test 1", 10), new Cycle("Test 2", 20), new Cycle("Test 3", 30) }; 
+            _cycleList = new List<ICycle>() { new Cycle("Test 1", 10), new Cycle("Test 2", 20), new Cycle("Test 3", 30) }; 
 
-            mockBuilder.Setup(m => m.Build()).Returns(cycleList);
+            _mockBuilder.Setup(m => m.Build()).Returns(_cycleList);
 
-            runner = new Runner(mockBuilder.Object);
+            _runner = new Runner(_mockBuilder.Object);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ThrowsArgumentExceptionIfBuildIsNul()
         {
-            Runner runner = new Runner(null);
+            _runner = new Runner(null);
         }
 
         [TestMethod]
         public void CallsBuildOnIBuilderAndSetsResultAsCycles()
         {
-            runner = new Runner(mockBuilder.Object);
+            _runner = new Runner(_mockBuilder.Object);
 
-            mockBuilder.Verify(m => m.Build());
+            _mockBuilder.Verify(m => m.Build());
 
-            Assert.AreEqual(3, runner.Cycles.Count);
+            Assert.AreEqual(3, _runner.Cycles.Count);
 
-            for (int i = 0; i < cycleList.Count; ++i)
-                Assert.AreEqual(cycleList[i], runner.Cycles[i]);
+            for (int i = 0; i < _cycleList.Count; ++i)
+                Assert.AreEqual(_cycleList[i], _runner.Cycles[i]);
         }
 
         [TestMethod]
         public void CycleIndexIsMinusOneByDefault()
         {
-            Assert.AreEqual(-1, runner.CycleIndex);
+            Assert.AreEqual(-1, _runner.CycleIndex);
         }
 
         [TestMethod]
         public void StartSetsStateToRunning()
         {
-            runner.Start();
+            _runner.Start();
 
-            Assert.AreEqual(RunnerState.Running, runner.State);
+            Assert.AreEqual(RunnerState.Running, _runner.State);
         }
 
         [TestMethod]
         public void StartSetsCycleIndexToZero()
         {
-            runner.Start();
+            _runner.Start();
 
-            Assert.AreEqual(0, runner.CycleIndex);
+            Assert.AreEqual(0, _runner.CycleIndex);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidTimeOffsetException))]
-        public void UpdateThrowsInvalidTimeOffsetExceptionIfValueIsNegative()
+        public void StartSetsCurrentCycleTimeToZero()
         {
-            runner.Start();
-            runner.Update(-1);
+            _runner.Start();
+            _runner.Update(3);
+            _runner.Start();
+
+            Assert.AreEqual(0u, _runner.CurrentCycleTime);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidStateException))]
         public void UpdateThrowsInvalidStateExceptionIfStateIsNotRunning()
         {
-            runner.Update(1);
+            _runner.Update(1);
         }
 
         [TestMethod]
         public void UpdateIncrementsCurrentCycleTimeBySpecifiedValue()
         {
-            runner.Start();
+            _runner.Start();
 
-            runner.Update(5);
+            uint expected = 5;
+            _runner.Update(expected);
 
-            Assert.AreEqual(5, runner.CurrentCycleTime);
+            Assert.AreEqual(expected, _runner.CurrentCycleTime);
         }
 
         [TestMethod]
         public void UpdateIncrementsCurrentCycleIndexIfCurrentCycleTimeIsLargerOrEqualToCurrentIndexCycleTime()
         {
-            runner.Start();
+            _runner.Start();
 
-            runner.Update(10);
+            _runner.Update(10);
 
-            Assert.AreEqual(1, runner.CycleIndex);
+            Assert.AreEqual(1, _runner.CycleIndex);
         }
 
         [TestMethod]
         public void UpdateSetsCurrentCycleTimeAfterCycleIndexIncrementToOverlowOffset()
         {
-            runner.Start();
+            _runner.Start();
 
-            runner.Update(15);
+            _runner.Update(15);
 
-            Assert.AreEqual(5, runner.CurrentCycleTime);
+            Assert.AreEqual(5u, _runner.CurrentCycleTime);
+        }
+
+        [TestMethod]
+        public void UpdateAdvancesMultipleCyclesIfValueIsLargerThanOneCycleDuration()
+        {
+            _runner.Start();
+
+            _runner.Update(30);
+
+            Assert.AreEqual(2, _runner.CycleIndex);
+        }
+
+        [TestMethod]
+        public void UpdateSetsStateToIdleAndKeepsTimeOffsetAsCurrentCycleTimeAndCycleIndexCyclesCountIfIndexOverflows()
+        {
+            _runner.Start();
+
+            _runner.Update(60);
+
+            Assert.AreEqual(RunnerState.Idle, _runner.State);
+            Assert.AreEqual(_runner.Cycles.Count, _runner.CycleIndex);
+            Assert.AreEqual(0u, _runner.CurrentCycleTime);
         }
     }
 }

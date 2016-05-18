@@ -27,7 +27,7 @@ namespace Pomodoro
             cycles = builder.Build();
         }
 
-        public int CurrentCycleTime { get; private set; }
+        public uint CurrentCycleTime { get; private set; }
 
         public int CycleIndex { get; private set; }
 
@@ -45,24 +45,26 @@ namespace Pomodoro
         {
             State = RunnerState.Running;
             CycleIndex = 0;
+            CurrentCycleTime = 0;
         }
 
-        public void Update(int value)
+        public void Update(uint value)
         {
             if (State != RunnerState.Running)
                 throw new InvalidStateException();
 
-            if (value < 0)
-                throw new InvalidTimeOffsetException();
-
             CurrentCycleTime += value;
 
-            int duration = Cycles[CycleIndex].DurationInMiliseconds;
-
-            if (CurrentCycleTime >= duration)
+            while (CurrentCycleTime >= Cycles[CycleIndex].DurationInMiliseconds)
             {
+                CurrentCycleTime -= Cycles[CycleIndex].DurationInMiliseconds;
                 CycleIndex++;
-                CurrentCycleTime -= duration;
+
+                if (CycleIndex == Cycles.Count)
+                {
+                    State = RunnerState.Idle;
+                    break;
+                }
             }
         }
     }

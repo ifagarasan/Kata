@@ -3,6 +3,6 @@
     public interface ICycle
     {
         string Label { get; }
-        int DurationInMiliseconds { get; }
+        uint DurationInMiliseconds { get; }
     }
 }
