@@ -11,6 +11,8 @@ namespace SocialNetwork.Command.Processor
         public override void Process(ICommand command)
         {
             Post post = command as Post;
+
+            SocialEngine.Post(post.Username, post.Message);
         }
     }
 }

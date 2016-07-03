@@ -24,6 +24,8 @@ namespace SocialNetwork.UnitTests.Command.Processor
             Post command = new Post(username, content);
 
             processor.Process(command);
+
+            socialEngineMock.Verify(m => m.Post(username, content));
         }
 
         //[TestMethod]
