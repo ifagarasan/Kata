@@ -41,18 +41,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandDispatcher.cs" />
-    <Compile Include="CommandProcessor.cs" />
     <Compile Include="CommandTranslator.cs" />
-    <Compile Include="DisplayCommand.cs" />
-    <Compile Include="ICommand.cs" />
+    <Compile Include="Command\DisplayUserPosts.cs" />
+    <Compile Include="Command\ICommand.cs" />
+    <Compile Include="Command\Command.cs" />
+    <Compile Include="Command\Processor\CommandProcessor.cs" />
+    <Compile Include="Command\Processor\CommandProcessorFactory.cs" />
+    <Compile Include="Command\Processor\ICommandProcessorFactory.cs" />
+    <Compile Include="Command\Processor\PostProcessor.cs" />
     <Compile Include="ICommandDispatcher.cs" />
-    <Compile Include="ICommandProcessor.cs" />
+    <Compile Include="Command\Processor\ICommandProcessor.cs" />
     <Compile Include="ICommandTranslator.cs" />
     <Compile Include="IConsole.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="ISocialEngine.cs" />
     <Compile Include="ISocialPlatform.cs" />
-    <Compile Include="PostCommand.cs" />
+    <Compile Include="Command\Post.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="SocialEngine.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using SocialNetwork.Command;
 
 namespace SocialNetwork
 {
@@ -9,9 +10,9 @@ namespace SocialNetwork
             var splitIndex = command.IndexOf("->", StringComparison.Ordinal);
 
             if (splitIndex != -1)
-                return new PostCommand(command.Substring(0, splitIndex-1), command.Substring(splitIndex + 3));
+                return new Post(command.Substring(0, splitIndex-1), command.Substring(splitIndex + 3));
 
-            return new DisplayCommand(command);
+            return new DisplayUserPosts(command);
         }
     }
 }

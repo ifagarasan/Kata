@@ -1,4 +1,6 @@
-﻿namespace SocialNetwork
+﻿using SocialNetwork.Command;
+
+namespace SocialNetwork
 {
     public interface ICommandTranslator
     {

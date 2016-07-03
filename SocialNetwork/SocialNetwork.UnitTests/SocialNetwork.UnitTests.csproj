@@ -58,7 +58,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CommandProcessorShould.cs" />
+    <Compile Include="Command\Processor\CommandProcessorFactoryShould.cs" />
+    <Compile Include="Command\Processor\PostProcessorShould.cs" />
     <Compile Include="RepositoryShould.cs" />
     <Compile Include="SocialEngineShould.cs" />
     <Compile Include="CommandTranslatorShould.cs" />
@@ -75,6 +76,7 @@
       <Name>SocialNetwork</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

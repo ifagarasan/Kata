@@ -1,4 +1,4 @@
-﻿namespace SocialNetwork
+﻿namespace SocialNetwork.Command.Processor
 {
     public interface ICommandProcessor
     {

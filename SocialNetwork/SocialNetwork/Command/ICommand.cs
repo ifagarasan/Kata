@@ -1,4 +1,4 @@
-﻿namespace SocialNetwork
+﻿namespace SocialNetwork.Command
 {
     public interface ICommand
     {

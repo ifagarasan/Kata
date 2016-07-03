@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using SocialNetwork.Command.Processor;
 
 namespace SocialNetwork.FeatureTests
 {
@@ -34,9 +35,9 @@ namespace SocialNetwork.FeatureTests
             });
 
             ICommandDispatcher commandDispatcher = new CommandDispatcher(new CommandTranslator(), consoleMock.Object);
-            ICommandProcessor commandProcessor = new CommandProcessor(new SocialEngine(new Repository()), consoleMock.Object);
+            ICommandProcessorFactory commandProcessorFactory = new CommandProcessorFactory(new SocialEngine(new Repository()), consoleMock.Object);
 
-            ISocialPlatform socialPlatform = new SocialPlatform(commandDispatcher, commandProcessor);
+            ISocialPlatform socialPlatform = new SocialPlatform(commandDispatcher, commandProcessorFactory);
 
             socialPlatform.Run();
 

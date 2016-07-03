@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using SocialNetwork.Command;
 
 namespace SocialNetwork.UnitTests
 {
@@ -23,17 +24,17 @@ namespace SocialNetwork.UnitTests
 
             var commandString = $"{username} -> {message}";
 
-            var postCommand = _translator.Translate(commandString) as PostCommand;
+            var postCommand = _translator.Translate(commandString) as Post;
 
             Assert.IsNotNull(postCommand);
             Assert.AreEqual(username, postCommand.Username);
-            Assert.AreEqual(message, postCommand.Content);
+            Assert.AreEqual(message, postCommand.Message);
         }
 
         [TestMethod]
         public void ReturnDisplayCommand()
         {
-            var displayCommand = _translator.Translate(username) as DisplayCommand;
+            var displayCommand = _translator.Translate(username) as DisplayUserPosts;
 
             Assert.IsNotNull(displayCommand);
 

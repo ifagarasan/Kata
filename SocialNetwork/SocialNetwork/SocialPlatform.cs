@@ -1,21 +1,26 @@
-﻿namespace SocialNetwork
+﻿using SocialNetwork.Command.Processor;
+
+namespace SocialNetwork
 {
     public class SocialPlatform: ISocialPlatform
     {
         private readonly ICommandDispatcher _commandDispatcher;
-        private readonly ICommandProcessor _commandProcessor;
+        private readonly ICommandProcessorFactory _commandProcessorFactory;
 
-        public SocialPlatform(ICommandDispatcher commandDispatcher, ICommandProcessor commandProcessor)
+        public SocialPlatform(ICommandDispatcher commandDispatcher, ICommandProcessorFactory commandProcessorFactory)
         {
             _commandDispatcher = commandDispatcher;
-            _commandProcessor = commandProcessor;
+            _commandProcessorFactory = commandProcessorFactory;
         }
 
         public void Run()
         {
             var command = _commandDispatcher.Retrieve();
+            var commandProcessor = _commandProcessorFactory.Create(command);
 
-            _commandProcessor.Process(command);
+            commandProcessor.Process(command);
+
+            //_commandProcessorFactory.Process(command);
         }
     }
 }
