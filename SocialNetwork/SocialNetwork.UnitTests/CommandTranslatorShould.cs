@@ -8,7 +8,7 @@ namespace SocialNetwork.UnitTests
     [TestClass]
     public class CommandTranslatorShould
     {
-        private readonly string username = "Alice";
+        private readonly string _username = "Alice";
         ICommandTranslator _translator;
 
         [TestInitialize]
@@ -21,24 +21,21 @@ namespace SocialNetwork.UnitTests
         public void ReturnPostCommand()
         {
             var message = "I love the weather today";
-
-            var commandString = $"{username} -> {message}";
-
-            var postCommand = _translator.Translate(commandString) as Post;
+            var commandString = $"{_username} -> {message}";
+            var postCommand = _translator.Translate(commandString) as PostMessage;
 
             Assert.IsNotNull(postCommand);
-            Assert.AreEqual(username, postCommand.Username);
+            Assert.AreEqual(_username, postCommand.Username);
             Assert.AreEqual(message, postCommand.Message);
         }
 
         [TestMethod]
         public void ReturnDisplayCommand()
         {
-            var displayCommand = _translator.Translate(username) as DisplayUserPosts;
+            var displayCommand = _translator.Translate(_username) as DisplayUserPosts;
 
             Assert.IsNotNull(displayCommand);
-
-            Assert.AreEqual(username, displayCommand.Username);
+            Assert.AreEqual(_username, displayCommand.Username);
         }
     }
 }

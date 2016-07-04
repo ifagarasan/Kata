@@ -19,17 +19,18 @@ namespace SocialNetwork.UnitTests
             commandProcessorFactoryMock.Setup(m => m.Create(It.IsAny<ICommand>())).Returns(commandProcessorMock.Object);
 
             var displayUserPosts = new DisplayUserPosts("Alice");
+            var exit = new Exit();
 
-            commandDispatcherMock.Setup(m => m.Retrieve()).Returns(displayUserPosts);
+            commandDispatcherMock.SetupSequence(m => m.Retrieve()).Returns(displayUserPosts).Returns(displayUserPosts).Returns(exit);
             commandProcessorMock.Setup(m => m.Process(It.IsAny<DisplayUserPosts>()));
 
             ISocialPlatform socialPlatform = new SocialPlatform(commandDispatcherMock.Object, commandProcessorFactoryMock.Object);
 
             socialPlatform.Run();
 
-            commandDispatcherMock.Verify(m => m.Retrieve());
-            commandProcessorFactoryMock.Verify(m => m.Create(displayUserPosts));
-            commandProcessorMock.Verify(m => m.Process(displayUserPosts));
+            commandDispatcherMock.Verify(m => m.Retrieve(), Times.Exactly(3));
+            commandProcessorFactoryMock.Verify(m => m.Create(displayUserPosts), Times.Exactly(2));
+            commandProcessorMock.Verify(m => m.Process(displayUserPosts), Times.Exactly(2));
         }
     }
 }

@@ -10,7 +10,7 @@ namespace SocialNetwork.Command.Processor
 
         public override void Process(ICommand command)
         {
-            Post post = command as Post;
+            PostMessage post = command as PostMessage;
 
             SocialEngine.Post(post.Username, post.Message);
         }

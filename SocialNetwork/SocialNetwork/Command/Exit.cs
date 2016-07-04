@@ -1,6 +1,6 @@
 ﻿namespace SocialNetwork.Command
 {
-    public interface ICommand
+    public class Exit: ICommand
     {
     }
 }

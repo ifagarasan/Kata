@@ -1,4 +1,5 @@
-﻿using SocialNetwork.Command.Processor;
+﻿using SocialNetwork.Command;
+using SocialNetwork.Command.Processor;
 
 namespace SocialNetwork
 {
@@ -15,12 +16,17 @@ namespace SocialNetwork
 
         public void Run()
         {
-            var command = _commandDispatcher.Retrieve();
-            var commandProcessor = _commandProcessorFactory.Create(command);
+            while (true)
+            {
+                //TODO: command processor for exit, returns boolean to continue
+                var command = _commandDispatcher.Retrieve();
+                if (command is Exit)
+                    break;
 
-            commandProcessor.Process(command);
+                var commandProcessor = _commandProcessorFactory.Create(command);
 
-            //_commandProcessorFactory.Process(command);
+                commandProcessor.Process(command);
+            }
         }
     }
 }

@@ -21,7 +21,7 @@ namespace SocialNetwork.UnitTests.Command.Processor
             var username = "test";
             var content = "content";
 
-            Post command = new Post(username, content);
+            PostMessage command = new PostMessage(username, content);
 
             processor.Process(command);
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using SocialNetwork.Date;
 
 namespace SocialNetwork.UnitTests
 {
@@ -13,13 +14,21 @@ namespace SocialNetwork.UnitTests
             var username = "Alice";
             var message = "I love the weather today";
 
-            var repository = new Repository();
+            var now = DateTime.Now;
+            var dateProviderMock = new Mock<IDateProvider>();
+            dateProviderMock.Setup(m => m.Now()).Returns(now);
+
+            var repository = new Repository(dateProviderMock.Object);
 
             repository.Insert(username, message);
 
-            var posts = repository.Get(username);
+            var posts = repository.RetrieveUserMessages(username);
+            var post = posts[0];
 
-            Assert.AreEqual(message, posts[0]);
+            dateProviderMock.Verify(m => m.Now());
+
+            Assert.AreEqual(message, post.Message);
+            Assert.AreEqual(now, post.WrittenAt);
         }
     }
 }

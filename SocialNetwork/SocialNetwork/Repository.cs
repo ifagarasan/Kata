@@ -1,28 +1,30 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using SocialNetwork.Date;
 
 namespace SocialNetwork
 {
     public class Repository : IRepository
     {
-        private readonly Dictionary<string, List<string>> _userMessages;
+        private readonly IDateProvider _dateProvider;
+        private readonly IList<IPost> posts;
 
-        public Repository()
+        public Repository(IDateProvider dateProvider)
         {
-            _userMessages = new Dictionary<string, List<string>>();
-        }
-
-        public IList<string> Get(string username)
-        {
-            return _userMessages[username];
+            _dateProvider = dateProvider;
+            posts = new List<IPost>();
         }
 
         public void Insert(string username, string message)
         {
-            if (!_userMessages.ContainsKey(username))
-                _userMessages.Add(username, new List<string>());
+            posts.Add(new Post(username, message, _dateProvider.Now()));
+        }
 
-            _userMessages[username].Add(message);
+        public IList<IPost> RetrieveUserMessages(string username)
+        {
+            return posts.Where(p => p.Username.Equals(username)).ToList();
         }
     }
 }
