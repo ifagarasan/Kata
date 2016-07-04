@@ -54,7 +54,7 @@ namespace SocialNetwork.FeatureTests
 
             socialPlatform.Run();
 
-            consoleMock.Verify(m => m.Write(It.IsAny<string>()), Times.Exactly(2));
+            consoleMock.Verify(m => m.Write(It.IsAny<string>()), Times.Exactly(3));
         }
     }
 }

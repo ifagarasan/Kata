@@ -7,6 +7,9 @@ namespace SocialNetwork
     {
         public ICommand Translate(string command)
         {
+            if (command.Equals("exit"))
+                return new Exit();
+
             var splitIndex = command.IndexOf("->", StringComparison.Ordinal);
 
             if (splitIndex != -1)

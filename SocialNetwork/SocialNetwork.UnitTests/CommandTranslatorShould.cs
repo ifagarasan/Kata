@@ -30,12 +30,18 @@ namespace SocialNetwork.UnitTests
         }
 
         [TestMethod]
-        public void ReturnDisplayCommand()
+        public void ReturnDisplayUserPosts()
         {
             var displayCommand = _translator.Translate(_username) as DisplayUserPosts;
 
             Assert.IsNotNull(displayCommand);
             Assert.AreEqual(_username, displayCommand.Username);
+        }
+
+        [TestMethod]
+        public void ReturnExit()
+        {
+            Assert.IsNotNull(_translator.Translate("exit") as Exit);
         }
     }
 }
