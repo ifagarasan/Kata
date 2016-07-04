@@ -19,11 +19,11 @@ namespace SocialNetwork.UnitTests.Time
 
             mockDateProvider.Setup(m => m.Now()).Returns(now);
 
-            var current = now.AddMinutes(-2);
+            var current = now.AddMinutes(-5);
 
             var timeOffsetCalculator = new TimeOffsetCalculator(mockDateProvider.Object);
 
-            Assert.AreEqual(-2, timeOffsetCalculator.NowToDateOffset(current).TotalMinutes);
+            Assert.AreEqual(-5, timeOffsetCalculator.NowToDateOffset(current).TotalMinutes);
         }
     }
 }

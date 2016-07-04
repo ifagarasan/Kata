@@ -9,22 +9,22 @@ namespace SocialNetwork
     public class Repository : IRepository
     {
         private readonly IDateProvider _dateProvider;
-        private readonly IList<IPost> posts;
+        private readonly IList<IPost> _posts;
 
         public Repository(IDateProvider dateProvider)
         {
             _dateProvider = dateProvider;
-            posts = new List<IPost>();
+            _posts = new List<IPost>();
         }
 
         public void Insert(string username, string message)
         {
-            posts.Add(new Post(username, message, _dateProvider.Now()));
+            _posts.Add(new Post(username, message, _dateProvider.Now()));
         }
 
         public IList<IPost> RetrieveUserMessages(string username)
         {
-            return posts.Where(p => p.Username.Equals(username)).ToList();
+            return _posts.Where(p => p.Username.Equals(username)).Reverse().ToList();
         }
     }
 }

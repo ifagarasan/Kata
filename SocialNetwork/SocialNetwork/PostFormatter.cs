@@ -1,4 +1,5 @@
-﻿using SocialNetwork.Time;
+﻿using System;
+using SocialNetwork.Time;
 
 namespace SocialNetwork
 {
@@ -15,7 +16,10 @@ namespace SocialNetwork
         {
             var timeOffset = _timeOffsetCalculator.NowToDateOffset(post.WrittenAt);
 
-            return $"{post.Message} ({-timeOffset.TotalMinutes} minutes ago)";
+            var minutes = (int)Math.Ceiling(-timeOffset.TotalMinutes);
+            var minuteLiteral = minutes == 1 ? "minute" : "minutes";
+
+            return $"{post.Message} ({minutes} {minuteLiteral} ago)";
         }
     }
 }
