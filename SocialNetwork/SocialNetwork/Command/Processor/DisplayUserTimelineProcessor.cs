@@ -11,7 +11,7 @@ namespace SocialNetwork.Command.Processor
         {
             var displayUserPosts = command as DisplayUserTimeline;
 
-            foreach (var message in SocialEngine.RetrieveUserMessages(displayUserPosts.Username))
+            foreach (var message in SocialEngine.RetrieveUserTimeline(displayUserPosts.Username))
                 Console.Write(message);
         }
     }

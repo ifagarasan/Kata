@@ -17,7 +17,7 @@ namespace SocialNetwork.UnitTests.Command.Processor
             var userMessages = new List<string> { message };
 
             var socialEngineMock = new Mock<ISocialEngine>();
-            socialEngineMock.Setup(m => m.RetrieveUserMessages(It.IsAny<string>())).Returns(userMessages);
+            socialEngineMock.Setup(m => m.RetrieveUserTimeline(It.IsAny<string>())).Returns(userMessages);
 
             var consoleMock = new Mock<IConsole>();
 
@@ -28,7 +28,7 @@ namespace SocialNetwork.UnitTests.Command.Processor
 
             processor.Process(command);
 
-            socialEngineMock.Verify(m => m.RetrieveUserMessages(username));
+            socialEngineMock.Verify(m => m.RetrieveUserTimeline(username));
             consoleMock.Verify(m => m.Write(message));
         }
     }

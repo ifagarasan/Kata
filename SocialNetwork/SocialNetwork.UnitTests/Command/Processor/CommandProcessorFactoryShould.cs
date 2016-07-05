@@ -38,6 +38,15 @@ namespace SocialNetwork.UnitTests.Command.Processor
         }
 
         [TestMethod]
+        public void ReturnsDisplayWallCommandProcessor()
+        {
+            var command = new DisplayWall(_username);
+            var commandProcessor = _commandProcessorFactory.Create(command);
+
+            Assert.IsInstanceOfType(commandProcessor, typeof(DisplayWallCommandProcessor));
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(CommandProcessorNotDefinedException))]
         public void ThrowExceptionIfCommandProcessorDoesNotExistForCommandType()
         {

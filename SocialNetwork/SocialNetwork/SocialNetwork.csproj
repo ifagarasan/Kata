@@ -46,6 +46,7 @@
     <Compile Include="Command\DisplayWall.cs" />
     <Compile Include="Command\IUserCommand.cs" />
     <Compile Include="Command\ICommand.cs" />
+    <Compile Include="Command\Processor\DisplayWallCommandProcessor.cs" />
     <Compile Include="Command\UserCommand.cs" />
     <Compile Include="Command\Processor\CommandProcessor.cs" />
     <Compile Include="Command\Processor\CommandProcessorFactory.cs" />
