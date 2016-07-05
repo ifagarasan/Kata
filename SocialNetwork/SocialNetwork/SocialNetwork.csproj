@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="Command\CommandDispatcher.cs" />
     <Compile Include="Command\CommandTranslator.cs" />
-    <Compile Include="Command\DisplayUserTimeline.cs" />
+    <Compile Include="Command\DisplayTimeline.cs" />
     <Compile Include="Command\DisplayWall.cs" />
     <Compile Include="Command\IUserCommand.cs" />
     <Compile Include="Command\ICommand.cs" />
@@ -50,7 +50,7 @@
     <Compile Include="Command\UserCommand.cs" />
     <Compile Include="Command\Processor\CommandProcessor.cs" />
     <Compile Include="Command\Processor\CommandProcessorFactory.cs" />
-    <Compile Include="Command\Processor\DisplayUserTimelineProcessor.cs" />
+    <Compile Include="Command\Processor\DisplayTimelineProcessor.cs" />
     <Compile Include="Command\Processor\ICommandProcessorFactory.cs" />
     <Compile Include="Command\Processor\PostProcessor.cs" />
     <Compile Include="Command\Exit.cs" />

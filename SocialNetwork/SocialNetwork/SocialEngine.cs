@@ -20,9 +20,14 @@ namespace SocialNetwork
             _repository.Insert(username, message);
         }
 
-        public IList<string> RetrieveUserTimeline(string username)
+        public IList<string> RetrieveTimeline(string username)
         {
             return _repository.RetrieveUserMessages(username).Select(post => _postFormatter.Format(post)).ToList();
+        }
+
+        public IList<string> RetrieveWall(string username)
+        {
+            throw new NotImplementedException();
         }
     }
 }

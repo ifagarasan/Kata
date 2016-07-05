@@ -29,12 +29,12 @@ namespace SocialNetwork.UnitTests.Command.Processor
         }
 
         [TestMethod]
-        public void ReturnsDisplayUserPostsCommandProcessor()
+        public void ReturnsDisplayTImelineCommandProcessor()
         {
-            var command = new DisplayUserTimeline(_username);
+            var command = new DisplayTimeline(_username);
             var commandProcessor = _commandProcessorFactory.Create(command);
 
-            Assert.IsInstanceOfType(commandProcessor, typeof(DisplayUserTimelineProcessor));
+            Assert.IsInstanceOfType(commandProcessor, typeof(DisplayTimelineProcessor));
         }
 
         [TestMethod]

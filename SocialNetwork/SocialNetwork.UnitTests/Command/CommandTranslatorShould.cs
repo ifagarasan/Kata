@@ -29,9 +29,9 @@ namespace SocialNetwork.UnitTests.Command
         }
 
         [TestMethod]
-        public void ReturnDisplayUserTimeline()
+        public void ReturnDisplayTimeline()
         {
-            var displayCommand = _translator.Translate(_username) as DisplayUserTimeline;
+            var displayCommand = _translator.Translate(_username) as DisplayTimeline;
 
             Assert.IsNotNull(displayCommand);
             Assert.AreEqual(_username, displayCommand.Username);

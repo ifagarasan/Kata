@@ -6,6 +6,7 @@ namespace SocialNetwork
     public interface ISocialEngine
     {
         void Post(string username, string message);
-        IList<string> RetrieveUserTimeline(string username);
+        IList<string> RetrieveTimeline(string username);
+        IList<string> RetrieveWall(string username);
     }
 }

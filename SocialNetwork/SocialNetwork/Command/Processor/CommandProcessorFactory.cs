@@ -19,8 +19,8 @@ namespace SocialNetwork.Command.Processor
 
             if (command is PostMessage)
                 commandProcessor = new PostProcessor(_socialEngine, _console);
-            else if (command is DisplayUserTimeline)
-                commandProcessor = new DisplayUserTimelineProcessor(_socialEngine, _console);
+            else if (command is DisplayTimeline)
+                commandProcessor = new DisplayTimelineProcessor(_socialEngine, _console);
             else if (command is DisplayWall)
                 commandProcessor = new DisplayWallCommandProcessor(_socialEngine, _console);
 
