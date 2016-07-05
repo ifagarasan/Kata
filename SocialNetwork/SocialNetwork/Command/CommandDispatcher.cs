@@ -1,6 +1,4 @@
-﻿using SocialNetwork.Command;
-
-namespace SocialNetwork
+﻿namespace SocialNetwork.Command
 {
     public class CommandDispatcher : ICommandDispatcher
     {

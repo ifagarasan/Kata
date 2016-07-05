@@ -9,7 +9,7 @@ using SocialNetwork.Time;
 namespace SocialNetwork.FeatureTests
 {
     [TestClass]
-    public class Timeline
+    public class Wall
     {
         [TestMethod]
         public void ShouldDisplayAllMessagesForUser()
@@ -17,17 +17,14 @@ namespace SocialNetwork.FeatureTests
             Mock<IConsole> consoleMock = new Mock<IConsole>();
 
             consoleMock.SetupSequence(m => m.Read())
-                .Returns("Alice -> I love the weather today")
                 .Returns("Bob -> Damn! We lost!")
                 .Returns("Bob -> Good game though.")
-                .Returns("Alice")
-                .Returns("Bob")
+                .Returns("Bob wall")
                 .Returns("exit");
 
             var expectedIndex = 0;
             var expected = new[]
             {
-                "I love the weather today (5 minutes ago)",
                 "Good game though. (1 minute ago)",
                 "Damn! We lost! (2 minutes ago)"
             };
@@ -45,7 +42,7 @@ namespace SocialNetwork.FeatureTests
             presentDateProviderMock.Setup(m => m.Now()).Returns(now);
 
             var sequenceDateProviderMock = new Mock<IDateProvider>();
-            sequenceDateProviderMock.SetupSequence(m => m.Now()).Returns(now.AddMinutes(5)).Returns(now.AddMinutes(1)).Returns(now.AddMinutes(2));
+            sequenceDateProviderMock.SetupSequence(m => m.Now()).Returns(now.AddMinutes(1)).Returns(now.AddMinutes(2));
 
             ICommandProcessorFactory commandProcessorFactory = new CommandProcessorFactory(
                 new SocialEngine(new Repository(new DateProvider()),
@@ -55,7 +52,7 @@ namespace SocialNetwork.FeatureTests
 
             socialPlatform.Run();
 
-            consoleMock.Verify(m => m.Write(It.IsAny<string>()), Times.Exactly(3));
+            consoleMock.Verify(m => m.Write(It.IsAny<string>()), Times.Exactly(2));
         }
     }
 }
