@@ -58,6 +58,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Wall.cs" />
     <Compile Include="Timeline.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

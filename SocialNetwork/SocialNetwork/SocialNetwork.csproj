@@ -40,8 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandDispatcher.cs" />
-    <Compile Include="CommandTranslator.cs" />
+    <Compile Include="Command\CommandDispatcher.cs" />
+    <Compile Include="Command\CommandTranslator.cs" />
     <Compile Include="Command\DisplayUserTimeline.cs" />
     <Compile Include="Command\IUserCommand.cs" />
     <Compile Include="Command\ICommand.cs" />
@@ -53,9 +53,10 @@
     <Compile Include="Command\Processor\PostProcessor.cs" />
     <Compile Include="Command\Exit.cs" />
     <Compile Include="Date\DateProvider.cs" />
-    <Compile Include="ICommandDispatcher.cs" />
+    <Compile Include="Command\ICommandDispatcher.cs" />
     <Compile Include="Command\Processor\ICommandProcessor.cs" />
-    <Compile Include="ICommandTranslator.cs" />
+    <Compile Include="Command\ICommandTranslator.cs" />
+    <Compile Include="Exceptions\InvalidCommandException.cs" />
     <Compile Include="IConsole.cs" />
     <Compile Include="Date\IDateProvider.cs" />
     <Compile Include="IPost.cs" />

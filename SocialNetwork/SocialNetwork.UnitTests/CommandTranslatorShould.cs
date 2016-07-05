@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SocialNetwork.Command;
+using SocialNetwork.Exceptions;
 
 namespace SocialNetwork.UnitTests
 {
@@ -18,7 +19,7 @@ namespace SocialNetwork.UnitTests
         }
 
         [TestMethod]
-        public void ReturnPostCommand()
+        public void ReturnPostMessage()
         {
             var message = "I love the weather today";
             var commandString = $"{_username} -> {message}";
@@ -30,7 +31,7 @@ namespace SocialNetwork.UnitTests
         }
 
         [TestMethod]
-        public void ReturnDisplayUserPosts()
+        public void ReturnDisplayUserTimeline()
         {
             var displayCommand = _translator.Translate(_username) as DisplayUserTimeline;
 
@@ -42,6 +43,13 @@ namespace SocialNetwork.UnitTests
         public void ReturnExit()
         {
             Assert.IsNotNull(_translator.Translate("exit") as Exit);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidCommandException))]
+        public void ThrowExceptionIfCommandNotSupported()
+        {
+            _translator.Translate("Invalid Command");
         }
     }
 }
