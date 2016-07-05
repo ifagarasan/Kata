@@ -21,10 +21,10 @@ namespace SocialNetwork.UnitTests.Command.Processor
 
             var consoleMock = new Mock<IConsole>();
 
-            var processor = new DisplayUserPostsProcessor(socialEngineMock.Object, consoleMock.Object);
+            var processor = new DisplayUserTimelineProcessor(socialEngineMock.Object, consoleMock.Object);
 
             var username = "test";
-            var command = new DisplayUserPosts(username);
+            var command = new DisplayUserTimeline(username);
 
             processor.Process(command);
 

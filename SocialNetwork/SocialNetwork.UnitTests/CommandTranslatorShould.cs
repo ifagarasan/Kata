@@ -32,7 +32,7 @@ namespace SocialNetwork.UnitTests
         [TestMethod]
         public void ReturnDisplayUserPosts()
         {
-            var displayCommand = _translator.Translate(_username) as DisplayUserPosts;
+            var displayCommand = _translator.Translate(_username) as DisplayUserTimeline;
 
             Assert.IsNotNull(displayCommand);
             Assert.AreEqual(_username, displayCommand.Username);

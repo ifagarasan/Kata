@@ -30,10 +30,10 @@ namespace SocialNetwork.UnitTests.Command.Processor
         [TestMethod]
         public void ReturnsDisplayUserPostsCommandProcessor()
         {
-            var command = new DisplayUserPosts(_username);
+            var command = new DisplayUserTimeline(_username);
             var commandProcessor = _commandProcessorFactory.Create(command);
 
-            Assert.IsInstanceOfType(commandProcessor, typeof(DisplayUserPostsProcessor));
+            Assert.IsInstanceOfType(commandProcessor, typeof(DisplayUserTimelineProcessor));
         }
     }
 }

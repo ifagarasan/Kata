@@ -18,19 +18,19 @@ namespace SocialNetwork.UnitTests
             Mock<ICommandProcessorFactory> commandProcessorFactoryMock = new Mock<ICommandProcessorFactory>();
             commandProcessorFactoryMock.Setup(m => m.Create(It.IsAny<ICommand>())).Returns(commandProcessorMock.Object);
 
-            var displayUserPosts = new DisplayUserPosts("Alice");
+            var displayUserTimeline = new DisplayUserTimeline("Alice");
             var exit = new Exit();
 
-            commandDispatcherMock.SetupSequence(m => m.Retrieve()).Returns(displayUserPosts).Returns(displayUserPosts).Returns(exit);
-            commandProcessorMock.Setup(m => m.Process(It.IsAny<DisplayUserPosts>()));
+            commandDispatcherMock.SetupSequence(m => m.Retrieve()).Returns(displayUserTimeline).Returns(displayUserTimeline).Returns(exit);
+            commandProcessorMock.Setup(m => m.Process(It.IsAny<DisplayUserTimeline>()));
 
             ISocialPlatform socialPlatform = new SocialPlatform(commandDispatcherMock.Object, commandProcessorFactoryMock.Object);
 
             socialPlatform.Run();
 
             commandDispatcherMock.Verify(m => m.Retrieve(), Times.Exactly(3));
-            commandProcessorFactoryMock.Verify(m => m.Create(displayUserPosts), Times.Exactly(2));
-            commandProcessorMock.Verify(m => m.Process(displayUserPosts), Times.Exactly(2));
+            commandProcessorFactoryMock.Verify(m => m.Create(displayUserTimeline), Times.Exactly(2));
+            commandProcessorMock.Verify(m => m.Process(displayUserTimeline), Times.Exactly(2));
         }
     }
 }

@@ -15,7 +15,7 @@ namespace SocialNetwork
             if (splitIndex != -1)
                 return new PostMessage(command.Substring(0, splitIndex-1), command.Substring(splitIndex + 3));
 
-            return new DisplayUserPosts(command);
+            return new DisplayUserTimeline(command);
         }
     }
 }

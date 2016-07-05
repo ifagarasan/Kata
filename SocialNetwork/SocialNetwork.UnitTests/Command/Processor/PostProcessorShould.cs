@@ -27,22 +27,5 @@ namespace SocialNetwork.UnitTests.Command.Processor
 
             socialEngineMock.Verify(m => m.Post(username, content));
         }
-
-        //[TestMethod]
-        //public void DisplayOnDisplayUserPosts()
-        //{
-        //    Mock<ISocialEngine> socialEngineMock = new Mock<ISocialEngine>();
-        //    socialEngineMock.Setup(m => m.Post(It.IsAny<string>(), It.IsAny<string>()));
-
-        //    Mock<IConsole> consoleMock = new Mock<IConsole>();
-
-        //    ICommandProcessor processor = new CommandProcessor(socialEngineMock.Object, consoleMock.Object);
-
-        //    var username = "test";
-
-        //    DisplayUserPosts userPosts = new DisplayUserPosts(username);
-
-        //    processor.Process(userPosts);
-        //}
     }
 }

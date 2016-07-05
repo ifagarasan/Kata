@@ -42,13 +42,13 @@
   <ItemGroup>
     <Compile Include="CommandDispatcher.cs" />
     <Compile Include="CommandTranslator.cs" />
-    <Compile Include="Command\DisplayUserPosts.cs" />
+    <Compile Include="Command\DisplayUserTimeline.cs" />
     <Compile Include="Command\IUserCommand.cs" />
     <Compile Include="Command\ICommand.cs" />
     <Compile Include="Command\UserCommand.cs" />
     <Compile Include="Command\Processor\CommandProcessor.cs" />
     <Compile Include="Command\Processor\CommandProcessorFactory.cs" />
-    <Compile Include="Command\Processor\DisplayUserPostsProcessor.cs" />
+    <Compile Include="Command\Processor\DisplayUserTimelineProcessor.cs" />
     <Compile Include="Command\Processor\ICommandProcessorFactory.cs" />
     <Compile Include="Command\Processor\PostProcessor.cs" />
     <Compile Include="Command\Exit.cs" />

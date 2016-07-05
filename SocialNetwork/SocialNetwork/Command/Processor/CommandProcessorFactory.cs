@@ -17,8 +17,8 @@
 
             if (command is PostMessage)
                 commandProcessor = new PostProcessor(_socialEngine, _console);
-            else if (command is DisplayUserPosts)
-                commandProcessor = new DisplayUserPostsProcessor(_socialEngine, _console);
+            else if (command is DisplayUserTimeline)
+                commandProcessor = new DisplayUserTimelineProcessor(_socialEngine, _console);
 
             return commandProcessor;
         }
