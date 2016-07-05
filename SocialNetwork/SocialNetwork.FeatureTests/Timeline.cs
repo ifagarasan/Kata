@@ -4,6 +4,7 @@ using Moq;
 using SocialNetwork.Command;
 using SocialNetwork.Command.Processor;
 using SocialNetwork.Date;
+using SocialNetwork.Format;
 using SocialNetwork.Time;
 
 namespace SocialNetwork.FeatureTests
@@ -49,7 +50,7 @@ namespace SocialNetwork.FeatureTests
 
             ICommandProcessorFactory commandProcessorFactory = new CommandProcessorFactory(
                 new SocialEngine(new Repository(new DateProvider()),
-                new PostFormatter(new TimeOffsetCalculator(sequenceDateProviderMock.Object))), consoleMock.Object);
+                new PostFormatter(new TimeOffsetCalculator(sequenceDateProviderMock.Object), new TimeFormatter())), consoleMock.Object);
 
             ISocialPlatform socialPlatform = new SocialPlatform(commandDispatcher, commandProcessorFactory);
 

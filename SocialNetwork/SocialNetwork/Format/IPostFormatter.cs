@@ -1,4 +1,4 @@
-﻿namespace SocialNetwork
+﻿namespace SocialNetwork.Format
 {
     public interface IPostFormatter
     {

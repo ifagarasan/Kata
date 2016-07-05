@@ -4,6 +4,6 @@ namespace SocialNetwork.Time
 {
     public interface ITimeOffsetCalculator
     {
-        TimeSpan NowToDateOffset(System.DateTime date);
+        TimeSpan NowToDateOffset(DateTime date);
     }
 }
