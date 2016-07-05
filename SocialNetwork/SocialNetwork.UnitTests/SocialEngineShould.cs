@@ -47,7 +47,7 @@ namespace SocialNetwork.UnitTests
 
             _postFormatterMock.Setup(m => m.Format(It.IsAny<IPost>())).Returns(string.Empty);
 
-            var formattedOutput = _socialEngine.RetrieveUserMessages(_username);
+            var formattedOutput = _socialEngine.RetrieveTimeline(_username);
 
             _repositoryMock.Verify(m => m.RetrieveUserMessages(_username));
             _postFormatterMock.Verify(m => m.Format(post1));

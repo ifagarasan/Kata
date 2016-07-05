@@ -13,7 +13,7 @@ namespace SocialNetwork.Command
 
             var split = command.Split(' ');
             if (split.Length == 1)
-                return new DisplayUserTimeline(command);
+                return new DisplayTimeline(command);
 
             if (split.Length == 2 && split[1].Equals("wall"))
                 return new DisplayWall(split[0]);

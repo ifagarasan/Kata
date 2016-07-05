@@ -59,7 +59,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Command\Processor\CommandProcessorFactoryShould.cs" />
-    <Compile Include="Command\Processor\DisplayUserPostsProcessorShould.cs" />
+    <Compile Include="Command\Processor\DisplayWallProcessorShould.cs" />
+    <Compile Include="Command\Processor\DisplayTimelineProcessorShould.cs" />
     <Compile Include="Command\Processor\PostProcessorShould.cs" />
     <Compile Include="PostFormatterShould.cs" />
     <Compile Include="RepositoryShould.cs" />

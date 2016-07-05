@@ -8,27 +8,27 @@ using SocialNetwork.Command.Processor;
 namespace SocialNetwork.UnitTests.Command.Processor
 {
     [TestClass]
-    public class DisplayUserPostsProcessorShould
+    public class DisplayTimelineProcessorShould
     {
         [TestMethod]
-        public void PrintUserPosts()
+        public void PrintTimeline()
         {
             var message = "I'm in London! (1 minute ago)";
             var userMessages = new List<string> { message };
 
             var socialEngineMock = new Mock<ISocialEngine>();
-            socialEngineMock.Setup(m => m.RetrieveUserMessages(It.IsAny<string>())).Returns(userMessages);
+            socialEngineMock.Setup(m => m.RetrieveTimeline(It.IsAny<string>())).Returns(userMessages);
 
             var consoleMock = new Mock<IConsole>();
 
-            var processor = new DisplayUserTimelineProcessor(socialEngineMock.Object, consoleMock.Object);
+            var processor = new DisplayTimelineProcessor(socialEngineMock.Object, consoleMock.Object);
 
             var username = "test";
-            var command = new DisplayUserTimeline(username);
+            var command = new DisplayTimeline(username);
 
             processor.Process(command);
 
-            socialEngineMock.Verify(m => m.RetrieveUserMessages(username));
+            socialEngineMock.Verify(m => m.RetrieveTimeline(username));
             consoleMock.Verify(m => m.Write(message));
         }
     }
