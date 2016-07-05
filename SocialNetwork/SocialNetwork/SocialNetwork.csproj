@@ -43,6 +43,7 @@
     <Compile Include="Command\CommandDispatcher.cs" />
     <Compile Include="Command\CommandTranslator.cs" />
     <Compile Include="Command\DisplayUserTimeline.cs" />
+    <Compile Include="Command\DisplayWall.cs" />
     <Compile Include="Command\IUserCommand.cs" />
     <Compile Include="Command\ICommand.cs" />
     <Compile Include="Command\UserCommand.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Command\Processor\ICommandProcessor.cs" />
     <Compile Include="Command\ICommandTranslator.cs" />
     <Compile Include="Exceptions\InvalidCommandException.cs" />
+    <Compile Include="Exceptions\CommandProcessorNotDefinedException.cs" />
     <Compile Include="IConsole.cs" />
     <Compile Include="Date\IDateProvider.cs" />
     <Compile Include="IPost.cs" />

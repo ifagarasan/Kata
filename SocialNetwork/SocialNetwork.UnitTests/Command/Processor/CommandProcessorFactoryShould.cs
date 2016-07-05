@@ -2,6 +2,7 @@
 using Moq;
 using SocialNetwork.Command;
 using SocialNetwork.Command.Processor;
+using SocialNetwork.Exceptions;
 
 namespace SocialNetwork.UnitTests.Command.Processor
 {
@@ -34,6 +35,13 @@ namespace SocialNetwork.UnitTests.Command.Processor
             var commandProcessor = _commandProcessorFactory.Create(command);
 
             Assert.IsInstanceOfType(commandProcessor, typeof(DisplayUserTimelineProcessor));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(CommandProcessorNotDefinedException))]
+        public void ThrowExceptionIfCommandProcessorDoesNotExistForCommandType()
+        {
+            _commandProcessorFactory.Create(new Exit());
         }
     }
 }

@@ -64,8 +64,8 @@
     <Compile Include="PostFormatterShould.cs" />
     <Compile Include="RepositoryShould.cs" />
     <Compile Include="SocialEngineShould.cs" />
-    <Compile Include="CommandTranslatorShould.cs" />
-    <Compile Include="CommandDispatcherShould.cs" />
+    <Compile Include="Command\CommandTranslatorShould.cs" />
+    <Compile Include="Command\CommandDispatcherShould.cs" />
     <Compile Include="SocialPlatformShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Time\TimeOffsetCalculatorShould.cs" />

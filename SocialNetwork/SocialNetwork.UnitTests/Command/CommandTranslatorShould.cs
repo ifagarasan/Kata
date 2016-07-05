@@ -1,10 +1,8 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SocialNetwork.Command;
 using SocialNetwork.Exceptions;
 
-namespace SocialNetwork.UnitTests
+namespace SocialNetwork.UnitTests.Command
 {
     [TestClass]
     public class CommandTranslatorShould
@@ -43,6 +41,15 @@ namespace SocialNetwork.UnitTests
         public void ReturnExit()
         {
             Assert.IsNotNull(_translator.Translate("exit") as Exit);
+        }
+
+        [TestMethod]
+        public void ReturnDisplayWall()
+        {
+            var displayCommand = _translator.Translate($"{_username} wall") as DisplayWall;
+
+            Assert.IsNotNull(displayCommand);
+            Assert.AreEqual(_username, displayCommand.Username);
         }
 
         [TestMethod]

@@ -1,4 +1,6 @@
-﻿namespace SocialNetwork.Command.Processor
+﻿using SocialNetwork.Exceptions;
+
+namespace SocialNetwork.Command.Processor
 {
     public class CommandProcessorFactory : ICommandProcessorFactory
     {
@@ -19,6 +21,9 @@
                 commandProcessor = new PostProcessor(_socialEngine, _console);
             else if (command is DisplayUserTimeline)
                 commandProcessor = new DisplayUserTimelineProcessor(_socialEngine, _console);
+
+            if (commandProcessor == null)
+                throw new CommandProcessorNotDefinedException($"Command processor not defined for {command.GetType()}");
 
             return commandProcessor;
         }
