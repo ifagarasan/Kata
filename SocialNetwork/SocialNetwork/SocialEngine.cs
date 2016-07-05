@@ -30,5 +30,10 @@ namespace SocialNetwork
         {
             return _repository.RetrieveWall(username).Select(post => _postFormatter.FormatWallPost(post)).ToList();
         }
+
+        public void Follow(string username, string followUsername)
+        {
+            _repository.Follow(username, followUsername);
+        }
     }
 }

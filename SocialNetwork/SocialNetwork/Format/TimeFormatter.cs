@@ -11,14 +11,19 @@ namespace SocialNetwork.Format
 
         private static int GenerateTimeValue(TimeSpan timeSpan)
         {
-            return (int)Math.Ceiling(Math.Abs(timeSpan.TotalMinutes));
+            return (int)Math.Ceiling(Math.Abs(LessThanOneMinute(timeSpan) ? timeSpan.TotalSeconds : timeSpan.TotalMinutes));
+        }
+
+        private static bool LessThanOneMinute(TimeSpan timeSpan)
+        {
+            return Math.Abs(timeSpan.TotalSeconds) <= 59;
         }
 
         private static string GenerateTimeUnit(TimeSpan timeSpan)
         {
-            var minutes = Math.Abs(timeSpan.TotalMinutes);
+            var literal = LessThanOneMinute(timeSpan) ? "second" : "minute";
 
-            return minutes <= 1 ? "minute" : "minutes";
+            return GenerateTimeValue(timeSpan) == 1 ? literal : $"{literal}s";
         }
     }
 }

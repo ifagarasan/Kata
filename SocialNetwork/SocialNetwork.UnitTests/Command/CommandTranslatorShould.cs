@@ -8,6 +8,8 @@ namespace SocialNetwork.UnitTests.Command
     public class CommandTranslatorShould
     {
         private readonly string _username = "Alice";
+        private readonly string _followUsername = "Bob";
+
         ICommandTranslator _translator;
 
         [TestInitialize]
@@ -21,20 +23,20 @@ namespace SocialNetwork.UnitTests.Command
         {
             var message = "I love the weather today";
             var commandString = $"{_username} -> {message}";
-            var postCommand = _translator.Translate(commandString) as PostMessage;
+            var command = _translator.Translate(commandString) as PostMessage;
 
-            Assert.IsNotNull(postCommand);
-            Assert.AreEqual(_username, postCommand.Username);
-            Assert.AreEqual(message, postCommand.Message);
+            Assert.IsNotNull(command);
+            Assert.AreEqual(_username, command.Username);
+            Assert.AreEqual(message, command.Message);
         }
 
         [TestMethod]
         public void ReturnDisplayTimeline()
         {
-            var displayCommand = _translator.Translate(_username) as DisplayTimeline;
+            var command = _translator.Translate(_username) as DisplayTimeline;
 
-            Assert.IsNotNull(displayCommand);
-            Assert.AreEqual(_username, displayCommand.Username);
+            Assert.IsNotNull(command);
+            Assert.AreEqual(_username, command.Username);
         }
 
         [TestMethod]
@@ -46,10 +48,20 @@ namespace SocialNetwork.UnitTests.Command
         [TestMethod]
         public void ReturnDisplayWall()
         {
-            var displayCommand = _translator.Translate($"{_username} wall") as DisplayWall;
+            var command = _translator.Translate($"{_username} wall") as DisplayWall;
 
-            Assert.IsNotNull(displayCommand);
-            Assert.AreEqual(_username, displayCommand.Username);
+            Assert.IsNotNull(command);
+            Assert.AreEqual(_username, command.Username);
+        }
+
+        [TestMethod]
+        public void ReturnFollow()
+        {
+            var command = _translator.Translate($"{_username} follows {_followUsername}") as Follow;
+
+            Assert.IsNotNull(command);
+            Assert.AreEqual(_username, command.Username);
+            Assert.AreEqual(_followUsername, command.FollowUsername);
         }
 
         [TestMethod]

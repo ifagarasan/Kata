@@ -8,8 +8,10 @@ namespace SocialNetwork.UnitTests
     [TestClass]
     public class RepositoryShould
     {
-        readonly string _username = "Alice";
-        readonly string _message = "I love the weather today";
+        private const string Username = "Alice";
+        private const string FollowUsername = "Bob";
+        private const string Message1 = "I love the weather today";
+        private const string Message2 = "Yezzer, I so do";
 
         private readonly DateTime _now = DateTime.Now;
         private Mock<IDateProvider> _dateProviderMock;
@@ -27,43 +29,53 @@ namespace SocialNetwork.UnitTests
         [TestMethod]
         public void Insert()
         {
-            _repository.Insert(_username, _message);
+            _repository.Insert(Username, Message1);
 
-            var posts = _repository.RetrieveTimeline(_username);
+            var posts = _repository.RetrieveTimeline(Username);
             var post = posts[0];
 
             _dateProviderMock.Verify(m => m.Now());
 
-            Assert.AreEqual(_message, post.Message);
+            Assert.AreEqual(Message1, post.Message);
             Assert.AreEqual(_now, post.WrittenAt);
         }
 
         [TestMethod]
         public void ReturnTimelinePostsInReverseOrder()
         {            
-            var message2 = "Yezzer, I so do";
+            _repository.Insert(Username, Message1);
+            _repository.Insert(Username, Message2);
 
-            _repository.Insert(_username, _message);
-            _repository.Insert(_username, message2);
+            var posts = _repository.RetrieveTimeline(Username);
 
-            var posts = _repository.RetrieveTimeline(_username);
-
-            Assert.AreEqual(message2, posts[0].Message);
-            Assert.AreEqual(_message, posts[1].Message);
+            Assert.AreEqual(Message2, posts[0].Message);
+            Assert.AreEqual(Message1, posts[1].Message);
         }
 
         [TestMethod]
         public void ReturnWallPostsInReverseOrder()
         {
-            var message2 = "Yezzer, I so do";
+            _repository.Insert(Username, Message1);
+            _repository.Insert(Username, Message2);
 
-            _repository.Insert(_username, _message);
-            _repository.Insert(_username, message2);
+            var posts = _repository.RetrieveWall(Username);
 
-            var posts = _repository.RetrieveWall(_username);
+            Assert.AreEqual(Message2, posts[0].Message);
+            Assert.AreEqual(Message1, posts[1].Message);
+        }
 
-            Assert.AreEqual(message2, posts[0].Message);
-            Assert.AreEqual(_message, posts[1].Message);
+        [TestMethod]
+        public void Follow()
+        {
+            _repository.Insert(Username, Message1);
+            _repository.Insert(FollowUsername, Message2);
+
+            _repository.Follow(Username, FollowUsername);
+
+            var posts = _repository.RetrieveWall(Username);
+
+            Assert.AreEqual(Message2, posts[0].Message);
+            Assert.AreEqual(Message1, posts[1].Message);
         }
     }
 }

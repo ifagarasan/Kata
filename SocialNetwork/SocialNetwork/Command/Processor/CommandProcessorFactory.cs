@@ -22,7 +22,9 @@ namespace SocialNetwork.Command.Processor
             else if (command is DisplayTimeline)
                 commandProcessor = new DisplayTimelineProcessor(_socialEngine, _console);
             else if (command is DisplayWall)
-                commandProcessor = new DisplayWallCommandProcessor(_socialEngine, _console);
+                commandProcessor = new DisplayWallProcessor(_socialEngine, _console);
+            else if (command is Follow)
+                return new FollowProcessor(_socialEngine, _console);
 
             if (commandProcessor == null)
                 throw new CommandProcessorNotDefinedException($"Command processor not defined for {command.GetType()}");

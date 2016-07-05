@@ -21,7 +21,7 @@ namespace SocialNetwork.UnitTests.Command.Processor
 
             var consoleMock = new Mock<IConsole>();
 
-            var processor = new DisplayWallCommandProcessor(socialEngineMock.Object, consoleMock.Object);
+            var processor = new DisplayWallProcessor(socialEngineMock.Object, consoleMock.Object);
 
             var username = "test";
             var command = new DisplayWall(username);

@@ -1,8 +1,8 @@
 ﻿namespace SocialNetwork.Command.Processor
 {
-    public class DisplayWallCommandProcessor: CommandProcessor
+    public class DisplayWallProcessor: CommandProcessor
     {
-        public DisplayWallCommandProcessor(ISocialEngine socialEngine, IConsole console) : base(socialEngine, console)
+        public DisplayWallProcessor(ISocialEngine socialEngine, IConsole console) : base(socialEngine, console)
         {
         }
 
