@@ -18,6 +18,9 @@ namespace SocialNetwork.Command
             if (split.Length == 2 && split[1].Equals("wall"))
                 return new DisplayWall(split[0]);
 
+            if (split.Length == 3 && split[1].Equals("follows"))
+                return new Follow(split[0], split[2]);
+
             if (split[1].Equals("->"))
                 return new PostMessage(split[0], command.Substring(command.IndexOf("->", StringComparison.InvariantCulture) + 3));
 

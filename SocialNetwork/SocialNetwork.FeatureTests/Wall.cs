@@ -92,7 +92,7 @@ namespace SocialNetwork.FeatureTests
             {
                 "Charlie - I\'m in New York today! Anyone want to have a coffee? (2 seconds ago)",
                 "Alice - I love the weather today (5 minutes ago)",
-                "Charlie - I\'m in New York today! Anyone wants to have a coffee? (15 seconds ago)",
+                "Charlie - I\'m in New York today! Anyone want to have a coffee? (15 seconds ago)",
                 "Bob - Good game though. (1 minute ago)",
                 "Bob - Damn! We lost! (2 minutes ago)",
                 "Alice - I love the weather today (5 minutes ago)"

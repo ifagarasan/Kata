@@ -11,6 +11,7 @@ namespace SocialNetwork.UnitTests
     {
         private readonly DateTime _now = DateTime.Now;
         private const string Username = "Alice";
+        private const string FollowUsername = "Bob";
         private const string Message = "I love the weather today";
 
         Post _post1;
@@ -66,6 +67,16 @@ namespace SocialNetwork.UnitTests
             _postFormatterMock.Verify(m => m.FormatWallPost(_post1));
 
             Assert.AreEqual(1, formattedOutput.Count);
+        }
+
+        [TestMethod]
+        public void Follow()
+        {
+            _repositoryMock.Setup(m => m.Follow(It.IsAny<string>(), It.IsAny<string>()));
+
+            _socialEngine.Follow(Username, FollowUsername);
+
+            _repositoryMock.Verify(m => m.Follow(Username, FollowUsername));
         }
     }
 }

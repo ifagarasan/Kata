@@ -43,7 +43,16 @@ namespace SocialNetwork.UnitTests.Command.Processor
             var command = new DisplayWall(_username);
             var commandProcessor = _commandProcessorFactory.Create(command);
 
-            Assert.IsInstanceOfType(commandProcessor, typeof(DisplayWallCommandProcessor));
+            Assert.IsInstanceOfType(commandProcessor, typeof(DisplayWallProcessor));
+        }
+
+        [TestMethod]
+        public void ReturnsFollowCommandProcessor()
+        {
+            var command = new Follow(_username, _username);
+            var commandProcessor = _commandProcessorFactory.Create(command);
+
+            Assert.IsInstanceOfType(commandProcessor, typeof(FollowProcessor));
         }
 
         [TestMethod]
