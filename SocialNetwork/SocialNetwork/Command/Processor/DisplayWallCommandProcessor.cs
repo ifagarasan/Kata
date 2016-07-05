@@ -8,7 +8,10 @@
 
         public override void Process(ICommand command)
         {
-            throw new System.NotImplementedException();
+            var displayWall = command as DisplayWall;
+
+            foreach (var message in SocialEngine.RetrieveWall(displayWall.Username))
+                Console.Write(message);
         }
     }
 }

@@ -22,7 +22,12 @@ namespace SocialNetwork
             _posts.Add(new Post(username, message, _dateProvider.Now()));
         }
 
-        public IList<IPost> RetrieveUserMessages(string username)
+        public IList<IPost> RetrieveTimeline(string username)
+        {
+            return _posts.Where(p => p.Username.Equals(username)).Reverse().ToList();
+        }
+
+        public IList<IPost> RetrieveWall(string username)
         {
             return _posts.Where(p => p.Username.Equals(username)).Reverse().ToList();
         }

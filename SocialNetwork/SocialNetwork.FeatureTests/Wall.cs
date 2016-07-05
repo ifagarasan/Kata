@@ -25,11 +25,11 @@ namespace SocialNetwork.FeatureTests
             var expectedIndex = 0;
             var expected = new[]
             {
-                "Good game though. (1 minute ago)",
-                "Damn! We lost! (2 minutes ago)"
+                "Bob - Good game though. (1 minute ago)",
+                "Bob - Damn! We lost! (2 minutes ago)"
             };
 
-            consoleMock.Setup(m => m.Write(It.IsAny<string>())).Callback<string>((message) =>
+            consoleMock.Setup(m => m.Write(It.IsAny<string>())).Callback<string>(message =>
             {
                 Assert.AreEqual(expected[expectedIndex++], message);
             });

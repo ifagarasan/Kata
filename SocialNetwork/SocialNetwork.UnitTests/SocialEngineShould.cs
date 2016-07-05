@@ -8,7 +8,12 @@ namespace SocialNetwork.UnitTests
     [TestClass]
     public class SocialEngineShould
     {
-        readonly string _username = "Alice";
+        private readonly DateTime _now = DateTime.Now;
+        private const string Username = "Alice";
+        private const string Message = "I love the weather today";
+
+        Post _post1;
+        List<IPost> _posts;
         Mock<IRepository> _repositoryMock;
         ISocialEngine _socialEngine;
         Mock<IPostFormatter> _postFormatterMock;
@@ -16,6 +21,9 @@ namespace SocialNetwork.UnitTests
         [TestInitialize]
         public void Setup()
         {
+            _post1 = new Post(Username, Message, _now);
+            _posts = new List<IPost> { _post1 };
+
             _postFormatterMock = new Mock<IPostFormatter>();
             _repositoryMock = new Mock<IRepository>();
             _socialEngine = new SocialEngine(_repositoryMock.Object, _postFormatterMock.Object);
@@ -24,36 +32,39 @@ namespace SocialNetwork.UnitTests
         [TestMethod]
         public void InsertPost()
         {
-            var message = "I love the weather today";
-
             _repositoryMock.Setup(m => m.Insert(It.IsAny<string>(), It.IsAny<string>()));
 
-            _socialEngine.Post(_username, message);
+            _socialEngine.Post(Username, Message);
 
-            _repositoryMock.Verify(m => m.Insert(_username, message));
+            _repositoryMock.Verify(m => m.Insert(Username, Message));
         }
 
         [TestMethod]
-        public void RetrieveUserMessages()
+        public void RetrieveTimeline()
         {
-            var now = DateTime.Now;
-            
-            var post1 = new Post(_username, "message 1", now);
-            var post2 = new Post(_username, "message 2", now);
+            _repositoryMock.Setup(m => m.RetrieveTimeline(It.IsAny<string>())).Returns(_posts);
+            _postFormatterMock.Setup(m => m.FormatTimelinePost(It.IsAny<IPost>())).Returns(string.Empty);
 
-            var posts = new List<IPost> { post1, post2 };
+            var formattedOutput = _socialEngine.RetrieveTimeline(Username);
 
-            _repositoryMock.Setup(m => m.RetrieveUserMessages(It.IsAny<string>())).Returns(posts);
+            _repositoryMock.Verify(m => m.RetrieveTimeline(Username));
+            _postFormatterMock.Verify(m => m.FormatTimelinePost(_post1));
 
-            _postFormatterMock.Setup(m => m.Format(It.IsAny<IPost>())).Returns(string.Empty);
+            Assert.AreEqual(1, formattedOutput.Count);
+        }
 
-            var formattedOutput = _socialEngine.RetrieveTimeline(_username);
+        [TestMethod]
+        public void RetrieveWall()
+        {
+            _repositoryMock.Setup(m => m.RetrieveWall(It.IsAny<string>())).Returns(_posts);
+            _postFormatterMock.Setup(m => m.FormatWallPost(It.IsAny<IPost>())).Returns(string.Empty);
 
-            _repositoryMock.Verify(m => m.RetrieveUserMessages(_username));
-            _postFormatterMock.Verify(m => m.Format(post1));
-            _postFormatterMock.Verify(m => m.Format(post2));
+            var formattedOutput = _socialEngine.RetrieveWall(Username);
 
-            Assert.AreEqual(2, formattedOutput.Count);
+            _repositoryMock.Verify(m => m.RetrieveWall(Username));
+            _postFormatterMock.Verify(m => m.FormatWallPost(_post1));
+
+            Assert.AreEqual(1, formattedOutput.Count);
         }
     }
 }
