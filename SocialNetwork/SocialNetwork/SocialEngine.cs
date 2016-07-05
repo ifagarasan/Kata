@@ -22,12 +22,12 @@ namespace SocialNetwork
 
         public IList<string> RetrieveTimeline(string username)
         {
-            return _repository.RetrieveUserMessages(username).Select(post => _postFormatter.Format(post)).ToList();
+            return _repository.RetrieveTimeline(username).Select(post => _postFormatter.FormatTimelinePost(post)).ToList();
         }
 
         public IList<string> RetrieveWall(string username)
         {
-            throw new NotImplementedException();
+            return _repository.RetrieveWall(username).Select(post => _postFormatter.FormatWallPost(post)).ToList();
         }
     }
 }

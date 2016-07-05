@@ -9,48 +9,61 @@ namespace SocialNetwork.UnitTests
     public class RepositoryShould
     {
         readonly string _username = "Alice";
+        readonly string _message = "I love the weather today";
+
+        private readonly DateTime _now = DateTime.Now;
+        private Mock<IDateProvider> _dateProviderMock;
+        private Repository _repository;
+
+        [TestInitialize]
+        public void Setup()
+        {
+            _dateProviderMock = new Mock<IDateProvider>();
+            _dateProviderMock.Setup(m => m.Now()).Returns(_now);
+
+            _repository = new Repository(_dateProviderMock.Object);
+        }
 
         [TestMethod]
         public void Insert()
         {
-            var message = "I love the weather today";
+            _repository.Insert(_username, _message);
 
-            var now = DateTime.Now;
-            var dateProviderMock = new Mock<IDateProvider>();
-            dateProviderMock.Setup(m => m.Now()).Returns(now);
-
-            var repository = new Repository(dateProviderMock.Object);
-
-            repository.Insert(_username, message);
-
-            var posts = repository.RetrieveUserMessages(_username);
+            var posts = _repository.RetrieveTimeline(_username);
             var post = posts[0];
 
-            dateProviderMock.Verify(m => m.Now());
+            _dateProviderMock.Verify(m => m.Now());
 
-            Assert.AreEqual(message, post.Message);
-            Assert.AreEqual(now, post.WrittenAt);
+            Assert.AreEqual(_message, post.Message);
+            Assert.AreEqual(_now, post.WrittenAt);
         }
 
         [TestMethod]
-        public void ReturnPostsInReverseOrder()
+        public void ReturnTimelinePostsInReverseOrder()
         {            
-            var message1 = "I love the weather today";
             var message2 = "Yezzer, I so do";
 
-            var now = DateTime.Now;
-            var dateProviderMock = new Mock<IDateProvider>();
-            dateProviderMock.Setup(m => m.Now()).Returns(now);
+            _repository.Insert(_username, _message);
+            _repository.Insert(_username, message2);
 
-            var repository = new Repository(dateProviderMock.Object);
-
-            repository.Insert(_username, message1);
-            repository.Insert(_username, message2);
-
-            var posts = repository.RetrieveUserMessages(_username);
+            var posts = _repository.RetrieveTimeline(_username);
 
             Assert.AreEqual(message2, posts[0].Message);
-            Assert.AreEqual(message1, posts[1].Message);
+            Assert.AreEqual(_message, posts[1].Message);
+        }
+
+        [TestMethod]
+        public void ReturnWallPostsInReverseOrder()
+        {
+            var message2 = "Yezzer, I so do";
+
+            _repository.Insert(_username, _message);
+            _repository.Insert(_username, message2);
+
+            var posts = _repository.RetrieveWall(_username);
+
+            Assert.AreEqual(message2, posts[0].Message);
+            Assert.AreEqual(_message, posts[1].Message);
         }
     }
 }

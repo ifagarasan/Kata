@@ -10,41 +10,52 @@ namespace SocialNetwork.UnitTests
     {
         Mock<ITimeOffsetCalculator> _timeOffsetCalculatorMock;
         PostFormatter _postFormatter;
+        private Post _post;
 
         [TestInitialize]
         public void Setup()
         {
+            _post = new Post("Alice", "I love the weather today", DateTime.Now);
+
             _timeOffsetCalculatorMock = new Mock<ITimeOffsetCalculator>();
 
             _postFormatter = new PostFormatter(_timeOffsetCalculatorMock.Object);
         }
 
         [TestMethod]
-        public void Format()
-        {
-            var post = new Post("Alice", "I love the weather today", DateTime.Now);
-
+        public void FormatTimelineMessage()
+        {          
             _timeOffsetCalculatorMock.Setup(m => m.NowToDateOffset(It.IsAny<DateTime>())).Returns(new TimeSpan(0, -3, -1));
 
-            var message = _postFormatter.Format(post);
+            var message = _postFormatter.FormatTimelinePost(_post);
 
-            _timeOffsetCalculatorMock.Verify(m => m.NowToDateOffset(post.WrittenAt));
+            _timeOffsetCalculatorMock.Verify(m => m.NowToDateOffset(_post.WrittenAt));
            
-            Assert.AreEqual($"{post.Message} (4 minutes ago)", message);
+            Assert.AreEqual($"{_post.Message} (4 minutes ago)", message);
         }
 
         [TestMethod]
         public void UsesSingularForOneMinute()
         {
-            var post = new Post("Alice", "I love the weather today", DateTime.Now);
-
             _timeOffsetCalculatorMock.Setup(m => m.NowToDateOffset(It.IsAny<DateTime>())).Returns(new TimeSpan(0, -1, 0));
 
-            var message = _postFormatter.Format(post);
+            var message = _postFormatter.FormatTimelinePost(_post);
 
-            _timeOffsetCalculatorMock.Verify(m => m.NowToDateOffset(post.WrittenAt));
+            _timeOffsetCalculatorMock.Verify(m => m.NowToDateOffset(_post.WrittenAt));
 
-            Assert.AreEqual($"{post.Message} (1 minute ago)", message);
+            Assert.AreEqual($"{_post.Message} (1 minute ago)", message);
+        }
+
+        [TestMethod]
+        public void FormatWallMessage()
+        {
+            _timeOffsetCalculatorMock.Setup(m => m.NowToDateOffset(It.IsAny<DateTime>())).Returns(new TimeSpan(0, -3, -1));
+
+            var message = _postFormatter.FormatWallPost(_post);
+
+            _timeOffsetCalculatorMock.Verify(m => m.NowToDateOffset(_post.WrittenAt));
+
+            Assert.AreEqual($"{_post.Username} - {_post.Message} (4 minutes ago)", message);
         }
     }
 }

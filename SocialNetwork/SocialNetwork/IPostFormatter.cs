@@ -2,6 +2,7 @@
 {
     public interface IPostFormatter
     {
-        string Format(IPost post);
+        string FormatTimelinePost(IPost post);
+        string FormatWallPost(IPost post);
     }
 }
