@@ -1,8 +1,9 @@
-﻿using SocialNetwork.Infrastructure;
+﻿using SocialNetwork.Infrastructure.Console;
+using SocialNetwork.Model.Social.Engine;
 
 namespace SocialNetwork.Action.Command
 {
-    public class Post : Command
+    public class Post : Model.Command.Command
     {
         public Post(ISocialEngine socialEngine, IConsole console, string[] arguments) : base(socialEngine, console, arguments)
         {

@@ -1,27 +1,61 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SocialNetwork.Action;
-using SocialNetwork.Action.Command;
-using SocialNetwork.Action.Command.Input;
-using SocialNetwork.Action.Format;
-using SocialNetwork.Infrastructure;
+using SocialNetwork.Infrastructure.Console;
 using SocialNetwork.Infrastructure.Date;
 using SocialNetwork.Infrastructure.Format;
 using SocialNetwork.Infrastructure.Time;
-using SocialNetwork.Model;
+using SocialNetwork.Model.Command;
+using SocialNetwork.Model.Command.Input;
+using SocialNetwork.Model.Post;
+using SocialNetwork.Model.Post.Format;
+using SocialNetwork.Model.Social.Engine;
+using SocialNetwork.Model.Social.Platform;
 
 namespace SocialNetwork.FeatureTests
 {
     [TestClass]
     public class Timeline
     {
+        private Mock<IConsole> _consoleMock;
+        private int _expectedIndex;
+        private string[] _expected;
+        private readonly DateTime _now = DateTime.Now;
+        IInputRetriever _commandInputRetriever;
+        Mock<IDateProvider> _presentDateProviderMock;
+        Mock<IDateProvider> _sequenceDateProviderMock;
+        ISocialPlatform _socialPlatform;
+
+        [TestInitialize]
+        public void Setup()
+        {
+            _expectedIndex = 0;
+
+            _presentDateProviderMock = new Mock<IDateProvider>();
+            _sequenceDateProviderMock = new Mock<IDateProvider>();
+
+            _presentDateProviderMock.Setup(m => m.Now()).Returns(_now);
+
+            _consoleMock = new Mock<IConsole>();
+
+            _consoleMock.Setup(m => m.Write(It.IsAny<string>())).Callback<string>((message) =>
+            {
+                Assert.AreEqual(_expected[_expectedIndex++], message);
+            });
+
+            _commandInputRetriever = new InputRetriever(new InputBuilder(), _consoleMock.Object);
+
+            ICommandFactory commandFactory = new CommandFactory(
+                new SocialEngine(new Repository(new DateProvider()),
+                new PostFormatter(new TimeOffsetCalculator(_sequenceDateProviderMock.Object), new TimeFormatter())), _consoleMock.Object);
+
+            _socialPlatform = new SocialPlatform(_commandInputRetriever, commandFactory);
+        }
+
         [TestMethod]
         public void ShouldDisplayAllMessagesForUser()
         {
-            Mock<IConsole> consoleMock = new Mock<IConsole>();
-
-            consoleMock.SetupSequence(m => m.Read())
+            _consoleMock.SetupSequence(m => m.Read())
                 .Returns("Alice -> I love the weather today")
                 .Returns("Bob -> Damn! We lost!")
                 .Returns("Bob -> Good game though.")
@@ -29,38 +63,18 @@ namespace SocialNetwork.FeatureTests
                 .Returns("Bob")
                 .Returns("exit");
 
-            var expectedIndex = 0;
-            var expected = new[]
+            _expected = new[]
             {
                 "I love the weather today (5 minutes ago)",
                 "Good game though. (1 minute ago)",
                 "Damn! We lost! (2 minutes ago)"
             };
 
-            consoleMock.Setup(m => m.Write(It.IsAny<string>())).Callback<string>((message) =>
-            {
-                Assert.AreEqual(expected[expectedIndex++], message);
-            });
+            _sequenceDateProviderMock.SetupSequence(m => m.Now()).Returns(_now.AddMinutes(5)).Returns(_now.AddMinutes(1)).Returns(_now.AddMinutes(2));
 
-            IInputRetriever commandInputRetriever = new InputRetriever(new InputBuilder(), consoleMock.Object);
+            _socialPlatform.Run();
 
-            var now = DateTime.Now;
-
-            var presentDateProviderMock = new Mock<IDateProvider>();
-            presentDateProviderMock.Setup(m => m.Now()).Returns(now);
-
-            var sequenceDateProviderMock = new Mock<IDateProvider>();
-            sequenceDateProviderMock.SetupSequence(m => m.Now()).Returns(now.AddMinutes(5)).Returns(now.AddMinutes(1)).Returns(now.AddMinutes(2));
-
-            ICommandFactory commandFactory = new CommandFactory(
-                new SocialEngine(new Repository(new DateProvider()),
-                new PostFormatter(new TimeOffsetCalculator(sequenceDateProviderMock.Object), new TimeFormatter())), consoleMock.Object);
-
-            ISocialPlatform socialPlatform = new SocialPlatform(commandInputRetriever, commandFactory);
-
-            socialPlatform.Run();
-
-            consoleMock.Verify(m => m.Write(It.IsAny<string>()), Times.Exactly(3));
+            _consoleMock.Verify(m => m.Write(It.IsAny<string>()), Times.Exactly(3));
         }
     }
 }

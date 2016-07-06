@@ -1,8 +1,9 @@
-﻿using SocialNetwork.Infrastructure;
+﻿using SocialNetwork.Infrastructure.Console;
+using SocialNetwork.Model.Social.Engine;
 
 namespace SocialNetwork.Action.Command
 {
-    public class DisplayWall: Command
+    public class DisplayWall: Model.Command.Command
     {
         public DisplayWall(ISocialEngine socialEngine, IConsole console, string[] arguments) : base(socialEngine, console, arguments)
         {

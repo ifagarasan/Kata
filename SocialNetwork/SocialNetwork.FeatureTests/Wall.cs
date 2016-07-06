@@ -1,15 +1,16 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SocialNetwork.Action;
-using SocialNetwork.Action.Command;
-using SocialNetwork.Action.Command.Input;
-using SocialNetwork.Action.Format;
-using SocialNetwork.Infrastructure;
+using SocialNetwork.Infrastructure.Console;
 using SocialNetwork.Infrastructure.Date;
 using SocialNetwork.Infrastructure.Format;
 using SocialNetwork.Infrastructure.Time;
-using SocialNetwork.Model;
+using SocialNetwork.Model.Command;
+using SocialNetwork.Model.Command.Input;
+using SocialNetwork.Model.Post;
+using SocialNetwork.Model.Post.Format;
+using SocialNetwork.Model.Social.Engine;
+using SocialNetwork.Model.Social.Platform;
 
 namespace SocialNetwork.FeatureTests
 {
@@ -26,7 +27,6 @@ namespace SocialNetwork.FeatureTests
 
         string[] _expected;
         int _expectedIndex;
-
 
         [TestInitialize]
         public void Setup()
@@ -52,28 +52,6 @@ namespace SocialNetwork.FeatureTests
                     new PostFormatter(new TimeOffsetCalculator(_sequenceDateProviderMock.Object), new TimeFormatter())), _consoleMock.Object);
 
             _socialPlatform = new SocialPlatform(_commandInputRetriever, _commandFactory);
-        }
-
-        [TestMethod]
-        public void ShouldDisplayAllMessagesForUser()
-        {
-            _consoleMock.SetupSequence(m => m.Read())
-                .Returns("Bob -> Damn! We lost!")
-                .Returns("Bob -> Good game though.")
-                .Returns("Bob wall")
-                .Returns("exit");
-
-            _expected = new[]
-            {
-                "Bob - Good game though. (1 minute ago)",
-                "Bob - Damn! We lost! (2 minutes ago)"
-            };
-
-            _sequenceDateProviderMock.SetupSequence(m => m.Now()).Returns(_now.AddMinutes(1)).Returns(_now.AddMinutes(2));
-
-            _socialPlatform.Run();
-
-            _consoleMock.Verify(m => m.Write(It.IsAny<string>()), Times.Exactly(2));
         }
 
         [TestMethod]
