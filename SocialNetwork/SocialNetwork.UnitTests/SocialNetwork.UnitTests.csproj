@@ -58,20 +58,21 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Command\Processor\CommandProcessorFactoryShould.cs" />
-    <Compile Include="Command\Processor\DisplayWallProcessorShould.cs" />
-    <Compile Include="Command\Processor\DisplayTimelineProcessorShould.cs" />
-    <Compile Include="Command\Processor\FollowProcessorShould.cs" />
-    <Compile Include="Command\Processor\PostProcessorShould.cs" />
-    <Compile Include="Format\TimeFormatterShould.cs" />
-    <Compile Include="Format\PostFormatterShould.cs" />
-    <Compile Include="RepositoryShould.cs" />
-    <Compile Include="SocialEngineShould.cs" />
-    <Compile Include="Command\CommandTranslatorShould.cs" />
-    <Compile Include="Command\CommandDispatcherShould.cs" />
-    <Compile Include="SocialPlatformShould.cs" />
+    <Compile Include="Action\Command\CommandFactoryShould.cs" />
+    <Compile Include="Action\Command\CommandShould.cs" />
+    <Compile Include="Action\Command\DisplayWallShould.cs" />
+    <Compile Include="Action\Command\DisplayTimelineShould.cs" />
+    <Compile Include="Action\Command\FollowShould.cs" />
+    <Compile Include="Action\Command\PostShould.cs" />
+    <Compile Include="Infrastructure\Format\TimeFormatterShould.cs" />
+    <Compile Include="Action\Format\PostFormatterShould.cs" />
+    <Compile Include="Model\RepositoryShould.cs" />
+    <Compile Include="Action\SocialEngineShould.cs" />
+    <Compile Include="Action\Task\TaskBuilderShould.cs" />
+    <Compile Include="Action\Task\TaskDispatcherShould.cs" />
+    <Compile Include="Action\SocialPlatformShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Time\TimeOffsetCalculatorShould.cs" />
+    <Compile Include="Infrastructure\Time\TimeOffsetCalculatorShould.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

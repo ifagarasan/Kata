@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{49A8F76C-CCAC-4533-AA0E-F3CE54F3BF59}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SocialNetwork</RootNamespace>
     <AssemblyName>SocialNetwork</AssemblyName>
@@ -29,6 +29,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -40,46 +43,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command\CommandDispatcher.cs" />
-    <Compile Include="Command\CommandTranslator.cs" />
-    <Compile Include="Command\DisplayTimeline.cs" />
-    <Compile Include="Command\DisplayWall.cs" />
-    <Compile Include="Command\Follow.cs" />
-    <Compile Include="Command\IUserCommand.cs" />
-    <Compile Include="Command\ICommand.cs" />
-    <Compile Include="Command\Processor\DisplayWallProcessor.cs" />
-    <Compile Include="Command\UserCommand.cs" />
-    <Compile Include="Command\Processor\CommandProcessor.cs" />
-    <Compile Include="Command\Processor\CommandProcessorFactory.cs" />
-    <Compile Include="Command\Processor\DisplayTimelineProcessor.cs" />
-    <Compile Include="Command\Processor\ICommandProcessorFactory.cs" />
-    <Compile Include="Command\Processor\PostProcessor.cs" />
-    <Compile Include="Command\Exit.cs" />
-    <Compile Include="Date\DateProvider.cs" />
-    <Compile Include="Command\ICommandDispatcher.cs" />
-    <Compile Include="Command\Processor\ICommandProcessor.cs" />
-    <Compile Include="Command\ICommandTranslator.cs" />
-    <Compile Include="Exceptions\InvalidCommandException.cs" />
-    <Compile Include="Exceptions\CommandProcessorNotDefinedException.cs" />
-    <Compile Include="FollowProcessor.cs" />
-    <Compile Include="Format\ITimeFormatter.cs" />
-    <Compile Include="Format\TimeFormatter.cs" />
-    <Compile Include="IConsole.cs" />
-    <Compile Include="Date\IDateProvider.cs" />
-    <Compile Include="IPost.cs" />
-    <Compile Include="Format\IPostFormatter.cs" />
-    <Compile Include="IRepository.cs" />
-    <Compile Include="ISocialEngine.cs" />
-    <Compile Include="ISocialPlatform.cs" />
-    <Compile Include="Command\PostMessage.cs" />
-    <Compile Include="Time\ITimeOffsetCalculator.cs" />
-    <Compile Include="Post.cs" />
-    <Compile Include="Format\PostFormatter.cs" />
+    <Compile Include="Action\Command\Input\CommandType.cs" />
+    <Compile Include="Action\Command\Input\TaskDispatcher.cs" />
+    <Compile Include="Action\Command\Input\InputBuilder.cs" />
+    <Compile Include="Action\Command\DisplayWall.cs" />
+    <Compile Include="Action\Command\Input\CommandInput.cs" />
+    <Compile Include="Action\Command\Command.cs" />
+    <Compile Include="Action\Command\CommandFactory.cs" />
+    <Compile Include="Action\Command\DisplayTimeline.cs" />
+    <Compile Include="Action\Command\ICommandFactory.cs" />
+    <Compile Include="Action\Command\Post.cs" />
+    <Compile Include="Infrastructure\Date\DateProvider.cs" />
+    <Compile Include="Action\Command\Input\ITaskDispatcher.cs" />
+    <Compile Include="Action\Command\ICommand.cs" />
+    <Compile Include="Action\Command\Input\IInputBuilder.cs" />
+    <Compile Include="Exceptions\CommandTypeNotDefinedException.cs" />
+    <Compile Include="Exceptions\CommandNotDefinedException.cs" />
+    <Compile Include="Action\Command\Follow.cs" />
+    <Compile Include="Infrastructure\Format\ITimeFormatter.cs" />
+    <Compile Include="Infrastructure\Format\TimeFormatter.cs" />
+    <Compile Include="Infrastructure\IConsole.cs" />
+    <Compile Include="Infrastructure\Date\IDateProvider.cs" />
+    <Compile Include="Action\Format\IPostFormatter.cs" />
+    <Compile Include="Model\IRepository.cs" />
+    <Compile Include="Action\ISocialEngine.cs" />
+    <Compile Include="Action\ISocialPlatform.cs" />
+    <Compile Include="Infrastructure\Time\ITimeOffsetCalculator.cs" />
+    <Compile Include="Model\Post.cs" />
+    <Compile Include="Action\Format\PostFormatter.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository.cs" />
-    <Compile Include="SocialEngine.cs" />
-    <Compile Include="SocialPlatform.cs" />
-    <Compile Include="Time\TimeOffsetCalculator.cs" />
+    <Compile Include="Model\Repository.cs" />
+    <Compile Include="Action\SocialEngine.cs" />
+    <Compile Include="Action\SocialPlatform.cs" />
+    <Compile Include="Infrastructure\Time\TimeOffsetCalculator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

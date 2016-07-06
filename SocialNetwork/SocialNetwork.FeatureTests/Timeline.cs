@@ -1,11 +1,15 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SocialNetwork.Command;
-using SocialNetwork.Command.Processor;
-using SocialNetwork.Date;
-using SocialNetwork.Format;
-using SocialNetwork.Time;
+using SocialNetwork.Action;
+using SocialNetwork.Action.Command;
+using SocialNetwork.Action.Command.Input;
+using SocialNetwork.Action.Format;
+using SocialNetwork.Infrastructure;
+using SocialNetwork.Infrastructure.Date;
+using SocialNetwork.Infrastructure.Format;
+using SocialNetwork.Infrastructure.Time;
+using SocialNetwork.Model;
 
 namespace SocialNetwork.FeatureTests
 {
@@ -38,7 +42,7 @@ namespace SocialNetwork.FeatureTests
                 Assert.AreEqual(expected[expectedIndex++], message);
             });
 
-            ICommandDispatcher commandDispatcher = new CommandDispatcher(new CommandTranslator(), consoleMock.Object);
+            ITaskDispatcher taskDispatcher = new TaskDispatcher(new InputBuilder(), consoleMock.Object);
 
             var now = DateTime.Now;
 
@@ -48,11 +52,11 @@ namespace SocialNetwork.FeatureTests
             var sequenceDateProviderMock = new Mock<IDateProvider>();
             sequenceDateProviderMock.SetupSequence(m => m.Now()).Returns(now.AddMinutes(5)).Returns(now.AddMinutes(1)).Returns(now.AddMinutes(2));
 
-            ICommandProcessorFactory commandProcessorFactory = new CommandProcessorFactory(
+            ICommandFactory commandFactory = new CommandFactory(
                 new SocialEngine(new Repository(new DateProvider()),
                 new PostFormatter(new TimeOffsetCalculator(sequenceDateProviderMock.Object), new TimeFormatter())), consoleMock.Object);
 
-            ISocialPlatform socialPlatform = new SocialPlatform(commandDispatcher, commandProcessorFactory);
+            ISocialPlatform socialPlatform = new SocialPlatform(taskDispatcher, commandFactory);
 
             socialPlatform.Run();
 

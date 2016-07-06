@@ -1,11 +1,15 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SocialNetwork.Command;
-using SocialNetwork.Command.Processor;
-using SocialNetwork.Date;
-using SocialNetwork.Format;
-using SocialNetwork.Time;
+using SocialNetwork.Action;
+using SocialNetwork.Action.Command;
+using SocialNetwork.Action.Command.Input;
+using SocialNetwork.Action.Format;
+using SocialNetwork.Infrastructure;
+using SocialNetwork.Infrastructure.Date;
+using SocialNetwork.Infrastructure.Format;
+using SocialNetwork.Infrastructure.Time;
+using SocialNetwork.Model;
 
 namespace SocialNetwork.FeatureTests
 {
@@ -13,11 +17,11 @@ namespace SocialNetwork.FeatureTests
     public class Wall
     {
         Mock<IConsole> _consoleMock;
-        ICommandDispatcher _commandDispatcher;
+        ITaskDispatcher _taskDispatcher;
         private DateTime _now = DateTime.Now;
         Mock<IDateProvider> _presentDateProviderMock;
         Mock<IDateProvider> _sequenceDateProviderMock;
-        ICommandProcessorFactory _commandProcessorFactory;
+        ICommandFactory _commandFactory;
         ISocialPlatform _socialPlatform;
 
         string[] _expected;
@@ -36,18 +40,18 @@ namespace SocialNetwork.FeatureTests
                 Assert.AreEqual(_expected[_expectedIndex++], message);
             });
 
-            _commandDispatcher = new CommandDispatcher(new CommandTranslator(), _consoleMock.Object);
+            _taskDispatcher = new TaskDispatcher(new InputBuilder(), _consoleMock.Object);
 
             _sequenceDateProviderMock = new Mock<IDateProvider>();
             _presentDateProviderMock = new Mock<IDateProvider>();
 
             _presentDateProviderMock.Setup(m => m.Now()).Returns(_now);
 
-            _commandProcessorFactory = new CommandProcessorFactory(
+            _commandFactory = new CommandFactory(
                 new SocialEngine(new Repository(new DateProvider()),
                     new PostFormatter(new TimeOffsetCalculator(_sequenceDateProviderMock.Object), new TimeFormatter())), _consoleMock.Object);
 
-            _socialPlatform = new SocialPlatform(_commandDispatcher, _commandProcessorFactory);
+            _socialPlatform = new SocialPlatform(_taskDispatcher, _commandFactory);
         }
 
         [TestMethod]
