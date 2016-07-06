@@ -1,5 +1,4 @@
-﻿using System;
-using SocialNetwork.Action.Command.Input;
+﻿using SocialNetwork.Action.Command.Input;
 using SocialNetwork.Exceptions;
 using SocialNetwork.Infrastructure;
 

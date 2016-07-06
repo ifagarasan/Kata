@@ -1,7 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SocialNetwork.Action;
-using SocialNetwork.Infrastructure;
 using Follow = SocialNetwork.Action.Command.Follow;
 
 namespace SocialNetwork.UnitTests.Action.Command

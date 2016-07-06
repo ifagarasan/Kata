@@ -68,8 +68,8 @@
     <Compile Include="Action\Format\PostFormatterShould.cs" />
     <Compile Include="Model\RepositoryShould.cs" />
     <Compile Include="Action\SocialEngineShould.cs" />
-    <Compile Include="Action\Task\TaskBuilderShould.cs" />
-    <Compile Include="Action\Task\TaskDispatcherShould.cs" />
+    <Compile Include="Action\Command\Input\InputBuilderShould.cs" />
+    <Compile Include="Action\Command\Input\InputRetrieverShould.cs" />
     <Compile Include="Action\SocialPlatformShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Infrastructure\Time\TimeOffsetCalculatorShould.cs" />

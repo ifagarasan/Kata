@@ -23,12 +23,12 @@ namespace SocialNetwork.Action
 
         public IList<string> RetrieveTimeline(string username)
         {
-            return _repository.RetrieveTimeline(username).Select(post => _postFormatter.FormatTimelinePost(post)).ToList();
+            return _repository.RetrieveTimeline(username).Select(post => _postFormatter.FormatTimelinePost(post)).ToList().AsReadOnly();
         }
 
         public IList<string> RetrieveWall(string username)
         {
-            return _repository.RetrieveWall(username).Select(post => _postFormatter.FormatWallPost(post)).ToList();
+            return _repository.RetrieveWall(username).Select(post => _postFormatter.FormatWallPost(post)).ToList().AsReadOnly();
         }
 
         public void Follow(string username, string followUsername)

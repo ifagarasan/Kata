@@ -1,5 +1,4 @@
-﻿using SocialNetwork.Action.Command.Input;
-using SocialNetwork.Infrastructure;
+﻿using SocialNetwork.Infrastructure;
 
 namespace SocialNetwork.Action.Command
 {

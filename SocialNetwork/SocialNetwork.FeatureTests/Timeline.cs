@@ -42,7 +42,7 @@ namespace SocialNetwork.FeatureTests
                 Assert.AreEqual(expected[expectedIndex++], message);
             });
 
-            ITaskDispatcher taskDispatcher = new TaskDispatcher(new InputBuilder(), consoleMock.Object);
+            IInputRetriever commandInputRetriever = new InputRetriever(new InputBuilder(), consoleMock.Object);
 
             var now = DateTime.Now;
 
@@ -56,7 +56,7 @@ namespace SocialNetwork.FeatureTests
                 new SocialEngine(new Repository(new DateProvider()),
                 new PostFormatter(new TimeOffsetCalculator(sequenceDateProviderMock.Object), new TimeFormatter())), consoleMock.Object);
 
-            ISocialPlatform socialPlatform = new SocialPlatform(taskDispatcher, commandFactory);
+            ISocialPlatform socialPlatform = new SocialPlatform(commandInputRetriever, commandFactory);
 
             socialPlatform.Run();
 

@@ -2,10 +2,10 @@
 using SocialNetwork.Action.Command.Input;
 using SocialNetwork.Exceptions;
 
-namespace SocialNetwork.UnitTests.Action.Task
+namespace SocialNetwork.UnitTests.Action.Command.Input
 {
     [TestClass]
-    public class TaskBuilderShould
+    public class InputBuilderShould
     {
         private readonly string _username = "Alice";
         private readonly string _followUsername = "Bob";

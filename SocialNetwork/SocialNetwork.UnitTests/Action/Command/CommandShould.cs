@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SocialNetwork.Action;
 using SocialNetwork.Infrastructure;
-using DisplayTimeline = SocialNetwork.Action.Command.DisplayTimeline;
 
 namespace SocialNetwork.UnitTests.Action.Command
 {

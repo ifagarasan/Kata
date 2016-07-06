@@ -1,6 +1,6 @@
 ﻿namespace SocialNetwork.Action.Command.Input
 {
-    public interface ITaskDispatcher
+    public interface IInputRetriever
     {
         CommandInput Retrieve();
     }

@@ -2,12 +2,12 @@
 
 namespace SocialNetwork.Action.Command.Input
 {
-    public class TaskDispatcher : ITaskDispatcher
+    public class InputRetriever : IInputRetriever
     {
         private readonly IInputBuilder _inputBuilder;
         private readonly IConsole _console;
 
-        public TaskDispatcher(IInputBuilder inputBuilder, IConsole console)
+        public InputRetriever(IInputBuilder inputBuilder, IConsole console)
         {
             _console = console;
             _inputBuilder = inputBuilder;

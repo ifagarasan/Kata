@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SocialNetwork.Action;
-using SocialNetwork.Infrastructure;
 using DisplayWall = SocialNetwork.Action.Command.DisplayWall;
 
 namespace SocialNetwork.UnitTests.Action.Command

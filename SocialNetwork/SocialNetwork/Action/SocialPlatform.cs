@@ -5,12 +5,12 @@ namespace SocialNetwork.Action
 {
     public class SocialPlatform: ISocialPlatform
     {
-        private readonly ITaskDispatcher _taskDispatcher;
+        private readonly IInputRetriever _commandInputRetriever;
         private readonly ICommandFactory _commandFactory;
 
-        public SocialPlatform(ITaskDispatcher taskDispatcher, ICommandFactory commandFactory)
+        public SocialPlatform(IInputRetriever commandInputRetriever, ICommandFactory commandFactory)
         {
-            _taskDispatcher = taskDispatcher;
+            _commandInputRetriever = commandInputRetriever;
             _commandFactory = commandFactory;
         }
 
@@ -18,7 +18,7 @@ namespace SocialNetwork.Action
         {
             while (true)
             {
-                var command = _taskDispatcher.Retrieve();
+                var command = _commandInputRetriever.Retrieve();
                 if (command.Type == CommandType.Exit)
                     break;
 

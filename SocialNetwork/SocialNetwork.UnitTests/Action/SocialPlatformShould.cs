@@ -12,7 +12,7 @@ namespace SocialNetwork.UnitTests.Action
         [TestMethod]
         public void ExecuteCommands()
         {
-            Mock<ITaskDispatcher> taskDispatcherMock = new Mock<ITaskDispatcher>();
+            Mock<IInputRetriever> taskDispatcherMock = new Mock<IInputRetriever>();
             Mock<ICommand> commandMock = new Mock<ICommand>();
 
             Mock<ICommandFactory> commandFactoryMock = new Mock<ICommandFactory>();

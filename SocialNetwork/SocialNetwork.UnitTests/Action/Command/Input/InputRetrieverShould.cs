@@ -3,10 +3,10 @@ using Moq;
 using SocialNetwork.Action.Command.Input;
 using SocialNetwork.Infrastructure;
 
-namespace SocialNetwork.UnitTests.Action.Task
+namespace SocialNetwork.UnitTests.Action.Command.Input
 {
     [TestClass]
-    public class CommandDispatcherShould
+    public class InputRetrieverShould
     {
         [TestMethod]
         public void RetrieveCommandInput()
@@ -20,9 +20,9 @@ namespace SocialNetwork.UnitTests.Action.Task
             Mock<IInputBuilder> commandTranslatorMock = new Mock<IInputBuilder>();
             commandTranslatorMock.Setup(m => m.Build(It.IsAny<string>())).Returns(commandInput);
             
-            TaskDispatcher taskDispatcher = new TaskDispatcher(commandTranslatorMock.Object, consoleMock.Object);
+            InputRetriever commandInputRetriever = new InputRetriever(commandTranslatorMock.Object, consoleMock.Object);
 
-            var command = taskDispatcher.Retrieve();
+            var command = commandInputRetriever.Retrieve();
 
             consoleMock.Verify(m => m.Read());
             commandTranslatorMock.Verify(m => m.Build(input));

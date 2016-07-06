@@ -1,9 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SocialNetwork.Action;
 using SocialNetwork.Action.Command;
-using SocialNetwork.Action.Command.Input;
-using SocialNetwork.Infrastructure;
 
 namespace SocialNetwork.UnitTests.Action.Command
 {

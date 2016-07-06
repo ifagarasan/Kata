@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action\Command\Input\CommandType.cs" />
-    <Compile Include="Action\Command\Input\TaskDispatcher.cs" />
+    <Compile Include="Action\Command\Input\InputRetriever.cs" />
     <Compile Include="Action\Command\Input\InputBuilder.cs" />
     <Compile Include="Action\Command\DisplayWall.cs" />
     <Compile Include="Action\Command\Input\CommandInput.cs" />
@@ -54,7 +54,7 @@
     <Compile Include="Action\Command\ICommandFactory.cs" />
     <Compile Include="Action\Command\Post.cs" />
     <Compile Include="Infrastructure\Date\DateProvider.cs" />
-    <Compile Include="Action\Command\Input\ITaskDispatcher.cs" />
+    <Compile Include="Action\Command\Input\IInputRetriever.cs" />
     <Compile Include="Action\Command\ICommand.cs" />
     <Compile Include="Action\Command\Input\IInputBuilder.cs" />
     <Compile Include="Exceptions\CommandTypeNotDefinedException.cs" />
