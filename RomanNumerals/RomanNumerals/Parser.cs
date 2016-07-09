@@ -10,18 +10,7 @@ namespace RomanNumerals
     {
         public static string Parse(int number)
         {
-            return new NumeralRepresentation(number).ToString();
-        }
-    }
-
-    internal class NumeralRepresentation
-    {
-        private readonly List<Numeral> _numerals;
-        private int _lastAddedCharacterTypeCount;
-
-        public NumeralRepresentation(int number)
-        {
-            _numerals = new List<Numeral>();
+            var numeralRepresentation = new NumeralRepresentation();
 
             var index = 0;
             while (number > 0)
@@ -30,20 +19,32 @@ namespace RomanNumerals
                 if (currentNumeral.Value <= number)
                 {
                     number -= currentNumeral.Value;
-                    Add(currentNumeral);
+                    numeralRepresentation.Add(currentNumeral);
                 }
                 else
                     index++;
             }
+
+            return numeralRepresentation.ToString();
+        }
+    }
+
+    internal class NumeralRepresentation
+    {
+        private readonly List<Numeral> _numerals;
+
+        public NumeralRepresentation()
+        {
+            _numerals = new List<Numeral>();
         }
 
         public void Add(Numeral numeral)
         {
-            if (numeral.Value != _numerals.LastOrDefault()?.Value)
-                _lastAddedCharacterTypeCount = 0;
-            else if (_lastAddedCharacterTypeCount == 3)
+            if (CanAddNumeral(numeral))
+                _numerals.Add(numeral);
+            else
             {
-                _numerals.RemoveRange(_numerals.Count-3, 3);
+                _numerals.RemoveRange(_numerals.Count - 3, 3);
 
                 var last = _numerals.LastOrDefault();
                 var ancestorTarget = numeral;
@@ -56,12 +57,19 @@ namespace RomanNumerals
 
                 _numerals.Add(numeral);
                 _numerals.Add(NumeralNumberSystem.NextLargerThan(ancestorTarget));
-                _lastAddedCharacterTypeCount = 1;
-                return;
-            }
+            }   
+        }
 
-            _numerals.Add(numeral);
-            _lastAddedCharacterTypeCount++;
+        private bool CanAddNumeral(Numeral numeral)
+        {
+            if (_numerals.Count < 3)
+                return true;
+
+            for (int i = _numerals.Count - 3; i < _numerals.Count; ++i)
+                if (_numerals[i] != numeral)
+                    return true;
+
+            return false;
         }
 
         public override string ToString()
@@ -79,7 +87,6 @@ namespace RomanNumerals
         }
 
         public int Value { get; }
-
         public string Symbol { get; }
     }
 
