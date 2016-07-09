@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RomanNumerals
 {
@@ -40,7 +37,7 @@ namespace RomanNumerals
 
         public void Add(Numeral numeral)
         {
-            if (CanAddNumeral(numeral))
+            if (CanAppendNumeral(numeral))
                 _numerals.Add(numeral);
             else
             {
@@ -60,12 +57,12 @@ namespace RomanNumerals
             }   
         }
 
-        private bool CanAddNumeral(Numeral numeral)
+        private bool CanAppendNumeral(Numeral numeral)
         {
             if (_numerals.Count < 3)
                 return true;
 
-            for (int i = _numerals.Count - 3; i < _numerals.Count; ++i)
+            for (var i = _numerals.Count - 3; i < _numerals.Count; ++i)
                 if (_numerals[i] != numeral)
                     return true;
 

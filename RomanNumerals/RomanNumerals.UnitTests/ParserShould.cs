@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 using static RomanNumerals.Parser;
 
