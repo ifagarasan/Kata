@@ -46,14 +46,14 @@ namespace RomanNumerals
                 var last = _numerals.LastOrDefault();
                 var ancestorTarget = numeral;
 
-                if (NumeralNumberSystem.NextLargerThan(numeral).Value == last?.Value)
+                if (NumeralNumberSystem.ImmediateLarger(numeral).Value == last?.Value)
                 {
                     ancestorTarget = last;
                     _numerals.Remove(last);
                 }
 
                 _numerals.Add(numeral);
-                _numerals.Add(NumeralNumberSystem.NextLargerThan(ancestorTarget));
+                _numerals.Add(NumeralNumberSystem.ImmediateLarger(ancestorTarget));
             }   
         }
 
@@ -89,23 +89,13 @@ namespace RomanNumerals
 
     internal static class NumeralNumberSystem
     {
-        private const string M = "M";
-        private const string D = "D";
-        private const string C = "C";
-        private const string L = "L";
-        private const string X = "X";
-        private const string V = "V";
-        private const string I = "I";
-
-        private static readonly Numeral Thousand = new Numeral(1000, M);
-        public static readonly Numeral FiveHundred = new Numeral(500, D);
-        public static readonly Numeral Hundred = new Numeral(100, C);
-        public static readonly Numeral Fifty = new Numeral(50, L);
-        private static readonly Numeral Ten = new Numeral(10, X);
-        private static readonly Numeral Five = new Numeral(5, V);
-        private static readonly Numeral One = new Numeral(1, I);
-
-        static readonly Dictionary<string, Numeral> NextLarger;
+        private static readonly Numeral Thousand = new Numeral(1000, "M");
+        public static readonly Numeral FiveHundred = new Numeral(500, "D");
+        public static readonly Numeral Hundred = new Numeral(100, "C");
+        public static readonly Numeral Fifty = new Numeral(50, "L");
+        private static readonly Numeral Ten = new Numeral(10, "X");
+        private static readonly Numeral Five = new Numeral(5, "V");
+        private static readonly Numeral One = new Numeral(1, "I");
 
         private static readonly List<Numeral> _numerals;
 
@@ -123,18 +113,8 @@ namespace RomanNumerals
                 Five,
                 One
             };
-
-            NextLarger = new Dictionary<string, Numeral>
-            {
-                { I, Five },
-                { V, Ten },
-                { X, Fifty },
-                { L, Hundred },
-                { C, FiveHundred },
-                { D, Thousand }
-            };
         }
 
-        public static Numeral NextLargerThan(Numeral numeral) => NextLarger[numeral.Symbol];
+        public static Numeral ImmediateLarger(Numeral numeral) => Numerals[Numerals.IndexOf(numeral)-1];
     }
 }
