@@ -1,5 +1,4 @@
-﻿using SocialNetwork.Infrastructure;
-using SocialNetwork.Infrastructure.Console;
+﻿using SocialNetwork.Infrastructure.Console;
 using SocialNetwork.Infrastructure.Date;
 using SocialNetwork.Infrastructure.Format;
 using SocialNetwork.Infrastructure.Repository;
@@ -18,8 +17,8 @@ namespace SocialNetwork
             var dateProvider = new DateProvider();
             var console = new Console();
 
-            var socialPlatform = new SocialPlatform(new InputParser(), console, new CommandFactory(new Repository(dateProvider),
-                new PostFormatter(new TimeOffsetCalculator(dateProvider), new TimeFormatter()), console));   
+            var socialPlatform = new SocialPlatform(new InputParser(), console, new CommandFactory(new PostRepository(dateProvider),
+                new UserRepository(), new PostFormatter(new TimeOffsetCalculator(dateProvider), new TimeFormatter()), console));   
 
             socialPlatform.Run();
         }

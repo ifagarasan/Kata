@@ -15,12 +15,12 @@ namespace SocialNetwork.UnitTests.Model.Post.Format
         Mock<ITimeOffsetCalculator> _timeOffsetCalculatorMock;
         PostFormatter _postFormatter;
         private Mock<ITimeFormatter> _timeFormatterMock;
-        private PostRecord _postRecord;
+        private SocialNetwork.Model.Post.Post _post;
 
         [TestInitialize]
         public void Setup()
         {
-            _postRecord = new PostRecord(new User("Alice"), "I love the weather today", DateTime.Now);
+            _post = new SocialNetwork.Model.Post.Post("Alice", "I love the weather today", DateTime.Now);
 
             _timeOffsetCalculatorMock = new Mock<ITimeOffsetCalculator>();
             _timeFormatterMock = new Mock<ITimeFormatter>();
@@ -37,12 +37,12 @@ namespace SocialNetwork.UnitTests.Model.Post.Format
             _timeFormatterMock.Setup(m => m.Format(It.IsAny<TimeSpan>())).Returns(time);
             _timeOffsetCalculatorMock.Setup(m => m.NowToDateOffset(It.IsAny<DateTime>())).Returns(timeSpan);
 
-            var message = _postFormatter.FormatTimelinePost(_postRecord);
+            var message = _postFormatter.FormatTimelinePost(_post);
 
-            _timeOffsetCalculatorMock.Verify(m => m.NowToDateOffset(_postRecord.WrittenAt));
+            _timeOffsetCalculatorMock.Verify(m => m.NowToDateOffset(_post.WrittenAt));
             _timeFormatterMock.Verify(m => m.Format(timeSpan));
            
-            Assert.AreEqual($"{_postRecord.Message} ({time} ago)", message);
+            Assert.AreEqual($"{_post.Message} ({time} ago)", message);
         }
 
         [TestMethod]
@@ -54,12 +54,12 @@ namespace SocialNetwork.UnitTests.Model.Post.Format
             _timeFormatterMock.Setup(m => m.Format(It.IsAny<TimeSpan>())).Returns(time);
             _timeOffsetCalculatorMock.Setup(m => m.NowToDateOffset(It.IsAny<DateTime>())).Returns(timeSpan);
 
-            var message = _postFormatter.FormatWallPost(_postRecord);
+            var message = _postFormatter.FormatWallPost(_post);
 
-            _timeOffsetCalculatorMock.Verify(m => m.NowToDateOffset(_postRecord.WrittenAt));
+            _timeOffsetCalculatorMock.Verify(m => m.NowToDateOffset(_post.WrittenAt));
             _timeFormatterMock.Verify(m => m.Format(timeSpan));
 
-            Assert.AreEqual($"{_postRecord.User.Username} - {_postRecord.Message} ({time} ago)", message);
+            Assert.AreEqual($"{_post.Username} - {_post.Message} ({time} ago)", message);
         }
     }
 }

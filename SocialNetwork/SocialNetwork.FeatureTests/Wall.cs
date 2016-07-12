@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SocialNetwork.Infrastructure;
 using SocialNetwork.Infrastructure.Console;
 using SocialNetwork.Infrastructure.Date;
 using SocialNetwork.Infrastructure.Format;
@@ -45,7 +44,7 @@ namespace SocialNetwork.FeatureTests
             _presentDateProviderMock.Setup(m => m.Now()).Returns(_now);
 
             _commandFactory = new CommandFactory(
-                new Repository(new DateProvider()),
+                new PostRepository(new DateProvider()), new UserRepository(),
                     new PostFormatter(new TimeOffsetCalculator(_sequenceDateProviderMock.Object), new TimeFormatter()), _consoleMock.Object);
 
             _socialPlatform = new SocialPlatform(new InputParser(), _consoleMock.Object, _commandFactory);

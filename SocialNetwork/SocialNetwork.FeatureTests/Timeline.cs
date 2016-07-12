@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SocialNetwork.Infrastructure;
 using SocialNetwork.Infrastructure.Console;
 using SocialNetwork.Infrastructure.Date;
 using SocialNetwork.Infrastructure.Format;
@@ -44,8 +43,9 @@ namespace SocialNetwork.FeatureTests
                 Assert.AreEqual(_expected[_expectedIndex++], message);
             });
 
-            ICommandFactory commandFactory = new CommandFactory(
-                new Repository(new DateProvider()), new PostFormatter(new TimeOffsetCalculator(_sequenceDateProviderMock.Object),
+            ICommandFactory commandFactory = new CommandFactory( 
+                new PostRepository(new DateProvider()), new UserRepository(), 
+                new PostFormatter(new TimeOffsetCalculator(_sequenceDateProviderMock.Object),
                 new TimeFormatter()), _consoleMock.Object);
 
             _socialPlatform = new SocialPlatform(new InputParser(), _consoleMock.Object, commandFactory);

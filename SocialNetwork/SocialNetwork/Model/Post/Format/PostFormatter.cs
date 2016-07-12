@@ -14,14 +14,14 @@ namespace SocialNetwork.Model.Post.Format
             _timeFormatter = timeFormatter;
         }
 
-        public string FormatTimelinePost(PostRecord postRecord)
+        public string FormatTimelinePost(Post post)
         {
-            return $"{postRecord.Message} ({_timeFormatter.Format(_timeOffsetCalculator.NowToDateOffset(postRecord.WrittenAt))} ago)";
+            return $"{post.Message} ({_timeFormatter.Format(_timeOffsetCalculator.NowToDateOffset(post.WrittenAt))} ago)";
         }
 
-        public string FormatWallPost(PostRecord postRecord)
+        public string FormatWallPost(Post post)
         {
-            return $"{postRecord.User.Username} - {FormatTimelinePost(postRecord)}";
+            return $"{post.Username} - {FormatTimelinePost(post)}";
         }
     }
 }

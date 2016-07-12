@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\Repository\UserRepository.cs" />
     <Compile Include="Model\Command\Input\InputType.cs" />
     <Compile Include="Model\Command\Input\InputParser.cs" />
     <Compile Include="Action\Command\DisplayWall.cs" />
@@ -63,15 +64,16 @@
     <Compile Include="Infrastructure\Console\IConsole.cs" />
     <Compile Include="Infrastructure\Date\IDateProvider.cs" />
     <Compile Include="Model\Post\Format\IPostFormatter.cs" />
-    <Compile Include="Model\Post\IRepository.cs" />
+    <Compile Include="Model\Post\IPostRepository.cs" />
     <Compile Include="Model\Social\Platform\ISocialPlatform.cs" />
     <Compile Include="Infrastructure\Time\ITimeOffsetCalculator.cs" />
-    <Compile Include="Model\Post\PostRecord.cs" />
+    <Compile Include="Model\Post\Post.cs" />
     <Compile Include="Model\Post\Format\PostFormatter.cs" />
+    <Compile Include="Model\User\IUserRepository.cs" />
     <Compile Include="Model\User\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Infrastructure\Repository\Repository.cs" />
+    <Compile Include="Infrastructure\Repository\PostRepository.cs" />
     <Compile Include="Model\Social\Platform\SocialPlatform.cs" />
     <Compile Include="Infrastructure\Time\TimeOffsetCalculator.cs" />
   </ItemGroup>

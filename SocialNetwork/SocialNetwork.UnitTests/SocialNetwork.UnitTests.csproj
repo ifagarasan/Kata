@@ -58,6 +58,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Infrastructure\Repository\UserRepositoryShould.cs" />
     <Compile Include="Model\Command\CommandFactoryShould.cs" />
     <Compile Include="Action\DisplayWallShould.cs" />
     <Compile Include="Action\DisplayTimelineShould.cs" />
@@ -65,7 +66,7 @@
     <Compile Include="Action\PostShould.cs" />
     <Compile Include="Infrastructure\Format\TimeFormatterShould.cs" />
     <Compile Include="Model\Post\Format\PostFormatterShould.cs" />
-    <Compile Include="Infrastructure\Repository\RepositoryShould.cs" />
+    <Compile Include="Infrastructure\Repository\PostRepositoryShould.cs" />
     <Compile Include="Model\Command\Input\InputParserShould.cs" />
     <Compile Include="Model\Social\Platform\SocialPlatformShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -7,7 +7,7 @@ namespace RomanNumerals
     {
         public static string Parse(int number)
         {
-            var numeralRepresentation = new NumeralRepresentation();
+            var numeralRepresentation = new NumeralList();
 
             var index = 0;
             while (number > 0)
@@ -26,11 +26,11 @@ namespace RomanNumerals
         }
     }
 
-    internal class NumeralRepresentation
+    internal class NumeralList
     {
         private readonly List<Numeral> _numerals;
 
-        public NumeralRepresentation()
+        public NumeralList()
         {
             _numerals = new List<Numeral>();
         }

@@ -1,31 +1,35 @@
 ﻿using System.Linq;
 using SocialNetwork.Infrastructure.Console;
 using SocialNetwork.Model.Command;
-using SocialNetwork.Model.Post;
 using SocialNetwork.Model.Post.Format;
 using SocialNetwork.Model.User;
+using IPostRepository = SocialNetwork.Model.Post.IPostRepository;
 
 namespace SocialNetwork.Action.Command
 {
     public class DisplayWall: ICommand
     {
-        private readonly IRepository _repository;
+        private readonly IPostRepository _postRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IPostFormatter _postFormatter;
         private readonly IConsole _console;
 
-        public DisplayWall(IRepository repository, IPostFormatter postFormatter, IConsole console, User user)
+        public DisplayWall(IPostRepository postRepository, IUserRepository userRepository, IPostFormatter postFormatter, IConsole console, string username)
         {
-            User = user;
-            _repository = repository;
+            Username = username;
+            _postRepository = postRepository;
+            _userRepository = userRepository;
             _postFormatter = postFormatter;
             _console = console;
         }
 
-        public User User { get; }
+        public string Username { get; }
 
         public void Execute()
         {
-            foreach (var message in _repository.RetrieveWall(User).Select(p => _postFormatter.FormatWallPost(p)))
+            var user = _userRepository.Get(Username);
+
+            foreach (var message in _postRepository.RetrieveWall(user).Select(p => _postFormatter.FormatWallPost(p)))
                 _console.Write(message);
         }
     }

@@ -1,23 +1,24 @@
 ﻿using SocialNetwork.Model.Command;
-using SocialNetwork.Model.Post;
-using SocialNetwork.Model.User;
+using IUserRepository = SocialNetwork.Model.User.IUserRepository;
 
 namespace SocialNetwork.Action.Command
 {
     public class Follow: ICommand
     {
-        private readonly IRepository _repository;
+        private readonly IUserRepository _repository;
 
-        public Follow(IRepository repository, User user, User followUser)
+        public Follow(IUserRepository repository, string username, string followUsername)
         {
             _repository = repository;
-            User = user;
-            FollowUser = followUser;
+
+            Username = username;
+            FollowUsername = followUsername;
         }
 
-        public User User { get; }
-        public User FollowUser { get; }
+        public string Username { get; }
 
-        public void Execute() => _repository.Follow(User, FollowUser);
+        public string FollowUsername { get; }
+
+        public void Execute() => _repository.Get(Username).AddFollower(FollowUsername);
     }
 }

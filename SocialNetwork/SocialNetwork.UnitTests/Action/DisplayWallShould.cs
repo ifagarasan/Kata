@@ -13,7 +13,8 @@ namespace SocialNetwork.UnitTests.Action
     [TestClass]
     public class DisplayWallShould
     {
-        private Mock<IRepository> _repositoryMock;
+        private Mock<IPostRepository> _postRepositoryMock;
+        private Mock<IUserRepository> _userRepositoryMock;
         private Mock<IPostFormatter> _postFormatterMock;
         private Mock<IConsole> _consoleMock;
         private readonly DateTime _now = DateTime.Now;
@@ -24,22 +25,25 @@ namespace SocialNetwork.UnitTests.Action
             _consoleMock = new Mock<IConsole>();
             _consoleMock.Setup(m => m.Write(It.IsAny<string>()));
 
-            _repositoryMock = new Mock<IRepository>();
+            _postRepositoryMock = new Mock<IPostRepository>();
             _postFormatterMock = new Mock<IPostFormatter>();
+            _userRepositoryMock = new Mock<IUserRepository>();
         }
 
         [TestMethod]
         public void PrintWall()
         {
-            var post = new PostRecord(new User("test"), "I'm in London! (1 minute ago)", _now);
-            var posts = new List<PostRecord> { post };
+            var user = new User("test");
+            var post = new Post(user.Username, "I'm in London! (1 minute ago)", _now);
+            var posts = new List<Post> { post };
 
-            _repositoryMock.Setup(m => m.RetrieveWall(It.IsAny<User>())).Returns(posts);
-            _postFormatterMock.Setup(m => m.FormatWallPost(It.IsAny<PostRecord>())).Returns(post.Message);
+            _postRepositoryMock.Setup(m => m.RetrieveWall(It.IsAny<User>())).Returns(posts);
+            _postFormatterMock.Setup(m => m.FormatWallPost(It.IsAny<Post>())).Returns(post.Message);
+            _userRepositoryMock.Setup(m => m.Get(It.IsAny<string>())).Returns(user);
 
-            new DisplayWall(_repositoryMock.Object, _postFormatterMock.Object, _consoleMock.Object, post.User).Execute();
+            new DisplayWall(_postRepositoryMock.Object, _userRepositoryMock.Object, _postFormatterMock.Object, _consoleMock.Object, post.Username).Execute();
 
-            _repositoryMock.Verify(m => m.RetrieveWall(post.User));
+            _postRepositoryMock.Verify(m => m.RetrieveWall(user));
             _postFormatterMock.Verify(m => m.FormatWallPost(post));
             _consoleMock.Verify(m => m.Write(post.Message));
         }

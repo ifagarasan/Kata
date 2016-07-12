@@ -1,23 +1,32 @@
 ﻿using SocialNetwork.Model.Command;
-using SocialNetwork.Model.Post;
 using SocialNetwork.Model.User;
+using IPostRepository = SocialNetwork.Model.Post.IPostRepository;
 
 namespace SocialNetwork.Action.Command
 {
     public class Post : ICommand
     {
-        private readonly IRepository _repository;
+        private readonly IPostRepository _repository;
+        private readonly IUserRepository _userRepository;
 
-        public Post(IRepository repository, User user, string message)
+        public Post(IPostRepository repository, IUserRepository userRepository, string username, string message)
         {
             _repository = repository;
-            User = user;
+            _userRepository = userRepository;
+
+            Username = username;
             Message = message;
         }
 
-        public User User { get; }
+        public string Username { get; set; }
+
         public string Message { get; }
 
-        public void Execute() => _repository.Insert(User, Message);
+        public void Execute()
+        {
+            var user = _userRepository.Get(Username) ?? _userRepository.Insert(Username);
+
+            _repository.Insert(user.Username, Message);
+        }
     }
 }

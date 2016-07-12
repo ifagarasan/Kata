@@ -2,7 +2,7 @@
 {
     public interface IPostFormatter
     {
-        string FormatTimelinePost(PostRecord postRecord);
-        string FormatWallPost(PostRecord postRecord);
+        string FormatTimelinePost(Post post);
+        string FormatWallPost(Post post);
     }
 }
