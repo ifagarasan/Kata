@@ -43,9 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Command\Input\CommandType.cs" />
+    <Compile Include="Model\Command\Input\InputType.cs" />
     <Compile Include="Model\Command\Input\InputRetriever.cs" />
-    <Compile Include="Model\Command\Input\InputBuilder.cs" />
+    <Compile Include="Model\Command\Input\InputParser.cs" />
     <Compile Include="Action\Command\DisplayWall.cs" />
     <Compile Include="Model\Command\Input\CommandInput.cs" />
     <Compile Include="Model\Command\Command.cs" />
@@ -57,7 +57,7 @@
     <Compile Include="Infrastructure\Date\DateProvider.cs" />
     <Compile Include="Model\Command\Input\IInputRetriever.cs" />
     <Compile Include="Model\Command\ICommand.cs" />
-    <Compile Include="Model\Command\Input\IInputBuilder.cs" />
+    <Compile Include="Model\Command\Input\IInputParser.cs" />
     <Compile Include="Model\Command\Exceptions\CommandTypeNotDefinedException.cs" />
     <Compile Include="Model\Command\Exceptions\CommandNotDefinedException.cs" />
     <Compile Include="Action\Command\Follow.cs" />

@@ -4,18 +4,18 @@ namespace SocialNetwork.Model.Command.Input
 {
     public class InputRetriever : IInputRetriever
     {
-        private readonly IInputBuilder _inputBuilder;
+        private readonly IInputParser _inputParser;
         private readonly IConsole _console;
 
-        public InputRetriever(IInputBuilder inputBuilder, IConsole console)
+        public InputRetriever(IInputParser inputParser, IConsole console)
         {
             _console = console;
-            _inputBuilder = inputBuilder;
+            _inputParser = inputParser;
         }
 
         public CommandInput Retrieve()
         {
-            return _inputBuilder.Build(_console.Read());
+            return _inputParser.Build(_console.Read());
         }
     }
 }

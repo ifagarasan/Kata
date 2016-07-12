@@ -40,7 +40,7 @@ namespace SocialNetwork.FeatureTests
                 Assert.AreEqual(_expected[_expectedIndex++], message);
             });
 
-            _commandInputRetriever = new InputRetriever(new InputBuilder(), _consoleMock.Object);
+            _commandInputRetriever = new InputRetriever(new InputParser(), _consoleMock.Object);
 
             _sequenceDateProviderMock = new Mock<IDateProvider>();
             _presentDateProviderMock = new Mock<IDateProvider>();

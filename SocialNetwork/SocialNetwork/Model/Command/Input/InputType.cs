@@ -1,6 +1,6 @@
 ﻿namespace SocialNetwork.Model.Command.Input
 {
-    public enum CommandType
+    public enum InputType
     {
         Exit,
         Post,

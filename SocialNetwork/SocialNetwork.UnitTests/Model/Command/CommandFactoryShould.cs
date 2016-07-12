@@ -22,32 +22,32 @@ namespace SocialNetwork.UnitTests.Model.Command
         [TestMethod]
         public void ReturnsPostCommand()
         {
-            Assert.IsInstanceOfType(_commandFactory.Create(new CommandInput(CommandType.Post, new string[] { })), typeof(SocialNetwork.Action.Command.Post));
+            Assert.IsInstanceOfType(_commandFactory.Create(new CommandInput(InputType.Post, new string[] { })), typeof(SocialNetwork.Action.Command.Post));
         }
 
         [TestMethod]
         public void ReturnsDisplayTImelineCommand()
         {
-            Assert.IsInstanceOfType(_commandFactory.Create(new CommandInput(CommandType.DisplayTimeline, new string[] { })), typeof(DisplayTimeline));
+            Assert.IsInstanceOfType(_commandFactory.Create(new CommandInput(InputType.DisplayTimeline, new string[] { })), typeof(DisplayTimeline));
         }
 
         [TestMethod]
         public void ReturnsDisplayWallCommand()
         {
-            Assert.IsInstanceOfType(_commandFactory.Create(new CommandInput(CommandType.DisplayWall, new string[] {})), typeof(DisplayWall));
+            Assert.IsInstanceOfType(_commandFactory.Create(new CommandInput(InputType.DisplayWall, new string[] {})), typeof(DisplayWall));
         }
 
         [TestMethod]
         public void ReturnsFollowCommand()
         {
-            Assert.IsInstanceOfType(_commandFactory.Create(new CommandInput(CommandType.Follow, new string[] { })), typeof(Follow));
+            Assert.IsInstanceOfType(_commandFactory.Create(new CommandInput(InputType.Follow, new string[] { })), typeof(Follow));
         }
 
         [TestMethod]
         [ExpectedException(typeof(CommandNotDefinedException))]
         public void ThrowExceptionIfCommandDoesNotExistForTaskType()
         {
-            _commandFactory.Create(new CommandInput(CommandType.Exit, new string[] { }));
+            _commandFactory.Create(new CommandInput(InputType.Exit, new string[] { }));
         }
     }
 }

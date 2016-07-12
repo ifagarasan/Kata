@@ -20,7 +20,7 @@ namespace SocialNetwork
             var socialEngine = new SocialEngine(new Repository(dateProvider),
                 new PostFormatter(new TimeOffsetCalculator(dateProvider), new TimeFormatter()));
 
-            var socialPlatform = new SocialPlatform(new InputRetriever(new InputBuilder(), console),
+            var socialPlatform = new SocialPlatform(new InputRetriever(new InputParser(), console),
                 new CommandFactory(socialEngine, console));   
 
             socialPlatform.Run();

@@ -43,7 +43,7 @@ namespace SocialNetwork.FeatureTests
                 Assert.AreEqual(_expected[_expectedIndex++], message);
             });
 
-            _commandInputRetriever = new InputRetriever(new InputBuilder(), _consoleMock.Object);
+            _commandInputRetriever = new InputRetriever(new InputParser(), _consoleMock.Object);
 
             ICommandFactory commandFactory = new CommandFactory(
                 new SocialEngine(new Repository(new DateProvider()),

@@ -18,8 +18,8 @@ namespace SocialNetwork.UnitTests.Model.Social.Platform
             Mock<ICommandFactory> commandFactoryMock = new Mock<ICommandFactory>();
             commandFactoryMock.Setup(m => m.Create(It.IsAny<CommandInput>())).Returns(commandMock.Object);
 
-            var displayTimeline = new CommandInput(CommandType.DisplayTimeline, new[] {"Alice"});
-            var exit = new CommandInput(CommandType.Exit, new string[] {});
+            var displayTimeline = new CommandInput(InputType.DisplayTimeline, new[] {"Alice"});
+            var exit = new CommandInput(InputType.Exit, new string[] {});
 
             taskDispatcherMock.SetupSequence(m => m.Retrieve()).Returns(displayTimeline).Returns(displayTimeline).Returns(exit);
             commandMock.Setup(m => m.Execute());

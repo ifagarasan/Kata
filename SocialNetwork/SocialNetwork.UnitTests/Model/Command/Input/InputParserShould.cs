@@ -5,17 +5,17 @@ using SocialNetwork.Model.Command.Input;
 namespace SocialNetwork.UnitTests.Model.Command.Input
 {
     [TestClass]
-    public class InputBuilderShould
+    public class InputParserShould
     {
         private readonly string _username = "Alice";
         private readonly string _followUsername = "Bob";
 
-        IInputBuilder _builder;
+        IInputParser _parser;
 
         [TestInitialize]
         public void Setup()
         {
-            _builder = new InputBuilder();
+            _parser = new InputParser();
         }
 
         [TestMethod]
@@ -23,9 +23,9 @@ namespace SocialNetwork.UnitTests.Model.Command.Input
         {
             var message = "I love the weather today";
             var commandString = $"{_username} -> {message}";
-            var command = _builder.Build(commandString);
+            var command = _parser.Build(commandString);
 
-            Assert.AreEqual(CommandType.Post, command.Type);
+            Assert.AreEqual(InputType.Post, command.Type);
             Assert.AreEqual(_username, command.Arguments[0]);
             Assert.AreEqual(message, command.Arguments[1]);
         }
@@ -33,36 +33,36 @@ namespace SocialNetwork.UnitTests.Model.Command.Input
         [TestMethod]
         public void ReturnDisplayTimeline()
         {
-            var command = _builder.Build(_username);
+            var command = _parser.Build(_username);
 
-            Assert.AreEqual(CommandType.DisplayTimeline, command.Type);
+            Assert.AreEqual(InputType.DisplayTimeline, command.Type);
             Assert.AreEqual(_username, command.Arguments[0]);
         }
 
         [TestMethod]
         public void ReturnExit()
         {
-            var command = _builder.Build("exit");
+            var command = _parser.Build("exit");
 
-            Assert.AreEqual(CommandType.Exit, command.Type);
+            Assert.AreEqual(InputType.Exit, command.Type);
             Assert.AreEqual(0, command.Arguments.Length);
         }
 
         [TestMethod]
         public void ReturnDisplayWall()
         {
-            var command = _builder.Build($"{_username} wall");
+            var command = _parser.Build($"{_username} wall");
 
-            Assert.AreEqual(CommandType.DisplayWall, command.Type);
+            Assert.AreEqual(InputType.DisplayWall, command.Type);
             Assert.AreEqual(_username, command.Arguments[0]);
         }
 
         [TestMethod]
         public void ReturnFollow()
         {
-            var command = _builder.Build($"{_username} follows {_followUsername}");
+            var command = _parser.Build($"{_username} follows {_followUsername}");
 
-            Assert.AreEqual(CommandType.Follow, command.Type);
+            Assert.AreEqual(InputType.Follow, command.Type);
             Assert.AreEqual(_username, command.Arguments[0]);
             Assert.AreEqual(_followUsername, command.Arguments[1]);
         }
@@ -71,7 +71,7 @@ namespace SocialNetwork.UnitTests.Model.Command.Input
         [ExpectedException(typeof(CommandTypeNotDefinedException))]
         public void ThrowExceptionIfCommandNotSupported()
         {
-            _builder.Build("Invalid Command");
+            _parser.Build("Invalid Command");
         }
     }
 }

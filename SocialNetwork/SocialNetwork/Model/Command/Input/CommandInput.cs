@@ -2,7 +2,7 @@
 {
     public class CommandInput
     {
-        public CommandInput(CommandType type, string[] arguments)
+        public CommandInput(InputType type, string[] arguments)
         {
             Type = type;
             Arguments = arguments;
@@ -10,6 +10,6 @@
 
         public string[] Arguments { get; }
 
-        public CommandType Type { get; }
+        public InputType Type { get; }
     }
 }

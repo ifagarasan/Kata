@@ -12,12 +12,12 @@ namespace SocialNetwork.UnitTests.Model.Command.Input
         public void RetrieveCommandInput()
         {
             var input = "exit";
-            var commandInput = new CommandInput(CommandType.Exit, new string[] {});
+            var commandInput = new CommandInput(InputType.Exit, new string[] {});
 
             Mock<IConsole> consoleMock = new Mock<IConsole>();
             consoleMock.Setup(m => m.Read()).Returns(input);
 
-            Mock<IInputBuilder> commandTranslatorMock = new Mock<IInputBuilder>();
+            Mock<IInputParser> commandTranslatorMock = new Mock<IInputParser>();
             commandTranslatorMock.Setup(m => m.Build(It.IsAny<string>())).Returns(commandInput);
             
             InputRetriever commandInputRetriever = new InputRetriever(commandTranslatorMock.Object, consoleMock.Object);

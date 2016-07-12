@@ -1,6 +1,6 @@
 ﻿namespace SocialNetwork.Model.Command.Input
 {
-    public interface IInputBuilder
+    public interface IInputParser
     {
         CommandInput Build(string input);
     }

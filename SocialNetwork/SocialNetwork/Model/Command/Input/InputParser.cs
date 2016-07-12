@@ -4,37 +4,37 @@ using SocialNetwork.Model.Command.Exceptions;
 
 namespace SocialNetwork.Model.Command.Input
 {
-    public class InputBuilder : IInputBuilder
+    public class InputParser : IInputParser
     {
         public CommandInput Build(string input)
         {
             var arguments = new List<string>();
-            CommandType? type = null;
+            InputType? type = null;
 
             if (input.Equals("exit"))
-                type = CommandType.Exit;
+                type = InputType.Exit;
             else
             {
                 var split = input.Split(' ');
                 if (split.Length == 1)
                 {
-                    type = CommandType.DisplayTimeline;
+                    type = InputType.DisplayTimeline;
                     arguments.Add(input);
                 }
                 else if (split.Length == 2 && split[1].Equals("wall"))
                 {
-                    type = CommandType.DisplayWall;
+                    type = InputType.DisplayWall;
                     arguments.Add(split[0]);
                 }
                 else if (split.Length == 3 && split[1].Equals("follows"))
                 {
-                    type = CommandType.Follow;
+                    type = InputType.Follow;
                     arguments.Add(split[0]);
                     arguments.Add(split[2]);
                 }
                 else if (split[1].Equals("->"))
                 {
-                    type = CommandType.Post;    
+                    type = InputType.Post;    
                     arguments.Add(split[0]);
                     arguments.Add(input.Substring(input.IndexOf("->", StringComparison.InvariantCulture) + 3));
                 }

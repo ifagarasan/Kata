@@ -19,7 +19,7 @@ namespace SocialNetwork.Model.Social.Platform
             while (true)
             {
                 var command = _commandInputRetriever.Retrieve();
-                if (command.Type == CommandType.Exit)
+                if (command.Type == InputType.Exit)
                     break;
 
                 _commandFactory.Create(command).Execute();
