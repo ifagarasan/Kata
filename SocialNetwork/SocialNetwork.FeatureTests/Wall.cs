@@ -18,7 +18,6 @@ namespace SocialNetwork.FeatureTests
     public class Wall
     {
         Mock<IConsole> _consoleMock;
-        IInputRetriever _commandInputRetriever;
         private DateTime _now = DateTime.Now;
         Mock<IDateProvider> _presentDateProviderMock;
         Mock<IDateProvider> _sequenceDateProviderMock;
@@ -40,8 +39,6 @@ namespace SocialNetwork.FeatureTests
                 Assert.AreEqual(_expected[_expectedIndex++], message);
             });
 
-            _commandInputRetriever = new InputRetriever(new InputParser(), _consoleMock.Object);
-
             _sequenceDateProviderMock = new Mock<IDateProvider>();
             _presentDateProviderMock = new Mock<IDateProvider>();
 
@@ -51,7 +48,7 @@ namespace SocialNetwork.FeatureTests
                 new Repository(new DateProvider()),
                     new PostFormatter(new TimeOffsetCalculator(_sequenceDateProviderMock.Object), new TimeFormatter()), _consoleMock.Object);
 
-            _socialPlatform = new SocialPlatform(_commandInputRetriever, _commandFactory);
+            _socialPlatform = new SocialPlatform(new InputParser(), _consoleMock.Object, _commandFactory);
         }
 
         [TestMethod]

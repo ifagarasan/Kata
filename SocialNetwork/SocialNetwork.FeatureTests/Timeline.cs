@@ -17,11 +17,12 @@ namespace SocialNetwork.FeatureTests
     [TestClass]
     public class Timeline
     {
-        private Mock<IConsole> _consoleMock;
         private int _expectedIndex;
         private string[] _expected;
         private readonly DateTime _now = DateTime.Now;
-        IInputRetriever _commandInputRetriever;
+
+        private Mock<IConsole> _consoleMock;
+
         Mock<IDateProvider> _presentDateProviderMock;
         Mock<IDateProvider> _sequenceDateProviderMock;
         ISocialPlatform _socialPlatform;
@@ -43,13 +44,11 @@ namespace SocialNetwork.FeatureTests
                 Assert.AreEqual(_expected[_expectedIndex++], message);
             });
 
-            _commandInputRetriever = new InputRetriever(new InputParser(), _consoleMock.Object);
-
             ICommandFactory commandFactory = new CommandFactory(
                 new Repository(new DateProvider()), new PostFormatter(new TimeOffsetCalculator(_sequenceDateProviderMock.Object),
                 new TimeFormatter()), _consoleMock.Object);
 
-            _socialPlatform = new SocialPlatform(_commandInputRetriever, commandFactory);
+            _socialPlatform = new SocialPlatform(new InputParser(), _consoleMock.Object, commandFactory);
         }
 
         [TestMethod]

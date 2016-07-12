@@ -1,16 +1,19 @@
-﻿using SocialNetwork.Model.Command;
+﻿using SocialNetwork.Infrastructure.Console;
+using SocialNetwork.Model.Command;
 using SocialNetwork.Model.Command.Input;
 
 namespace SocialNetwork.Model.Social.Platform
 {
     public class SocialPlatform: ISocialPlatform
     {
-        private readonly IInputRetriever _commandInputRetriever;
+        private readonly IInputParser _inputParser;
+        private readonly IConsole _console;
         private readonly ICommandFactory _commandFactory;
 
-        public SocialPlatform(IInputRetriever commandInputRetriever, ICommandFactory commandFactory)
+        public SocialPlatform(IInputParser inputParser, IConsole console, ICommandFactory commandFactory)
         {
-            _commandInputRetriever = commandInputRetriever;
+            _inputParser = inputParser;
+            _console = console;
             _commandFactory = commandFactory;
         }
 
@@ -18,7 +21,7 @@ namespace SocialNetwork.Model.Social.Platform
         {
             while (true)
             {
-                var input = _commandInputRetriever.Retrieve();
+                var input = _inputParser.Parse(_console.Read());
                 if (input.Type == InputType.Exit)
                     break;
 

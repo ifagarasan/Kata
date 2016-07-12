@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using SocialNetwork.Action.Command;
+using SocialNetwork.Infrastructure.Console;
 using SocialNetwork.Model.Command;
 using SocialNetwork.Model.Command.Input;
 using SocialNetwork.Model.Social.Platform;
@@ -12,24 +14,41 @@ namespace SocialNetwork.UnitTests.Model.Social.Platform
         [TestMethod]
         public void ExecuteCommands()
         {
-            Mock<IInputRetriever> taskDispatcherMock = new Mock<IInputRetriever>();
-            Mock<ICommand> commandMock = new Mock<ICommand>();
+            var timeline = "Alice";
+            var wall = "Alice wall";
+            var exit = "exit";
 
-            Mock<ICommandFactory> commandFactoryMock = new Mock<ICommandFactory>();
-            commandFactoryMock.Setup(m => m.Create(It.IsAny<CommandInput>())).Returns(commandMock.Object);
+            Mock<IConsole> consoleMock = new Mock<IConsole>();
+            consoleMock.SetupSequence(m => m.Read()).Returns(timeline).Returns(wall).Returns(exit);
 
-            var displayTimeline = new CommandInput(InputType.DisplayTimeline, new[] {"Alice"});
-            var exit = new CommandInput(InputType.Exit, new string[] {});
+            Mock<IInputParser> inputParserMock = new Mock<IInputParser>();
 
-            taskDispatcherMock.SetupSequence(m => m.Retrieve()).Returns(displayTimeline).Returns(displayTimeline).Returns(exit);
+            var displayTimelineInput = new CommandInput(InputType.DisplayTimeline, new[] { "Alice" });
+            var displayWallInput = new CommandInput(InputType.DisplayWall, new[] { "Alice" });
+            var exitInput = new CommandInput(InputType.Exit, new string[] {});
+
+            inputParserMock.SetupSequence(m => m.Parse(It.IsAny<string>()))
+                .Returns(displayTimelineInput)
+                .Returns(displayWallInput)
+                .Returns(exitInput);
+
+            var commandMock = new Mock<ICommand>();
             commandMock.Setup(m => m.Execute());
 
-            ISocialPlatform socialPlatform = new SocialPlatform(taskDispatcherMock.Object, commandFactoryMock.Object);
+            var commandFactoryMock = new Mock<ICommandFactory>();
+            commandFactoryMock.Setup(m => m.Create(It.IsAny<CommandInput>())).Returns(commandMock.Object);
+
+            ISocialPlatform socialPlatform = new SocialPlatform(inputParserMock.Object, consoleMock.Object, commandFactoryMock.Object);
 
             socialPlatform.Run();
 
-            taskDispatcherMock.Verify(m => m.Retrieve(), Times.Exactly(3));
-            commandFactoryMock.Verify(m => m.Create(displayTimeline), Times.Exactly(2));
+            inputParserMock.Verify(m => m.Parse(timeline));
+            inputParserMock.Verify(m => m.Parse(wall));
+            inputParserMock.Verify(m => m.Parse(exit));
+
+            commandFactoryMock.Verify(m => m.Create(displayTimelineInput));
+            commandFactoryMock.Verify(m => m.Create(displayWallInput));
+
             commandMock.Verify(m => m.Execute(), Times.Exactly(2));
         }
     }

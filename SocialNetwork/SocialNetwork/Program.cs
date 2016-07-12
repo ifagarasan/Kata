@@ -18,8 +18,7 @@ namespace SocialNetwork
             var dateProvider = new DateProvider();
             var console = new Console();
 
-            var socialPlatform = new SocialPlatform(new InputRetriever(new InputParser(), console),
-                new CommandFactory(new Repository(dateProvider),
+            var socialPlatform = new SocialPlatform(new InputParser(), console, new CommandFactory(new Repository(dateProvider),
                 new PostFormatter(new TimeOffsetCalculator(dateProvider), new TimeFormatter()), console));   
 
             socialPlatform.Run();

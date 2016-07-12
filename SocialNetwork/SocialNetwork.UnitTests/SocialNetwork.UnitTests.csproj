@@ -67,7 +67,6 @@
     <Compile Include="Model\Post\Format\PostFormatterShould.cs" />
     <Compile Include="Infrastructure\Repository\RepositoryShould.cs" />
     <Compile Include="Model\Command\Input\InputParserShould.cs" />
-    <Compile Include="Model\Command\Input\InputRetrieverShould.cs" />
     <Compile Include="Model\Social\Platform\SocialPlatformShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Infrastructure\Time\TimeOffsetCalculatorShould.cs" />
