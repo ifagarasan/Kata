@@ -73,7 +73,7 @@
     <Compile Include="Model\User\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Infrastructure\Repository.cs" />
+    <Compile Include="Infrastructure\Repository\Repository.cs" />
     <Compile Include="Model\Social\Platform\SocialPlatform.cs" />
     <Compile Include="Infrastructure\Time\TimeOffsetCalculator.cs" />
   </ItemGroup>

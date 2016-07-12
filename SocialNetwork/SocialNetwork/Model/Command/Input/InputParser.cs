@@ -6,7 +6,7 @@ namespace SocialNetwork.Model.Command.Input
 {
     public class InputParser : IInputParser
     {
-        public CommandInput Build(string input)
+        public CommandInput Parse(string input)
         {
             var arguments = new List<string>();
             InputType? type = null;

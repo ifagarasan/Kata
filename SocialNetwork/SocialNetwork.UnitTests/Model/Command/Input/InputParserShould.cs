@@ -23,7 +23,7 @@ namespace SocialNetwork.UnitTests.Model.Command.Input
         {
             var message = "I love the weather today";
             var commandString = $"{_username} -> {message}";
-            var command = _parser.Build(commandString);
+            var command = _parser.Parse(commandString);
 
             Assert.AreEqual(InputType.Post, command.Type);
             Assert.AreEqual(_username, command.Arguments[0]);
@@ -33,7 +33,7 @@ namespace SocialNetwork.UnitTests.Model.Command.Input
         [TestMethod]
         public void ReturnDisplayTimeline()
         {
-            var command = _parser.Build(_username);
+            var command = _parser.Parse(_username);
 
             Assert.AreEqual(InputType.DisplayTimeline, command.Type);
             Assert.AreEqual(_username, command.Arguments[0]);
@@ -42,7 +42,7 @@ namespace SocialNetwork.UnitTests.Model.Command.Input
         [TestMethod]
         public void ReturnExit()
         {
-            var command = _parser.Build("exit");
+            var command = _parser.Parse("exit");
 
             Assert.AreEqual(InputType.Exit, command.Type);
             Assert.AreEqual(0, command.Arguments.Length);
@@ -51,7 +51,7 @@ namespace SocialNetwork.UnitTests.Model.Command.Input
         [TestMethod]
         public void ReturnDisplayWall()
         {
-            var command = _parser.Build($"{_username} wall");
+            var command = _parser.Parse($"{_username} wall");
 
             Assert.AreEqual(InputType.DisplayWall, command.Type);
             Assert.AreEqual(_username, command.Arguments[0]);
@@ -60,7 +60,7 @@ namespace SocialNetwork.UnitTests.Model.Command.Input
         [TestMethod]
         public void ReturnFollow()
         {
-            var command = _parser.Build($"{_username} follows {_followUsername}");
+            var command = _parser.Parse($"{_username} follows {_followUsername}");
 
             Assert.AreEqual(InputType.Follow, command.Type);
             Assert.AreEqual(_username, command.Arguments[0]);
@@ -71,7 +71,7 @@ namespace SocialNetwork.UnitTests.Model.Command.Input
         [ExpectedException(typeof(CommandTypeNotDefinedException))]
         public void ThrowExceptionIfCommandNotSupported()
         {
-            _parser.Build("Invalid Command");
+            _parser.Parse("Invalid Command");
         }
     }
 }

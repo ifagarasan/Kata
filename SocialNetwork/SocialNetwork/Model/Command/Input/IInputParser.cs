@@ -2,6 +2,6 @@
 {
     public interface IInputParser
     {
-        CommandInput Build(string input);
+        CommandInput Parse(string input);
     }
 }

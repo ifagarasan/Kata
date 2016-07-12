@@ -15,7 +15,7 @@ namespace SocialNetwork.Model.Command.Input
 
         public CommandInput Retrieve()
         {
-            return _inputParser.Build(_console.Read());
+            return _inputParser.Parse(_console.Read());
         }
     }
 }

@@ -18,14 +18,14 @@ namespace SocialNetwork.UnitTests.Model.Command.Input
             consoleMock.Setup(m => m.Read()).Returns(input);
 
             Mock<IInputParser> commandTranslatorMock = new Mock<IInputParser>();
-            commandTranslatorMock.Setup(m => m.Build(It.IsAny<string>())).Returns(commandInput);
+            commandTranslatorMock.Setup(m => m.Parse(It.IsAny<string>())).Returns(commandInput);
             
             InputRetriever commandInputRetriever = new InputRetriever(commandTranslatorMock.Object, consoleMock.Object);
 
             var command = commandInputRetriever.Retrieve();
 
             consoleMock.Verify(m => m.Read());
-            commandTranslatorMock.Verify(m => m.Build(input));
+            commandTranslatorMock.Verify(m => m.Parse(input));
 
             Assert.AreSame(commandInput, command);
         }

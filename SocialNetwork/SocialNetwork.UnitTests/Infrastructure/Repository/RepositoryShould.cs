@@ -1,11 +1,10 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SocialNetwork.Infrastructure;
 using SocialNetwork.Infrastructure.Date;
 using SocialNetwork.Model.User;
 
-namespace SocialNetwork.UnitTests.Model.Post
+namespace SocialNetwork.UnitTests.Infrastructure.Repository
 {
     [TestClass]
     public class RepositoryShould
@@ -15,7 +14,7 @@ namespace SocialNetwork.UnitTests.Model.Post
 
         private readonly DateTime _now = DateTime.Now;
         private Mock<IDateProvider> _dateProviderMock;
-        private Repository _repository;
+        private SocialNetwork.Infrastructure.Repository.Repository _repository;
 
         private User _user;
         private User _userToFollow;
@@ -26,7 +25,7 @@ namespace SocialNetwork.UnitTests.Model.Post
             _dateProviderMock = new Mock<IDateProvider>();
             _dateProviderMock.Setup(m => m.Now()).Returns(_now);
 
-            _repository = new Repository(_dateProviderMock.Object);
+            _repository = new SocialNetwork.Infrastructure.Repository.Repository(_dateProviderMock.Object);
 
             _user = new User("Alice");
             _userToFollow = new User("Bob");

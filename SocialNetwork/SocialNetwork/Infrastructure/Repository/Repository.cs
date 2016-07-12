@@ -4,7 +4,7 @@ using SocialNetwork.Infrastructure.Date;
 using SocialNetwork.Model.Post;
 using SocialNetwork.Model.User;
 
-namespace SocialNetwork.Infrastructure
+namespace SocialNetwork.Infrastructure.Repository
 {
     public class Repository : IRepository
     {
