@@ -59,7 +59,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Model\Command\CommandFactoryShould.cs" />
-    <Compile Include="Model\Command\CommandShould.cs" />
     <Compile Include="Action\DisplayWallShould.cs" />
     <Compile Include="Action\DisplayTimelineShould.cs" />
     <Compile Include="Action\FollowShould.cs" />

@@ -48,7 +48,6 @@
     <Compile Include="Model\Command\Input\InputParser.cs" />
     <Compile Include="Action\Command\DisplayWall.cs" />
     <Compile Include="Model\Command\Input\CommandInput.cs" />
-    <Compile Include="Model\Command\Command.cs" />
     <Compile Include="Model\Command\CommandFactory.cs" />
     <Compile Include="Action\Command\DisplayTimeline.cs" />
     <Compile Include="Model\Command\ICommandFactory.cs" />
@@ -74,7 +73,7 @@
     <Compile Include="Model\Post\Format\PostFormatter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Model\Post\Repository.cs" />
+    <Compile Include="Infrastructure\Repository.cs" />
     <Compile Include="Model\Social\Engine\SocialEngine.cs" />
     <Compile Include="Model\Social\Platform\SocialPlatform.cs" />
     <Compile Include="Infrastructure\Time\TimeOffsetCalculator.cs" />

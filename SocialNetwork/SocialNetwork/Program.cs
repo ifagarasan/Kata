@@ -1,4 +1,5 @@
-﻿using SocialNetwork.Infrastructure.Console;
+﻿using SocialNetwork.Infrastructure;
+using SocialNetwork.Infrastructure.Console;
 using SocialNetwork.Infrastructure.Date;
 using SocialNetwork.Infrastructure.Format;
 using SocialNetwork.Infrastructure.Time;

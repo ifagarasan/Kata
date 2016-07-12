@@ -1,17 +1,26 @@
 ﻿using SocialNetwork.Infrastructure.Console;
+using SocialNetwork.Model.Command;
 using SocialNetwork.Model.Social.Engine;
 
 namespace SocialNetwork.Action.Command
 {
-    public class Post : Model.Command.Command
+    public class Post : ICommand
     {
-        public Post(ISocialEngine socialEngine, IConsole console, string[] arguments) : base(socialEngine, console, arguments)
+        private readonly ISocialEngine _socialEngine;
+
+        public Post(ISocialEngine socialEngine, string username, string message)
         {
+            _socialEngine = socialEngine;
+            Username = username;
+            Message = message;
         }
 
-        public override void Execute()
+        public string Username { get; }
+        public string Message { get; }
+
+        public void Execute()
         {
-            SocialEngine.Post(Arguments[0], Arguments[1]);
+            _socialEngine.Post(Username, Message);
         }
     }
 }

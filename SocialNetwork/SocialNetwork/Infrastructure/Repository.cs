@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using SocialNetwork.Infrastructure.Date;
+using SocialNetwork.Model.Post;
 
-namespace SocialNetwork.Model.Post
+namespace SocialNetwork.Infrastructure
 {
     public class Repository : IRepository
     {

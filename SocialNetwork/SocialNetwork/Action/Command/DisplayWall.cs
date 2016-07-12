@@ -1,18 +1,27 @@
 ﻿using SocialNetwork.Infrastructure.Console;
+using SocialNetwork.Model.Command;
 using SocialNetwork.Model.Social.Engine;
 
 namespace SocialNetwork.Action.Command
 {
-    public class DisplayWall: Model.Command.Command
+    public class DisplayWall: ICommand
     {
-        public DisplayWall(ISocialEngine socialEngine, IConsole console, string[] arguments) : base(socialEngine, console, arguments)
+        private readonly ISocialEngine _socialEngine;
+        private readonly IConsole _console;
+
+        public DisplayWall(ISocialEngine socialEngine, IConsole console, string username)
         {
+            _socialEngine = socialEngine;
+            _console = console;
+            Username = username;
         }
 
-        public override void Execute()
+        public string Username { get; }
+
+        public void Execute()
         {
-            foreach (var message in SocialEngine.RetrieveWall(Arguments[0]))
-                Console.Write(message);
+            foreach (var message in _socialEngine.RetrieveWall(Username))
+                _console.Write(message);
         }
     }
 }

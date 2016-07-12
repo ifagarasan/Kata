@@ -13,6 +13,8 @@ namespace SocialNetwork.UnitTests.Model.Command
     {
         private CommandFactory _commandFactory;
 
+        const string Username = "test";
+
         [TestInitialize]
         public void Setup()
         {
@@ -22,25 +24,43 @@ namespace SocialNetwork.UnitTests.Model.Command
         [TestMethod]
         public void ReturnsPostCommand()
         {
-            Assert.IsInstanceOfType(_commandFactory.Create(new CommandInput(InputType.Post, new string[] { })), typeof(SocialNetwork.Action.Command.Post));
+            var message = "message";
+
+            var command = _commandFactory.Create(new CommandInput(InputType.Post, new [] {Username, message})) as SocialNetwork.Action.Command.Post;
+
+            Assert.IsNotNull(command);
+            Assert.AreEqual(Username, command.Username);
+            Assert.AreEqual(message, command.Message);
         }
 
         [TestMethod]
         public void ReturnsDisplayTImelineCommand()
         {
-            Assert.IsInstanceOfType(_commandFactory.Create(new CommandInput(InputType.DisplayTimeline, new string[] { })), typeof(DisplayTimeline));
+            var command = _commandFactory.Create(new CommandInput(InputType.DisplayTimeline, new[] {Username})) as DisplayTimeline;
+
+            Assert.IsNotNull(command);
+            Assert.AreEqual(Username, command.Username);
         }
 
         [TestMethod]
         public void ReturnsDisplayWallCommand()
         {
-            Assert.IsInstanceOfType(_commandFactory.Create(new CommandInput(InputType.DisplayWall, new string[] {})), typeof(DisplayWall));
+            var command = _commandFactory.Create(new CommandInput(InputType.DisplayWall, new[] { Username })) as DisplayWall;
+
+            Assert.IsNotNull(command);
+            Assert.AreEqual(Username, command.Username);
         }
 
         [TestMethod]
         public void ReturnsFollowCommand()
         {
-            Assert.IsInstanceOfType(_commandFactory.Create(new CommandInput(InputType.Follow, new string[] { })), typeof(Follow));
+            string usernameToFollow = "Bob";
+
+            var command = _commandFactory.Create(new CommandInput(InputType.Follow, new[] { Username, usernameToFollow })) as Follow;
+
+            Assert.IsNotNull(command);
+            Assert.AreEqual(Username, command.Username);
+            Assert.AreEqual(usernameToFollow, command.UsernameToFollow);
         }
 
         [TestMethod]

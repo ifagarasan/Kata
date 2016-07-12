@@ -22,13 +22,13 @@ namespace SocialNetwork.Model.Command
             switch (commandInput.Type)
             {
                 case InputType.Post:
-                    return new Action.Command.Post(_socialEngine, _console, commandInput.Arguments);
+                    return new Action.Command.Post(_socialEngine, commandInput.Arguments[0], commandInput.Arguments[1]);
                 case InputType.DisplayWall:
-                    return new DisplayWall(_socialEngine, _console, commandInput.Arguments);
+                    return new DisplayWall(_socialEngine, _console, commandInput.Arguments[0]);
                 case InputType.DisplayTimeline:
-                    return new DisplayTimeline(_socialEngine, _console, commandInput.Arguments);
+                    return new DisplayTimeline(_socialEngine, _console, commandInput.Arguments[0]);
                 case InputType.Follow:
-                    return new Follow(_socialEngine, _console, commandInput.Arguments);
+                    return new Follow(_socialEngine, commandInput.Arguments[0], commandInput.Arguments[1]);
                 default:
                     throw new CommandNotDefinedException($"Command not defined for {commandInput.GetType()}");
             }

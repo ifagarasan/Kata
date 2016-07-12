@@ -18,11 +18,11 @@ namespace SocialNetwork.Model.Social.Platform
         {
             while (true)
             {
-                var command = _commandInputRetriever.Retrieve();
-                if (command.Type == InputType.Exit)
+                var input = _commandInputRetriever.Retrieve();
+                if (input.Type == InputType.Exit)
                     break;
 
-                _commandFactory.Create(command).Execute();
+                _commandFactory.Create(input).Execute();
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using SocialNetwork.Infrastructure;
 using SocialNetwork.Infrastructure.Console;
 using SocialNetwork.Infrastructure.Date;
 using SocialNetwork.Infrastructure.Format;

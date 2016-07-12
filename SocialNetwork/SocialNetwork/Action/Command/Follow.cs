@@ -1,17 +1,26 @@
 ﻿using SocialNetwork.Infrastructure.Console;
+using SocialNetwork.Model.Command;
 using SocialNetwork.Model.Social.Engine;
 
 namespace SocialNetwork.Action.Command
 {
-    public class Follow: Model.Command.Command
+    public class Follow: ICommand
     {
-        public Follow(ISocialEngine socialEngine, IConsole console, string[] arguments) : base(socialEngine, console, arguments)
+        private readonly ISocialEngine _socialEngine;
+
+        public Follow(ISocialEngine socialEngine, string username, string usernameToFollow)
         {
+            Username = username;
+            UsernameToFollow = usernameToFollow;
+            _socialEngine = socialEngine;
         }
 
-        public override void Execute()
+        public string Username { get; }
+        public string UsernameToFollow { get; }
+
+        public void Execute()
         {
-            SocialEngine.Follow(Arguments[0], Arguments[1]);
+            _socialEngine.Follow(Username, UsernameToFollow);
         }
     }
 }
