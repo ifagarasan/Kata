@@ -2,16 +2,15 @@
 using Moq;
 using SocialNetwork.Action.Command;
 using SocialNetwork.Infrastructure.Console;
-using SocialNetwork.Model.Social.Engine;
+using SocialNetwork.Model.Post;
 using SocialNetwork.Model.User;
-using SocialNetwork.UnitTests.Model.Command;
 
 namespace SocialNetwork.UnitTests.Action
 {
     [TestClass]
     public class PostShould
     {
-        private Mock<ISocialEngine> _socialEngineMock;
+        private Mock<IRepository> _repositoryMock;
         private Mock<IConsole> _consoleMock;
 
         [TestInitialize]
@@ -20,20 +19,20 @@ namespace SocialNetwork.UnitTests.Action
             _consoleMock = new Mock<IConsole>();
             _consoleMock.Setup(m => m.Write(It.IsAny<string>()));
 
-            _socialEngineMock = new Mock<ISocialEngine>();
+            _repositoryMock = new Mock<IRepository>();
         }
 
         [TestMethod]
         public void Insert()
         {
-            _socialEngineMock.Setup(m => m.Post(It.IsAny<User>(), It.IsAny<string>()));
+            _repositoryMock.Setup(m => m.Insert(It.IsAny<User>(), It.IsAny<string>()));
 
             var user = new User("test");
             var message = "content";
 
-            new Post(_socialEngineMock.Object, user, message).Execute();
+            new Post(_repositoryMock.Object, user, message).Execute();
 
-            _socialEngineMock.Verify(m => m.Post(user, message));
+            _repositoryMock.Verify(m => m.Insert(user, message));
         }
     }
 }

@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SocialNetwork.Infrastructure.Console;
-using SocialNetwork.Model.Social.Engine;
+using SocialNetwork.Model.Post;
+using SocialNetwork.Model.Post.Format;
 using SocialNetwork.Model.User;
-using SocialNetwork.UnitTests.Model.Command;
 using DisplayWall = SocialNetwork.Action.Command.DisplayWall;
 
 namespace SocialNetwork.UnitTests.Action
@@ -12,8 +13,10 @@ namespace SocialNetwork.UnitTests.Action
     [TestClass]
     public class DisplayWallShould
     {
-        private Mock<ISocialEngine> _socialEngineMock;
+        private Mock<IRepository> _repositoryMock;
+        private Mock<IPostFormatter> _postFormatterMock;
         private Mock<IConsole> _consoleMock;
+        private readonly DateTime _now = DateTime.Now;
 
         [TestInitialize]
         public void Setup()
@@ -21,22 +24,24 @@ namespace SocialNetwork.UnitTests.Action
             _consoleMock = new Mock<IConsole>();
             _consoleMock.Setup(m => m.Write(It.IsAny<string>()));
 
-            _socialEngineMock = new Mock<ISocialEngine>();
+            _repositoryMock = new Mock<IRepository>();
+            _postFormatterMock = new Mock<IPostFormatter>();
         }
 
         [TestMethod]
         public void PrintWall()
         {
-            var user = new User("test");
-            var message = "Bob - I'm in London! (1 minute ago)";
-            var userMessages = new List<string> { message };
+            var post = new PostRecord(new User("test"), "I'm in London! (1 minute ago)", _now);
+            var posts = new List<PostRecord> { post };
 
-            _socialEngineMock.Setup(m => m.RetrieveWall(It.IsAny<User>())).Returns(userMessages);
+            _repositoryMock.Setup(m => m.RetrieveWall(It.IsAny<User>())).Returns(posts);
+            _postFormatterMock.Setup(m => m.FormatWallPost(It.IsAny<PostRecord>())).Returns(post.Message);
 
-            new DisplayWall(_socialEngineMock.Object, _consoleMock.Object, user).Execute();
+            new DisplayWall(_repositoryMock.Object, _postFormatterMock.Object, _consoleMock.Object, post.User).Execute();
 
-            _socialEngineMock.Verify(m => m.RetrieveWall(user));
-            _consoleMock.Verify(m => m.Write(message));
+            _repositoryMock.Verify(m => m.RetrieveWall(post.User));
+            _postFormatterMock.Verify(m => m.FormatWallPost(post));
+            _consoleMock.Verify(m => m.Write(post.Message));
         }
     }
 }

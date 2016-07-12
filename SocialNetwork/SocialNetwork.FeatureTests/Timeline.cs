@@ -8,9 +8,7 @@ using SocialNetwork.Infrastructure.Format;
 using SocialNetwork.Infrastructure.Time;
 using SocialNetwork.Model.Command;
 using SocialNetwork.Model.Command.Input;
-using SocialNetwork.Model.Post;
 using SocialNetwork.Model.Post.Format;
-using SocialNetwork.Model.Social.Engine;
 using SocialNetwork.Model.Social.Platform;
 
 namespace SocialNetwork.FeatureTests
@@ -47,8 +45,8 @@ namespace SocialNetwork.FeatureTests
             _commandInputRetriever = new InputRetriever(new InputParser(), _consoleMock.Object);
 
             ICommandFactory commandFactory = new CommandFactory(
-                new SocialEngine(new Repository(new DateProvider()),
-                new PostFormatter(new TimeOffsetCalculator(_sequenceDateProviderMock.Object), new TimeFormatter())), _consoleMock.Object);
+                new Repository(new DateProvider()), new PostFormatter(new TimeOffsetCalculator(_sequenceDateProviderMock.Object),
+                new TimeFormatter()), _consoleMock.Object);
 
             _socialPlatform = new SocialPlatform(_commandInputRetriever, commandFactory);
         }

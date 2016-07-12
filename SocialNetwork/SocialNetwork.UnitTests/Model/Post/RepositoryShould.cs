@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SocialNetwork.Infrastructure;
 using SocialNetwork.Infrastructure.Date;
-using SocialNetwork.Model.Post;
 using SocialNetwork.Model.User;
 
 namespace SocialNetwork.UnitTests.Model.Post

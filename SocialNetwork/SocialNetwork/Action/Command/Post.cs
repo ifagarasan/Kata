@@ -1,17 +1,16 @@
-﻿using SocialNetwork.Infrastructure.Console;
-using SocialNetwork.Model.Command;
-using SocialNetwork.Model.Social.Engine;
+﻿using SocialNetwork.Model.Command;
+using SocialNetwork.Model.Post;
 using SocialNetwork.Model.User;
 
 namespace SocialNetwork.Action.Command
 {
     public class Post : ICommand
     {
-        private readonly ISocialEngine _socialEngine;
+        private readonly IRepository _repository;
 
-        public Post(ISocialEngine socialEngine, User user, string message)
+        public Post(IRepository repository, User user, string message)
         {
-            _socialEngine = socialEngine;
+            _repository = repository;
             User = user;
             Message = message;
         }
@@ -19,9 +18,6 @@ namespace SocialNetwork.Action.Command
         public User User { get; }
         public string Message { get; }
 
-        public void Execute()
-        {
-            _socialEngine.Post(User, Message);
-        }
+        public void Execute() => _repository.Insert(User, Message);
     }
 }

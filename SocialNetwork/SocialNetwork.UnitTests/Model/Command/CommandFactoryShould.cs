@@ -18,7 +18,7 @@ namespace SocialNetwork.UnitTests.Model.Command
         [TestInitialize]
         public void Setup()
         {
-            _commandFactory = new CommandFactory(null, null);
+            _commandFactory = new CommandFactory(null, null, null);
         }
 
         [TestMethod]

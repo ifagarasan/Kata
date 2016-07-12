@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using SocialNetwork.Action.Command;
 using SocialNetwork.Infrastructure.Console;
-using SocialNetwork.Model.Social.Engine;
+using SocialNetwork.Model.Post;
+using SocialNetwork.Model.Post.Format;
 using SocialNetwork.Model.User;
-using SocialNetwork.UnitTests.Model.Command;
 using DisplayTimeline = SocialNetwork.Action.Command.DisplayTimeline;
 
 namespace SocialNetwork.UnitTests.Action
@@ -12,8 +14,10 @@ namespace SocialNetwork.UnitTests.Action
     [TestClass]
     public class DisplayTimelineShould
     {
-        private Mock<ISocialEngine> _socialEngineMock;
+        private Mock<IRepository> _repositoryMock;
+        private Mock<IPostFormatter> _postFormatterMock;
         private Mock<IConsole> _consoleMock;
+        private readonly DateTime _now = DateTime.Now;
 
         [TestInitialize]
         public void Setup()
@@ -21,22 +25,24 @@ namespace SocialNetwork.UnitTests.Action
             _consoleMock = new Mock<IConsole>();
             _consoleMock.Setup(m => m.Write(It.IsAny<string>()));
 
-            _socialEngineMock = new Mock<ISocialEngine>();
+            _repositoryMock = new Mock<IRepository>();
+            _postFormatterMock = new Mock<IPostFormatter>();
         }
 
         [TestMethod]
         public void PrintTimeline()
         {
-            var user = new User("test");
-            var message = "I'm in London! (1 minute ago)";
-            var userMessages = new List<string> { message };
+            var post = new PostRecord(new User("test"), "I'm in London! (1 minute ago)", _now);
+            var posts = new List<PostRecord> { post };
 
-            _socialEngineMock.Setup(m => m.RetrieveTimeline(It.IsAny<User>())).Returns(userMessages);
+            _repositoryMock.Setup(m => m.RetrieveTimeline(It.IsAny<User>())).Returns(posts);
+            _postFormatterMock.Setup(m => m.FormatTimelinePost(It.IsAny<PostRecord>())).Returns(post.Message);
 
-            new DisplayTimeline(_socialEngineMock.Object, _consoleMock.Object, user).Execute();
+            new DisplayTimeline(_repositoryMock.Object, _postFormatterMock.Object, _consoleMock.Object, post.User).Execute();
 
-            _socialEngineMock.Verify(m => m.RetrieveTimeline(user));
-            _consoleMock.Verify(m => m.Write(message));
+            _repositoryMock.Verify(m => m.RetrieveTimeline(post.User));
+            _postFormatterMock.Verify(m => m.FormatTimelinePost(post));
+            _consoleMock.Verify(m => m.Write(post.Message));
         }
     }
 }

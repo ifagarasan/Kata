@@ -1,9 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SocialNetwork.Infrastructure.Console;
-using SocialNetwork.Model.Social.Engine;
+using SocialNetwork.Model.Post;
+using SocialNetwork.Model.Post.Format;
 using SocialNetwork.Model.User;
-using SocialNetwork.UnitTests.Model.Command;
 using Follow = SocialNetwork.Action.Command.Follow;
 
 namespace SocialNetwork.UnitTests.Action
@@ -11,7 +11,8 @@ namespace SocialNetwork.UnitTests.Action
     [TestClass]
     public class FollowShould
     {
-        private Mock<ISocialEngine> _socialEngineMock;
+        private Mock<IRepository> _repositoryMock;
+        private Mock<IPostFormatter> _postFormatterMock;
         private Mock<IConsole> _consoleMock;
 
         [TestInitialize]
@@ -20,20 +21,21 @@ namespace SocialNetwork.UnitTests.Action
             _consoleMock = new Mock<IConsole>();
             _consoleMock.Setup(m => m.Write(It.IsAny<string>()));
 
-            _socialEngineMock = new Mock<ISocialEngine>();
+            _repositoryMock = new Mock<IRepository>();
+            _postFormatterMock = new Mock<IPostFormatter>();
         }
 
         [TestMethod]
         public void Follow()
         {
-            _socialEngineMock.Setup(m => m.Follow(It.IsAny<User>(), It.IsAny<User>()));
+            _repositoryMock.Setup(m => m.Follow(It.IsAny<User>(), It.IsAny<User>()));
 
             var user = new User("Alice"); 
             var followUser = new User("Bob");
 
-            new Follow(_socialEngineMock.Object, user, followUser).Execute();
+            new Follow(_repositoryMock.Object, user, followUser).Execute();
 
-            _socialEngineMock.Verify(m => m.Follow(user, followUser));
+            _repositoryMock.Verify(m => m.Follow(user, followUser));
         }
     }
 }

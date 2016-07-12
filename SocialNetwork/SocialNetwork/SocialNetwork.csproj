@@ -66,7 +66,6 @@
     <Compile Include="Infrastructure\Date\IDateProvider.cs" />
     <Compile Include="Model\Post\Format\IPostFormatter.cs" />
     <Compile Include="Model\Post\IRepository.cs" />
-    <Compile Include="Model\Social\Engine\ISocialEngine.cs" />
     <Compile Include="Model\Social\Platform\ISocialPlatform.cs" />
     <Compile Include="Infrastructure\Time\ITimeOffsetCalculator.cs" />
     <Compile Include="Model\Post\PostRecord.cs" />
@@ -75,7 +74,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Infrastructure\Repository.cs" />
-    <Compile Include="Model\Social\Engine\SocialEngine.cs" />
     <Compile Include="Model\Social\Platform\SocialPlatform.cs" />
     <Compile Include="Infrastructure\Time\TimeOffsetCalculator.cs" />
   </ItemGroup>

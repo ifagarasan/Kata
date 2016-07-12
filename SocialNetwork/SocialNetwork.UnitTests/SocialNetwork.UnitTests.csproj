@@ -66,7 +66,6 @@
     <Compile Include="Infrastructure\Format\TimeFormatterShould.cs" />
     <Compile Include="Model\Post\Format\PostFormatterShould.cs" />
     <Compile Include="Model\Post\RepositoryShould.cs" />
-    <Compile Include="Model\Social\Engine\SocialEngineShould.cs" />
     <Compile Include="Model\Command\Input\InputParserShould.cs" />
     <Compile Include="Model\Command\Input\InputRetrieverShould.cs" />
     <Compile Include="Model\Social\Platform\SocialPlatformShould.cs" />
