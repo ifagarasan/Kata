@@ -21,7 +21,7 @@ namespace SocialNetwork.Model.Post.Format
 
         public string FormatWallPost(PostRecord postRecord)
         {
-            return $"{postRecord.Username} - {FormatTimelinePost(postRecord)}";
+            return $"{postRecord.User.Username} - {FormatTimelinePost(postRecord)}";
         }
     }
 }

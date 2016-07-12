@@ -16,24 +16,24 @@ namespace SocialNetwork.Model.Social.Engine
             _postFormatter = postFormatter;
         }
 
-        public void Post(string username, string message)
+        public void Post(User.User user, string message)
         {
-            _repository.Insert(username, message);
+            _repository.Insert(user, message);
         }
 
-        public IList<string> RetrieveTimeline(string username)
+        public IList<string> RetrieveTimeline(User.User user)
         {
-            return _repository.RetrieveTimeline(username).Select(post => _postFormatter.FormatTimelinePost(post)).ToList().AsReadOnly();
+            return _repository.RetrieveTimeline(user).Select(post => _postFormatter.FormatTimelinePost(post)).ToList().AsReadOnly();
         }
 
-        public IList<string> RetrieveWall(string username)
+        public IList<string> RetrieveWall(User.User user)
         {
-            return _repository.RetrieveWall(username).Select(post => _postFormatter.FormatWallPost(post)).ToList().AsReadOnly();
+            return _repository.RetrieveWall(user).Select(post => _postFormatter.FormatWallPost(post)).ToList().AsReadOnly();
         }
 
-        public void Follow(string username, string followUsername)
+        public void Follow(User.User user, User.User userToFollow)
         {
-            _repository.Follow(username, followUsername);
+            _repository.Follow(user, userToFollow);
         }
     }
 }

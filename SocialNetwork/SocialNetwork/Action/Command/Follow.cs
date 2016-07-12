@@ -1,6 +1,7 @@
 ﻿using SocialNetwork.Infrastructure.Console;
 using SocialNetwork.Model.Command;
 using SocialNetwork.Model.Social.Engine;
+using SocialNetwork.Model.User;
 
 namespace SocialNetwork.Action.Command
 {
@@ -8,19 +9,16 @@ namespace SocialNetwork.Action.Command
     {
         private readonly ISocialEngine _socialEngine;
 
-        public Follow(ISocialEngine socialEngine, string username, string usernameToFollow)
+        public Follow(ISocialEngine socialEngine, User user, User followUser)
         {
-            Username = username;
-            UsernameToFollow = usernameToFollow;
+            User = user;
+            FollowUser = followUser;
             _socialEngine = socialEngine;
         }
 
-        public string Username { get; }
-        public string UsernameToFollow { get; }
+        public User User { get; }
+        public User FollowUser { get; }
 
-        public void Execute()
-        {
-            _socialEngine.Follow(Username, UsernameToFollow);
-        }
+        public void Execute() => _socialEngine.Follow(User, FollowUser);
     }
 }

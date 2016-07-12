@@ -29,7 +29,7 @@ namespace SocialNetwork.UnitTests.Model.Command
             var command = _commandFactory.Create(new CommandInput(InputType.Post, new [] {Username, message})) as SocialNetwork.Action.Command.Post;
 
             Assert.IsNotNull(command);
-            Assert.AreEqual(Username, command.Username);
+            Assert.AreEqual(Username, command.User.Username);
             Assert.AreEqual(message, command.Message);
         }
 
@@ -39,7 +39,7 @@ namespace SocialNetwork.UnitTests.Model.Command
             var command = _commandFactory.Create(new CommandInput(InputType.DisplayTimeline, new[] {Username})) as DisplayTimeline;
 
             Assert.IsNotNull(command);
-            Assert.AreEqual(Username, command.Username);
+            Assert.AreEqual(Username, command.User.Username);
         }
 
         [TestMethod]
@@ -48,7 +48,7 @@ namespace SocialNetwork.UnitTests.Model.Command
             var command = _commandFactory.Create(new CommandInput(InputType.DisplayWall, new[] { Username })) as DisplayWall;
 
             Assert.IsNotNull(command);
-            Assert.AreEqual(Username, command.Username);
+            Assert.AreEqual(Username, command.User.Username);
         }
 
         [TestMethod]
@@ -59,8 +59,8 @@ namespace SocialNetwork.UnitTests.Model.Command
             var command = _commandFactory.Create(new CommandInput(InputType.Follow, new[] { Username, usernameToFollow })) as Follow;
 
             Assert.IsNotNull(command);
-            Assert.AreEqual(Username, command.Username);
-            Assert.AreEqual(usernameToFollow, command.UsernameToFollow);
+            Assert.AreEqual(Username, command.User.Username);
+            Assert.AreEqual(usernameToFollow, command.FollowUser.Username);
         }
 
         [TestMethod]

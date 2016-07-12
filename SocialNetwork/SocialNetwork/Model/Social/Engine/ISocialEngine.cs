@@ -4,9 +4,9 @@ namespace SocialNetwork.Model.Social.Engine
 {
     public interface ISocialEngine
     {
-        void Post(string username, string message);
-        IList<string> RetrieveTimeline(string username);
-        IList<string> RetrieveWall(string username);
-        void Follow(string username, string followUsername);
+        void Post(User.User user, string message);
+        IList<string> RetrieveTimeline(User.User user);
+        IList<string> RetrieveWall(User.User user);
+        void Follow(User.User user, User.User userToFollow);
     }
 }

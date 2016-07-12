@@ -2,6 +2,7 @@
 using Moq;
 using SocialNetwork.Infrastructure.Console;
 using SocialNetwork.Model.Social.Engine;
+using SocialNetwork.Model.User;
 using SocialNetwork.UnitTests.Model.Command;
 using Follow = SocialNetwork.Action.Command.Follow;
 
@@ -25,14 +26,14 @@ namespace SocialNetwork.UnitTests.Action
         [TestMethod]
         public void Follow()
         {
-            _socialEngineMock.Setup(m => m.Follow(It.IsAny<string>(), It.IsAny<string>()));
+            _socialEngineMock.Setup(m => m.Follow(It.IsAny<User>(), It.IsAny<User>()));
 
-            var username = "Alice";
-            var usernameToFollow = "Bob";
+            var user = new User("Alice"); 
+            var followUser = new User("Bob");
 
-            new Follow(_socialEngineMock.Object, username, usernameToFollow).Execute();
+            new Follow(_socialEngineMock.Object, user, followUser).Execute();
 
-            _socialEngineMock.Verify(m => m.Follow(username, usernameToFollow));
+            _socialEngineMock.Verify(m => m.Follow(user, followUser));
         }
     }
 }

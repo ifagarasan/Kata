@@ -3,6 +3,7 @@ using Moq;
 using SocialNetwork.Action.Command;
 using SocialNetwork.Infrastructure.Console;
 using SocialNetwork.Model.Social.Engine;
+using SocialNetwork.Model.User;
 using SocialNetwork.UnitTests.Model.Command;
 
 namespace SocialNetwork.UnitTests.Action
@@ -25,14 +26,14 @@ namespace SocialNetwork.UnitTests.Action
         [TestMethod]
         public void Insert()
         {
-            _socialEngineMock.Setup(m => m.Post(It.IsAny<string>(), It.IsAny<string>()));
+            _socialEngineMock.Setup(m => m.Post(It.IsAny<User>(), It.IsAny<string>()));
 
-            var username = "test";
+            var user = new User("test");
             var message = "content";
 
-            new Post(_socialEngineMock.Object, username, message).Execute();
+            new Post(_socialEngineMock.Object, user, message).Execute();
 
-            _socialEngineMock.Verify(m => m.Post(username, message));
+            _socialEngineMock.Verify(m => m.Post(user, message));
         }
     }
 }

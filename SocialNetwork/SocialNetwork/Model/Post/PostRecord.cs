@@ -4,14 +4,14 @@ namespace SocialNetwork.Model.Post
 {
     public class PostRecord
     {
-        public PostRecord(string username, string message, DateTime writtenAt)
+        public PostRecord(User.User user, string message, DateTime writtenAt)
         {
-            Username = username;
+            User = user;
             Message = message;
             WrittenAt = writtenAt;
         }
 
-        public string Username { get; set; }
+        public User.User User { get; }
         public string Message { get; }
         public DateTime WrittenAt { get; }
     }

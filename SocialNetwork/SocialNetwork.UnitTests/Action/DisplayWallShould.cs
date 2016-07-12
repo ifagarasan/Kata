@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SocialNetwork.Infrastructure.Console;
 using SocialNetwork.Model.Social.Engine;
+using SocialNetwork.Model.User;
 using SocialNetwork.UnitTests.Model.Command;
 using DisplayWall = SocialNetwork.Action.Command.DisplayWall;
 
@@ -26,15 +27,15 @@ namespace SocialNetwork.UnitTests.Action
         [TestMethod]
         public void PrintWall()
         {
-            var username = "test";
+            var user = new User("test");
             var message = "Bob - I'm in London! (1 minute ago)";
             var userMessages = new List<string> { message };
 
-            _socialEngineMock.Setup(m => m.RetrieveWall(It.IsAny<string>())).Returns(userMessages);
+            _socialEngineMock.Setup(m => m.RetrieveWall(It.IsAny<User>())).Returns(userMessages);
 
-            new DisplayWall(_socialEngineMock.Object, _consoleMock.Object, username).Execute();
+            new DisplayWall(_socialEngineMock.Object, _consoleMock.Object, user).Execute();
 
-            _socialEngineMock.Verify(m => m.RetrieveWall(username));
+            _socialEngineMock.Verify(m => m.RetrieveWall(user));
             _consoleMock.Verify(m => m.Write(message));
         }
     }

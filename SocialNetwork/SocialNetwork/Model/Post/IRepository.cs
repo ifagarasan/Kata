@@ -4,9 +4,9 @@ namespace SocialNetwork.Model.Post
 {
     public interface IRepository
     {
-        void Insert(string username, string message);
-        IList<PostRecord> RetrieveTimeline(string username);
-        IList<PostRecord> RetrieveWall(string username);
-        void Follow(string username, string followUsername);
+        void Insert(User.User user, string message);
+        IList<PostRecord> RetrieveTimeline(User.User user);
+        IList<PostRecord> RetrieveWall(User.User user);
+        void Follow(User.User user1, User.User user2);
     }
 }

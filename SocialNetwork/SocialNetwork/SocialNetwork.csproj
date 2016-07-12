@@ -71,6 +71,7 @@
     <Compile Include="Infrastructure\Time\ITimeOffsetCalculator.cs" />
     <Compile Include="Model\Post\PostRecord.cs" />
     <Compile Include="Model\Post\Format\PostFormatter.cs" />
+    <Compile Include="Model\User\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Infrastructure\Repository.cs" />

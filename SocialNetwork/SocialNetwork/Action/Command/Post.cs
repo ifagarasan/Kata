@@ -1,6 +1,7 @@
 ﻿using SocialNetwork.Infrastructure.Console;
 using SocialNetwork.Model.Command;
 using SocialNetwork.Model.Social.Engine;
+using SocialNetwork.Model.User;
 
 namespace SocialNetwork.Action.Command
 {
@@ -8,19 +9,19 @@ namespace SocialNetwork.Action.Command
     {
         private readonly ISocialEngine _socialEngine;
 
-        public Post(ISocialEngine socialEngine, string username, string message)
+        public Post(ISocialEngine socialEngine, User user, string message)
         {
             _socialEngine = socialEngine;
-            Username = username;
+            User = user;
             Message = message;
         }
 
-        public string Username { get; }
+        public User User { get; }
         public string Message { get; }
 
         public void Execute()
         {
-            _socialEngine.Post(Username, Message);
+            _socialEngine.Post(User, Message);
         }
     }
 }

@@ -4,20 +4,22 @@ using Moq;
 using SocialNetwork.Infrastructure;
 using SocialNetwork.Infrastructure.Date;
 using SocialNetwork.Model.Post;
+using SocialNetwork.Model.User;
 
 namespace SocialNetwork.UnitTests.Model.Post
 {
     [TestClass]
     public class RepositoryShould
     {
-        private const string Username = "Alice";
-        private const string FollowUsername = "Bob";
         private const string Message1 = "I love the weather today";
         private const string Message2 = "Yezzer, I so do";
 
         private readonly DateTime _now = DateTime.Now;
         private Mock<IDateProvider> _dateProviderMock;
         private Repository _repository;
+
+        private User _user;
+        private User _userToFollow;
 
         [TestInitialize]
         public void Setup()
@@ -26,14 +28,17 @@ namespace SocialNetwork.UnitTests.Model.Post
             _dateProviderMock.Setup(m => m.Now()).Returns(_now);
 
             _repository = new Repository(_dateProviderMock.Object);
+
+            _user = new User("Alice");
+            _userToFollow = new User("Bob");
         }
 
         [TestMethod]
         public void Insert()
         {
-            _repository.Insert(Username, Message1);
+            _repository.Insert(_user, Message1);
 
-            var posts = _repository.RetrieveTimeline(Username);
+            var posts = _repository.RetrieveTimeline(_user);
             var post = posts[0];
 
             _dateProviderMock.Verify(m => m.Now());
@@ -45,10 +50,10 @@ namespace SocialNetwork.UnitTests.Model.Post
         [TestMethod]
         public void ReturnTimelinePostsInReverseOrder()
         {            
-            _repository.Insert(Username, Message1);
-            _repository.Insert(Username, Message2);
+            _repository.Insert(_user, Message1);
+            _repository.Insert(_user, Message2);
 
-            var posts = _repository.RetrieveTimeline(Username);
+            var posts = _repository.RetrieveTimeline(_user);
 
             Assert.AreEqual(Message2, posts[0].Message);
             Assert.AreEqual(Message1, posts[1].Message);
@@ -57,10 +62,10 @@ namespace SocialNetwork.UnitTests.Model.Post
         [TestMethod]
         public void ReturnWallPostsInReverseOrder()
         {
-            _repository.Insert(Username, Message1);
-            _repository.Insert(Username, Message2);
+            _repository.Insert(_user, Message1);
+            _repository.Insert(_user, Message2);
 
-            var posts = _repository.RetrieveWall(Username);
+            var posts = _repository.RetrieveWall(_user);
 
             Assert.AreEqual(Message2, posts[0].Message);
             Assert.AreEqual(Message1, posts[1].Message);
@@ -69,12 +74,12 @@ namespace SocialNetwork.UnitTests.Model.Post
         [TestMethod]
         public void Follow()
         {
-            _repository.Insert(Username, Message1);
-            _repository.Insert(FollowUsername, Message2);
+            _repository.Insert(_user, Message1);
+            _repository.Insert(_userToFollow, Message2);
 
-            _repository.Follow(Username, FollowUsername);
+            _repository.Follow(_user, _userToFollow);
 
-            var posts = _repository.RetrieveWall(Username);
+            var posts = _repository.RetrieveWall(_user);
 
             Assert.AreEqual(Message2, posts[0].Message);
             Assert.AreEqual(Message1, posts[1].Message);

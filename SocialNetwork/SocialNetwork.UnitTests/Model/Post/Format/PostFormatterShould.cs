@@ -5,6 +5,7 @@ using SocialNetwork.Infrastructure.Format;
 using SocialNetwork.Infrastructure.Time;
 using SocialNetwork.Model.Post;
 using SocialNetwork.Model.Post.Format;
+using SocialNetwork.Model.User;
 
 namespace SocialNetwork.UnitTests.Model.Post.Format
 {
@@ -19,7 +20,7 @@ namespace SocialNetwork.UnitTests.Model.Post.Format
         [TestInitialize]
         public void Setup()
         {
-            _postRecord = new PostRecord("Alice", "I love the weather today", DateTime.Now);
+            _postRecord = new PostRecord(new User("Alice"), "I love the weather today", DateTime.Now);
 
             _timeOffsetCalculatorMock = new Mock<ITimeOffsetCalculator>();
             _timeFormatterMock = new Mock<ITimeFormatter>();
@@ -58,7 +59,7 @@ namespace SocialNetwork.UnitTests.Model.Post.Format
             _timeOffsetCalculatorMock.Verify(m => m.NowToDateOffset(_postRecord.WrittenAt));
             _timeFormatterMock.Verify(m => m.Format(timeSpan));
 
-            Assert.AreEqual($"{_postRecord.Username} - {_postRecord.Message} ({time} ago)", message);
+            Assert.AreEqual($"{_postRecord.User.Username} - {_postRecord.Message} ({time} ago)", message);
         }
     }
 }
