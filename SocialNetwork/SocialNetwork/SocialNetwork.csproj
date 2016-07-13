@@ -63,12 +63,16 @@
     <Compile Include="Infrastructure\Format\TimeFormatter.cs" />
     <Compile Include="Infrastructure\Console\IConsole.cs" />
     <Compile Include="Infrastructure\Date\IDateProvider.cs" />
+    <Compile Include="Model\Post\Format\PostTimeFormatter.cs" />
+    <Compile Include="Model\Post\Format\TimelinePostFormatter.cs" />
+    <Compile Include="Model\Post\IPostPrinter.cs" />
     <Compile Include="Model\Post\Format\IPostFormatter.cs" />
     <Compile Include="Model\Post\IPostRepository.cs" />
+    <Compile Include="Model\Post\Printer\PostPrinter.cs" />
     <Compile Include="Model\Social\Platform\ISocialPlatform.cs" />
     <Compile Include="Infrastructure\Time\ITimeOffsetCalculator.cs" />
     <Compile Include="Model\Post\Post.cs" />
-    <Compile Include="Model\Post\Format\PostFormatter.cs" />
+    <Compile Include="Model\Post\Format\WallPostFormatter.cs" />
     <Compile Include="Model\User\IUserRepository.cs" />
     <Compile Include="Model\User\User.cs" />
     <Compile Include="Program.cs" />
@@ -77,6 +81,7 @@
     <Compile Include="Model\Social\Platform\SocialPlatform.cs" />
     <Compile Include="Infrastructure\Time\TimeOffsetCalculator.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

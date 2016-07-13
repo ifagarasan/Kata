@@ -21,34 +21,20 @@ namespace SocialNetwork.UnitTests.Infrastructure.Repository
         [TestInitialize]
         public void Setup()
         {
+            _user = new User("Alice");
+
             _dateProviderMock = new Mock<IDateProvider>();
             _dateProviderMock.Setup(m => m.Now()).Returns(_now);
 
             _postRepository = new SocialNetwork.Infrastructure.Repository.PostRepository(_dateProviderMock.Object);
 
-            _user = new User("Alice");;
-        }
-
-        [TestMethod]
-        public void Insert()
-        {
             _postRepository.Insert(_user.Username, Message1);
-
-            var posts = _postRepository.RetrieveTimeline(_user.Username);
-            var post = posts[0];
-
-            _dateProviderMock.Verify(m => m.Now());
-
-            Assert.AreEqual(Message1, post.Message);
-            Assert.AreEqual(_now, post.WrittenAt);
+            _postRepository.Insert(_user.Username, Message2);
         }
 
         [TestMethod]
         public void ReturnTimelinePostsInReverseOrder()
         {            
-            _postRepository.Insert(_user.Username, Message1);
-            _postRepository.Insert(_user.Username, Message2);
-
             var posts = _postRepository.RetrieveTimeline(_user.Username);
 
             Assert.AreEqual(Message2, posts[0].Message);
@@ -58,9 +44,6 @@ namespace SocialNetwork.UnitTests.Infrastructure.Repository
         [TestMethod]
         public void ReturnWallPostsInReverseOrder()
         {
-            _postRepository.Insert(_user.Username, Message1);
-            _postRepository.Insert(_user.Username, Message2);
-
             var posts = _postRepository.RetrieveWall(_user);
 
             Assert.AreEqual(Message2, posts[0].Message);

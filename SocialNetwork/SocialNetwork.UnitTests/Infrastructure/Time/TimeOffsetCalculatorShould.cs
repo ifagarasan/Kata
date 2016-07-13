@@ -13,13 +13,11 @@ namespace SocialNetwork.UnitTests.Infrastructure.Time
         public void ReturnNegativeAmountIfDateIsInThePast()
         {
             var mockDateProvider = new Mock<IDateProvider>();
-
             var now = DateTime.Now;
 
             mockDateProvider.Setup(m => m.Now()).Returns(now);
 
             var current = now.AddMinutes(-5);
-
             var timeOffsetCalculator = new TimeOffsetCalculator(mockDateProvider.Object);
 
             Assert.AreEqual(-5, timeOffsetCalculator.NowToDateOffset(current).TotalMinutes);

@@ -8,7 +8,9 @@ using SocialNetwork.Infrastructure.Repository;
 using SocialNetwork.Infrastructure.Time;
 using SocialNetwork.Model.Command;
 using SocialNetwork.Model.Command.Input;
+using SocialNetwork.Model.Post;
 using SocialNetwork.Model.Post.Format;
+using SocialNetwork.Model.Post.Printer;
 using SocialNetwork.Model.Social.Platform;
 
 namespace SocialNetwork.FeatureTests
@@ -25,6 +27,7 @@ namespace SocialNetwork.FeatureTests
 
         string[] _expected;
         int _expectedIndex;
+        private IPostPrinter _wallPrinter;
 
         [TestInitialize]
         public void Setup()
@@ -40,13 +43,12 @@ namespace SocialNetwork.FeatureTests
 
             _sequenceDateProviderMock = new Mock<IDateProvider>();
             _presentDateProviderMock = new Mock<IDateProvider>();
-
             _presentDateProviderMock.Setup(m => m.Now()).Returns(_now);
 
-            _commandFactory = new CommandFactory(
-                new PostRepository(new DateProvider()), new UserRepository(),
-                    new PostFormatter(new TimeOffsetCalculator(_sequenceDateProviderMock.Object), new TimeFormatter()), _consoleMock.Object);
+            var postTimeFormatter = new PostTimeFormatter(new TimeOffsetCalculator(_sequenceDateProviderMock.Object), new TimeFormatter());
+            _wallPrinter = new PostPrinter(new WallPostFormatter(postTimeFormatter), _consoleMock.Object);
 
+            _commandFactory = new CommandFactory(new PostRepository(new DateProvider()), new UserRepository(), _wallPrinter, null);
             _socialPlatform = new SocialPlatform(new InputParser(), _consoleMock.Object, _commandFactory);
         }
 

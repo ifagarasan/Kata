@@ -65,9 +65,12 @@
     <Compile Include="Action\FollowShould.cs" />
     <Compile Include="Action\PostShould.cs" />
     <Compile Include="Infrastructure\Format\TimeFormatterShould.cs" />
-    <Compile Include="Model\Post\Format\PostFormatterShould.cs" />
+    <Compile Include="Model\Post\Format\PostTimeFormatterShould.cs" />
+    <Compile Include="Model\Post\Format\TimelinePostFormatterShould.cs" />
+    <Compile Include="Model\Post\Format\WallPostFormatterShould.cs" />
     <Compile Include="Infrastructure\Repository\PostRepositoryShould.cs" />
     <Compile Include="Model\Command\Input\InputParserShould.cs" />
+    <Compile Include="Model\Post\Printer\PostPrinterShould.cs" />
     <Compile Include="Model\Social\Platform\SocialPlatformShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Infrastructure\Time\TimeOffsetCalculatorShould.cs" />

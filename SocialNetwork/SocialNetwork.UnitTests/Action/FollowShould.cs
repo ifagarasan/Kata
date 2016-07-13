@@ -13,7 +13,6 @@ namespace SocialNetwork.UnitTests.Action
         {
             var user = new User("Alice");
             var followUsername = "Bob";
-
             var userRepositoryMock = new Mock<IUserRepository>();
 
             userRepositoryMock.SetupSequence(m => m.Get(It.IsAny<string>())).Returns(user);

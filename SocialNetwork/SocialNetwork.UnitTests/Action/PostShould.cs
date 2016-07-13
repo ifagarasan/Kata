@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SocialNetwork.Action.Command;
 using SocialNetwork.Infrastructure.Console;
 using SocialNetwork.Model.Post;
 using SocialNetwork.Model.User;
@@ -11,32 +10,23 @@ namespace SocialNetwork.UnitTests.Action
     [TestClass]
     public class PostShould
     {
-        private Mock<IPostRepository> _postRepositoryMock;
-        private Mock<IUserRepository> _userRepositoryMock;
-        private Mock<IConsole> _consoleMock;
-
-        [TestInitialize]
-        public void Setup()
-        {
-            _consoleMock = new Mock<IConsole>();
-            _consoleMock.Setup(m => m.Write(It.IsAny<string>()));
-
-            _postRepositoryMock = new Mock<IPostRepository>();
-            _userRepositoryMock = new Mock<IUserRepository>();
-        }
-
         [TestMethod]
         public void Insert()
         {
             var user = new User("test");
             var message = "content";
+            var postRepositoryMock = new Mock<IPostRepository>();
+            var userRepositoryMock = new Mock<IUserRepository>();
+            var consoleMock = new Mock<IConsole>();
 
-            _postRepositoryMock.Setup(m => m.Insert(It.IsAny<string>(), It.IsAny<string>()));
-            _userRepositoryMock.Setup(m => m.Get(It.IsAny<string>())).Returns(user);
+            consoleMock.Setup(m => m.Write(It.IsAny<string>()));
 
-            new Post(_postRepositoryMock.Object, _userRepositoryMock.Object, user.Username, message).Execute();
+            postRepositoryMock.Setup(m => m.Insert(It.IsAny<string>(), It.IsAny<string>()));
+            userRepositoryMock.Setup(m => m.Get(It.IsAny<string>())).Returns(user);
 
-            _postRepositoryMock.Verify(m => m.Insert(user.Username, message));
+            new Post(postRepositoryMock.Object, userRepositoryMock.Object, user.Username, message).Execute();
+
+            postRepositoryMock.Verify(m => m.Insert(user.Username, message));
         }
     }
 }
