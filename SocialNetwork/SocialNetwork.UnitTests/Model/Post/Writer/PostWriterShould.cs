@@ -4,12 +4,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SocialNetwork.Infrastructure.Console;
 using SocialNetwork.Model.Post.Format;
-using SocialNetwork.Model.Post.Printer;
+using SocialNetwork.Model.Post.Writer;
 
-namespace SocialNetwork.UnitTests.Model.Post.Printer
+namespace SocialNetwork.UnitTests.Model.Post.Writer
 {
     [TestClass]
-    public class PostPrinterShould
+    public class PostWriterShould
     {
         [TestMethod]
         public void PrintPosts()
@@ -32,7 +32,7 @@ namespace SocialNetwork.UnitTests.Model.Post.Printer
                     Assert.AreEqual(posts[index++], post);
                 });
 
-            var postPrinter = new PostPrinter(postFormatterMock.Object, consoleMock.Object);
+            var postPrinter = new PostWriter(postFormatterMock.Object, consoleMock.Object);
 
             postPrinter.Print(posts);
 

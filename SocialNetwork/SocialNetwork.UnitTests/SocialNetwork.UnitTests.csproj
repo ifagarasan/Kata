@@ -70,7 +70,7 @@
     <Compile Include="Model\Post\Format\WallPostFormatterShould.cs" />
     <Compile Include="Infrastructure\Repository\PostRepositoryShould.cs" />
     <Compile Include="Model\Command\Input\InputParserShould.cs" />
-    <Compile Include="Model\Post\Printer\PostPrinterShould.cs" />
+    <Compile Include="Model\Post\Writer\PostWriterShould.cs" />
     <Compile Include="Model\Social\Platform\SocialPlatformShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Infrastructure\Time\TimeOffsetCalculatorShould.cs" />

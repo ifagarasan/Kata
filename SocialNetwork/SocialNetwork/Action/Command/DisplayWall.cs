@@ -1,5 +1,6 @@
 ﻿using SocialNetwork.Model.Command;
 using SocialNetwork.Model.Post;
+using SocialNetwork.Model.Post.Writer;
 using SocialNetwork.Model.User;
 using IPostRepository = SocialNetwork.Model.Post.IPostRepository;
 
@@ -9,21 +10,21 @@ namespace SocialNetwork.Action.Command
     {
         private readonly IPostRepository _postRepository;
         private readonly IUserRepository _userRepository;
-        private readonly IPostPrinter _postPrinter;
+        private readonly IPostWriter _postWriter;
 
-        public DisplayWall(IPostRepository postRepository, IUserRepository userRepository, IPostPrinter postPrinter, string username)
+        public DisplayWall(IPostRepository postRepository, IUserRepository userRepository, IPostWriter postWriter, string username)
         {
             Username = username;
             _postRepository = postRepository;
             _userRepository = userRepository;
-            _postPrinter = postPrinter;
+            _postWriter = postWriter;
         }
 
         public string Username { get; }
 
         public void Execute()
         {
-            _postPrinter.Print(_postRepository.RetrieveWall(_userRepository.Get(Username)));
+            _postWriter.Print(_postRepository.RetrieveWall(_userRepository.Get(Username)));
         }
     }
 }

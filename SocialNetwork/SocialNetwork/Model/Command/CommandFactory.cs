@@ -2,6 +2,7 @@
 using SocialNetwork.Model.Command.Exceptions;
 using SocialNetwork.Model.Command.Input;
 using SocialNetwork.Model.Post;
+using SocialNetwork.Model.Post.Writer;
 using SocialNetwork.Model.User;
 
 namespace SocialNetwork.Model.Command
@@ -10,15 +11,15 @@ namespace SocialNetwork.Model.Command
     {
         private readonly IPostRepository _postRepository;
         private readonly IUserRepository _userRepository;
-        private readonly IPostPrinter _wallPrinter;
-        private readonly IPostPrinter _timelinePrinter;
+        private readonly IPostWriter _wallWriter;
+        private readonly IPostWriter _timelineWriter;
 
-        public CommandFactory(IPostRepository postRepository, IUserRepository userRepository, IPostPrinter wallPrinter, IPostPrinter timelinePrinter)
+        public CommandFactory(IPostRepository postRepository, IUserRepository userRepository, IPostWriter wallWriter, IPostWriter timelineWriter)
         {
             _postRepository = postRepository;
             _userRepository = userRepository;
-            _wallPrinter = wallPrinter;
-            _timelinePrinter = timelinePrinter;
+            _wallWriter = wallWriter;
+            _timelineWriter = timelineWriter;
         }
 
         public ICommand Create(CommandInput commandInput)
@@ -28,9 +29,9 @@ namespace SocialNetwork.Model.Command
                 case InputType.Post:
                     return new Action.Command.Post(_postRepository, _userRepository, commandInput.Arguments[0], commandInput.Arguments[1]);
                 case InputType.DisplayWall:
-                    return new DisplayWall(_postRepository, _userRepository, _wallPrinter, commandInput.Arguments[0]);
+                    return new DisplayWall(_postRepository, _userRepository, _wallWriter, commandInput.Arguments[0]);
                 case InputType.DisplayTimeline:
-                    return new DisplayTimeline(_postRepository, _timelinePrinter, commandInput.Arguments[0]);
+                    return new DisplayTimeline(_postRepository, _timelineWriter, commandInput.Arguments[0]);
                 case InputType.Follow:
                     return new Follow(_userRepository, commandInput.Arguments[0], commandInput.Arguments[1]);
                 default:

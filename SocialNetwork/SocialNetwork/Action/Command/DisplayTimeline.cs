@@ -1,5 +1,6 @@
 using SocialNetwork.Model.Command;
 using SocialNetwork.Model.Post;
+using SocialNetwork.Model.Post.Writer;
 using IPostRepository = SocialNetwork.Model.Post.IPostRepository;
 
 namespace SocialNetwork.Action.Command
@@ -7,20 +8,20 @@ namespace SocialNetwork.Action.Command
     public class DisplayTimeline: ICommand
     {
         private readonly IPostRepository _postRepository;
-        private readonly IPostPrinter _postPrinter;
+        private readonly IPostWriter _postWriter;
 
-        public DisplayTimeline(IPostRepository postRepository, IPostPrinter postPrinter, string username)
+        public DisplayTimeline(IPostRepository postRepository, IPostWriter postWriter, string username)
         {
             Username = username;
             _postRepository = postRepository;
-            _postPrinter = postPrinter;
+            _postWriter = postWriter;
         }
 
         public string Username { get; }
 
         public void Execute()
         {
-            _postPrinter.Print(_postRepository.RetrieveTimeline(Username));
+            _postWriter.Print(_postRepository.RetrieveTimeline(Username));
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SocialNetwork.Model.Post;
+using SocialNetwork.Model.Post.Writer;
 using SocialNetwork.Model.User;
 using DisplayWall = SocialNetwork.Action.Command.DisplayWall;
 
@@ -21,7 +22,7 @@ namespace SocialNetwork.UnitTests.Action
 
             var postRepositoryMock = new Mock<IPostRepository>();
             var userRepositoryMock = new Mock<IUserRepository>();
-            var postPrinterMock = new Mock<IPostPrinter>();
+            var postPrinterMock = new Mock<IPostWriter>();
 
             postRepositoryMock.Setup(m => m.RetrieveWall(It.IsAny<User>())).Returns(posts);
             userRepositoryMock.Setup(m => m.Get(It.IsAny<string>())).Returns(user);

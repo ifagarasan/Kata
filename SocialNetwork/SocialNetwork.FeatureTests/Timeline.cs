@@ -10,8 +10,8 @@ using SocialNetwork.Model.Command;
 using SocialNetwork.Model.Command.Input;
 using SocialNetwork.Model.Post.Format;
 using SocialNetwork.Model.Social.Platform;
-using SocialNetwork.Model.Post.Printer;
 using SocialNetwork.Model.Post;
+using SocialNetwork.Model.Post.Writer;
 
 namespace SocialNetwork.FeatureTests
 {
@@ -45,12 +45,12 @@ namespace SocialNetwork.FeatureTests
                 Assert.AreEqual(_expected[_expectedIndex++], message);
             });
 
-            IPostPrinter postPrinter = new PostPrinter(new TimelinePostFormatter(
+            IPostWriter postWriter = new PostWriter(new TimelinePostFormatter(
                 new PostTimeFormatter(new TimeOffsetCalculator(_sequenceDateProviderMock.Object), new TimeFormatter())), 
                 _consoleMock.Object);
 
             ICommandFactory commandFactory = new CommandFactory( 
-                new PostRepository(new DateProvider()), new UserRepository(), null, postPrinter);
+                new PostRepository(new DateProvider()), new UserRepository(), null, postWriter);
 
             _socialPlatform = new SocialPlatform(new InputParser(), _consoleMock.Object, commandFactory);
         }

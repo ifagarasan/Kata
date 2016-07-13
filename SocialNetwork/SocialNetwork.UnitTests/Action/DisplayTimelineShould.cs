@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SocialNetwork.Model.Post;
+using SocialNetwork.Model.Post.Writer;
 using DisplayTimeline = SocialNetwork.Action.Command.DisplayTimeline;
 
 namespace SocialNetwork.UnitTests.Action
@@ -21,7 +22,7 @@ namespace SocialNetwork.UnitTests.Action
             var postRepositoryMock = new Mock<IPostRepository>();
             postRepositoryMock.Setup(m => m.RetrieveTimeline(It.IsAny<string>())).Returns(posts);
             
-            var postPrinter = new Mock<IPostPrinter>();
+            var postPrinter = new Mock<IPostWriter>();
             postPrinter.Setup(m => m.Print(It.IsAny<List<Post>>()));
 
             new DisplayTimeline(postRepositoryMock.Object, postPrinter.Object , post.Username).Execute();

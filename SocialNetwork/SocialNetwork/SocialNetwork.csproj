@@ -65,10 +65,10 @@
     <Compile Include="Infrastructure\Date\IDateProvider.cs" />
     <Compile Include="Model\Post\Format\PostTimeFormatter.cs" />
     <Compile Include="Model\Post\Format\TimelinePostFormatter.cs" />
-    <Compile Include="Model\Post\IPostPrinter.cs" />
+    <Compile Include="Model\Post\Writer\IPostWriter.cs" />
     <Compile Include="Model\Post\Format\IPostFormatter.cs" />
     <Compile Include="Model\Post\IPostRepository.cs" />
-    <Compile Include="Model\Post\Printer\PostPrinter.cs" />
+    <Compile Include="Model\Post\Writer\PostWriter.cs" />
     <Compile Include="Model\Social\Platform\ISocialPlatform.cs" />
     <Compile Include="Infrastructure\Time\ITimeOffsetCalculator.cs" />
     <Compile Include="Model\Post\Post.cs" />
