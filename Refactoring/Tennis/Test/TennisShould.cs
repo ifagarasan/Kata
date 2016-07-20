@@ -66,7 +66,7 @@ namespace Tennis.Test
 
             private void CheckAllScores(TennisGame game)
             {
-                int highestScore = Math.Max(this._player1Score, this._player2Score);
+                int highestScore = Math.Max(_player1Score, _player2Score);
 
                 for (int i = 0; i < highestScore; i++)
                 {

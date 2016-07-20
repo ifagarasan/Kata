@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F8709658-FCAB-4748-BFD4-EA763AABF695}</ProjectGuid>
+    <ProjectGuid>{22CE2FB9-3E2B-4565-901F-516DEB94F3C7}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BankAccount</RootNamespace>
@@ -43,25 +43,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account.cs" />
-    <Compile Include="DateGenerator.cs" />
-    <Compile Include="IConsole.cs" />
-    <Compile Include="Console.cs" />
-    <Compile Include="IDateGenerator.cs" />
-    <Compile Include="IStatementPrinter.cs" />
-    <Compile Include="ITransactionRepository.cs" />
+    <Compile Include="Infrastructure\Console\IConsole.cs" />
+    <Compile Include="Infrastructure\Date\Date.cs" />
+    <Compile Include="Infrastructure\Date\DateProvider.cs" />
+    <Compile Include="Infrastructure\Date\IDateProvider.cs" />
+    <Compile Include="Model\Account\Statement\Printer.cs" />
+    <Compile Include="Model\Account\Repository\Transaction.cs" />
+    <Compile Include="Infrastructure\Repository\TransactionRepository.cs" />
+    <Compile Include="Model\Account\Account.cs" />
+    <Compile Include="Model\Account\Statement\IPrinter.cs" />
+    <Compile Include="Model\Account\Repository\IRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StatementPrinter.cs" />
-    <Compile Include="Transaction.cs" />
-    <Compile Include="TransactionRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Readme.txt" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

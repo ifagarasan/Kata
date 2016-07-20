@@ -3,7 +3,7 @@
 Account:
 	- Deposit
 	- Withdraw
-	- DrintStatement to the console
+	- PrintStatement to the console
 
 Format:
 
