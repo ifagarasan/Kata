@@ -5,6 +5,6 @@ namespace BankAccount.Model.Account.Statement
 {
     public interface IPrinter
     {
-        void PrintStatements(List<Transaction> transactions);
+        void PrintStatements(IList<Transaction> transactions);
     }
 }

@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\Console\Console.cs" />
     <Compile Include="Infrastructure\Console\IConsole.cs" />
     <Compile Include="Infrastructure\Date\Date.cs" />
     <Compile Include="Infrastructure\Date\DateProvider.cs" />

@@ -4,19 +4,21 @@ namespace BankAccount.Model.Account.Repository
 {
     public class Transaction
     {
+        private readonly Date _createdAt;
+
         public Transaction(Date createdAt, decimal amount)
         {
+            _createdAt = createdAt;
             Amount = amount;
-            CreatedAt = createdAt;
         }
 
         public decimal Amount { get; }
 
-        public Date CreatedAt { get; }
+        public string CreatedAt => _createdAt.ShortFormat;
 
         public override bool Equals(object obj) => obj is Transaction && Equals((Transaction) obj);
 
-        protected bool Equals(Transaction other) => Amount == other.Amount && CreatedAt.ShortFormat.Equals(other.CreatedAt.ShortFormat);
+        protected bool Equals(Transaction other) => Amount == other.Amount && CreatedAt.Equals(other.CreatedAt);
 
         public override int GetHashCode()
         {

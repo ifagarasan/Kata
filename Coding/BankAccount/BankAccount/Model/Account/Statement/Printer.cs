@@ -15,7 +15,7 @@ namespace BankAccount.Model.Account.Statement
             _console = console;
         }
 
-        public void PrintStatements(List<Transaction> transactions)
+        public void PrintStatements(IList<Transaction> transactions)
         {
             _console.Write(Header);
 
@@ -25,7 +25,7 @@ namespace BankAccount.Model.Account.Statement
                 _console.Write(FormatStatement(transactions[i], runningBalances[i]));
         }
 
-        private static decimal[] ComputeRunningBalances(List<Transaction> transactions)
+        private static decimal[] ComputeRunningBalances(IList<Transaction> transactions)
         {
             var runningBalances = new decimal[transactions.Count];
 
@@ -41,7 +41,7 @@ namespace BankAccount.Model.Account.Statement
         }
 
         private static string FormatStatement(Transaction transactions, decimal current)
-            => $"{transactions.CreatedAt.ShortFormat} | {FormatMoney(transactions.Amount)} | {FormatMoney(current)}";
+            => $"{transactions.CreatedAt} | {FormatMoney(transactions.Amount)} | {FormatMoney(current)}";
 
         private static string FormatMoney(decimal amount) => amount.ToString(".00");
     }

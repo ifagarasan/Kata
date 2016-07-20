@@ -8,18 +8,20 @@ namespace BankAccount.Infrastructure.Repository
     {
         private readonly IDateProvider _dateProvider;
 
+        private readonly List<Transaction> _transactions;
+
         public TransactionRepository(IDateProvider dateProvider)
         {
             _dateProvider = dateProvider;
-            Transactions = new List<Transaction>();
+            _transactions = new List<Transaction>();
         }
 
-        public List<Transaction> Transactions { get; }
+        public IList<Transaction> Transactions => _transactions.AsReadOnly();
 
-        public void AddDeposit(decimal amount) => Transactions.Add(Transaction(amount));
+        public void AddDeposit(decimal amount) => AddTransaction(amount);
 
-        public void AddWithdraw(decimal amount) => Transactions.Add(Transaction(-amount));
+        public void AddWithdraw(decimal amount) => AddTransaction(-amount);
 
-        private Transaction Transaction(decimal amount) => new Transaction(_dateProvider.Now(), amount);
+        private void AddTransaction(decimal amount) => _transactions.Add(new Transaction(_dateProvider.Now(), amount));
     }
 }

@@ -4,7 +4,7 @@ namespace BankAccount.Model.Account.Repository
 {
     public interface IRepository
     {
-        List<Transaction> Transactions { get; }
+        IList<Transaction> Transactions { get; }
 
         void AddDeposit(decimal amount);
         void AddWithdraw(decimal amount);
