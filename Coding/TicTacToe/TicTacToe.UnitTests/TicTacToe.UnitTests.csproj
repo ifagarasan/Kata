@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{04DB71F7-3639-4F9F-B69A-CDB148FCEC6F}</ProjectGuid>
+    <ProjectGuid>{AA8D5E1F-B613-4F85-AE1F-D136C80FAC20}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BankAccount.UnitTests</RootNamespace>
-    <AssemblyName>BankAccount.UnitTests</AssemblyName>
+    <RootNamespace>TicTacToe.UnitTests</RootNamespace>
+    <AssemblyName>TicTacToe.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -54,22 +54,25 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Infrastructure\Repository\InMemoryTransactionsShould.cs" />
-    <Compile Include="Infrastructure\Repository\InMemoryTransactionRepositoryShould.cs" />
-    <Compile Include="Model\AccountShould.cs" />
-    <Compile Include="Model\Statement\RunningBalanceStatementFormatterShould.cs" />
-    <Compile Include="Model\Statement\RunningBalanceStatementPrinterShould.cs" />
+    <Compile Include="Board\Formatter\StatusFormatterShould.cs" />
+    <Compile Include="Board\BoardShould.cs" />
+    <Compile Include="Board\ServiceShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BankAccount\BankAccount.csproj">
-      <Project>{22CE2FB9-3E2B-4565-901F-516DEB94F3C7}</Project>
-      <Name>BankAccount</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TicTacToe.FeatureTests\TicTacToe.FeatureTests.csproj">
+      <Project>{D14130CF-10D3-4DF4-B799-6A196277555B}</Project>
+      <Name>TicTacToe.FeatureTests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TicTacToe\TicTacToe.csproj">
+      <Project>{67020B4A-7BD7-4712-84F3-0B2123DE3E0B}</Project>
+      <Name>TicTacToe</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -1,7 +1,7 @@
-namespace BankAccount.Infrastructure.Console
+﻿namespace BankAccount.Infrastructure.Console
 {
-    public class Console : IConsole
+    public interface Console
     {
-        public void Write(string message) => System.Console.WriteLine(message);
+        void Write(string message);
     }
 }
